@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/18 12:10:49 by ncasteln         ###   ########.fr        #
+#    Updated: 2023/12/18 14:34:11 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ LIBFT = ./lib/libft/libft.a
 FT_PRINTF = ./lib/ft_printf/libftprintf.a
 GNL = ./lib/get_next_line/libgnl.a
 MLX42 = ./lib/MLX42/build/libmlx42.a
+GLFW = -lglfw
 
 INCLUDE = -I./include/ \
 	-I./lib/libft/include/ \
@@ -26,17 +27,28 @@ INCLUDE = -I./include/ \
 	-I./lib/get_next_line/ \
 	-I./lib/MLX42/include/MLX42/
 
-VPATH = ./src/
-SRC = cub3d.c
+VPATH = ./src/ \
+	./src/parsing/ \
+	./src/utils/ \
+
+PARSING = parse.c \
+
+UTILS = error.c \
+
+SRC = cub3d.c \
+	$(PARSING) \
+	$(UTILS)
+
 OBJS_DIR = ./objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
+
 
 # ----------------------------------------------------------------- BASIC RULES
 all: $(NAME)
 
 $(NAME): $(MLX42) $(LIB) $(OBJS)
 	@echo "$(NC)Compiling $@ executable file..."
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX42) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX42) $(GLFW) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
 
 $(MLX42):
