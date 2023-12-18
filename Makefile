@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/18 10:57:14 by ncasteln         ###   ########.fr        #
+#    Updated: 2023/12/18 11:10:28 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
 LIBFT = ./lib/libft/libft.a
 FT_PRINTF = ./lib/ft_printf/libftprintf.a
 GNL = ./lib/get_next_line/libgnl.a
-MLX42 = ./MLX42/build/libmlx42.a
+MLX42 = ./lib/MLX42/build/libmlx42.a
 
 INCLUDE = -I./include/ \
 	-I./lib/libft/include/ \
 	-I./lib/ft_printf/include/ \
 	-I./lib/get_next_line/ \
-	-I./MLX42/include/
+	-I./lib/MLX42/include/
 
 VPATH = ./src/
 SRC = cub3d.c
@@ -39,8 +39,8 @@ $(NAME): $(MLX42) $(LIB) $(OBJS)
 
 $(MLX42):
 	@echo "$(NC)Compiling [MLX42 library]..."
-	@cd ./MLX42/ && cmake -B build
-	@cmake --build ./MLX42/build -j4
+	@cd ./lib/MLX42/ && cmake -B build
+	@cmake --build ./lib/MLX42/build -j4
 
 $(LIB):
 	@echo "$(NC)Compiling [libraries]..."
