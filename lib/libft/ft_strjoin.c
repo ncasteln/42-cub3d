@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 19:01:53 by mrubina           #+#    #+#             */
-/*   Updated: 2023/12/18 20:03:11 by mrubina          ###   ########.fr       */
+/*   Created: 2022/10/31 14:35:31 by mrubina           #+#    #+#             */
+/*   Updated: 2022/12/07 00:11:56 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
-# include "../lib/MLX42/include/MLX42/MLX42.h"
-# include "../lib/libft/libft.h"
-# include "math.h"
-# include "defs.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
+#include "libft.h"
 
-//functions
-void	key_hook(mlx_key_data_t keydata, void *param);
-void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param);
-void	win_close(mlx_t* mlx);
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	size_t	len1;
+	size_t	len2;
 
-#endif
+	if ((s1 != 0) && (s2 != 0))
+	{
+		len1 = ft_strlen(s1);
+		len2 = ft_strlen(s2);
+		str = malloc(len1 + len2 + 1);
+		if (str != 0)
+		{
+			ft_strlcpy(str, s1, len1 + 1);
+			ft_strlcat(str, s2, len2 + len1 + 1);
+		}
+		return (str);
+	}
+	else
+		return (0);
+}

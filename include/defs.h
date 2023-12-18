@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   defs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:53 by mrubina           #+#    #+#             */
-/*   Updated: 2023/12/18 20:03:11 by mrubina          ###   ########.fr       */
+/*   Updated: 2023/12/18 18:43:45 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
-# include "../lib/MLX42/include/MLX42/MLX42.h"
-# include "../lib/libft/libft.h"
-# include "math.h"
-# include "defs.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
+#ifndef DEFS_H
+# define DEFS_H
 
-//functions
-void	key_hook(mlx_key_data_t keydata, void *param);
-void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param);
-void	win_close(mlx_t* mlx);
+//constants
+# define WIN_W 1200
+# define WIN_H 1200
+
+//structures
+
+typedef struct s_data {
+	mlx_t* mlx;
+	mlx_image_t* img;
+}	t_data;
 
 #endif

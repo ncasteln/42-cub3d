@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   int_put.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 19:01:53 by mrubina           #+#    #+#             */
-/*   Updated: 2023/12/18 20:03:11 by mrubina          ###   ########.fr       */
+/*   Created: 2022/10/31 14:36:12 by mrubina           #+#    #+#             */
+/*   Updated: 2023/04/26 19:36:32 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
-# include "../lib/MLX42/include/MLX42/MLX42.h"
-# include "../lib/libft/libft.h"
-# include "math.h"
-# include "defs.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
+#include "ft_printf.h"
 
-//functions
-void	key_hook(mlx_key_data_t keydata, void *param);
-void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param);
-void	win_close(mlx_t* mlx);
+int	int_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
 
-#endif
+int	int_putstr(char *s)
+{
+	int	cnt;
+
+	cnt = 0;
+	while ((s != 0) && (*s != '\0'))
+	{
+		cnt = cnt + int_putchar(*s);
+		s++;
+	}
+	return (cnt);
+}
