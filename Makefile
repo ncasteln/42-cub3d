@@ -6,11 +6,13 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/18 11:10:28 by ncasteln         ###   ########.fr        #
+#    Updated: 2023/12/18 12:10:49 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
+
+CFLAGS = -Wall -Wextra #-Werror
 
 LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
 LIBFT = ./lib/libft/libft.a
@@ -22,7 +24,7 @@ INCLUDE = -I./include/ \
 	-I./lib/libft/include/ \
 	-I./lib/ft_printf/include/ \
 	-I./lib/get_next_line/ \
-	-I./lib/MLX42/include/
+	-I./lib/MLX42/include/MLX42/
 
 VPATH = ./src/
 SRC = cub3d.c
@@ -39,6 +41,12 @@ $(NAME): $(MLX42) $(LIB) $(OBJS)
 
 $(MLX42):
 	@echo "$(NC)Compiling [MLX42 library]..."
+	@if [ -d ./lib/MLX42/ ]; then \
+		echo "$(G)[MLX42 library] exists!$(NC)"; \
+	else \
+		echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
+		git clone https://github.com/codam-coding-college/MLX42.git ./lib/MLX42/; \
+	fi
 	@cd ./lib/MLX42/ && cmake -B build
 	@cmake --build ./lib/MLX42/build -j4
 
@@ -60,7 +68,7 @@ fclean: clean
 	@echo "$(NC)Removing [$(NAME)]..."
 	@rm -f $(NAME)
 	@echo "$(NC)Removing [MLX42 library]..."
-	@rm -rfd ./MLX42/build
+	@rm -rfd ./lib/MLX42/build $(MLX42)
 	@echo "$(G)	[$(NAME) && MLX42] removed!$(NC)"
 
 re: fclean all
@@ -68,6 +76,9 @@ re: fclean all
 # --------------------------------------------------------------- SPECIAL RULES
 # update:
 #  	git submodule update --remote MLX42
+
+mlx_fclean:
+	@rm -rfd ./lib/MLX42
 
 # ----------------------------------------------------------------------- UTILS
 .PHONY: all clean fclean re update
