@@ -6,34 +6,61 @@
 #    By: nico <nico@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/20 08:46:36 by nico             ###   ########.fr        #
+#    Updated: 2023/12/20 08:47:43 by nico             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
+CFLAGS = -Wall -Wextra #-Werror
+
 LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
 LIBFT = ./lib/libft/libft.a
 FT_PRINTF = ./lib/ft_printf/libftprintf.a
 GNL = ./lib/get_next_line/libgnl.a
+MLX42 = ./lib/MLX42/build/libmlx42.a
+GLFW = -lglfw
 
 INCLUDE = -I./include/ \
 	-I./lib/libft/include/ \
 	-I./lib/ft_printf/include/ \
-	-I./lib/get_next_line/
+	-I./lib/get_next_line/ \
+	-I./lib/MLX42/include/MLX42/
 
-VPATH = ./src/
-SRC = cub3d.c
+VPATH = ./src/ \
+	./src/parsing/ \
+	./src/utils/ \
+
+PARSING = parse.c \
+
+UTILS = error.c \
+
+SRC = cub3d.c \
+	$(PARSING) \
+	$(UTILS)
+
 OBJS_DIR = ./objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
 
-# ----------------------------------------------------------------------- RULES
+
+# ----------------------------------------------------------------- BASIC RULES
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJS)
+$(NAME): $(MLX42) $(LIB) $(OBJS)
 	@echo "$(NC)Compiling $@ executable file..."
-	@$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX42) $(GLFW) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
+
+$(MLX42):
+	@echo "$(NC)Compiling [MLX42 library]..."
+	@if [ -d ./lib/MLX42/ ]; then \
+		echo "$(G)[MLX42 library] exists!$(NC)"; \
+	else \
+		echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
+		git clone https://github.com/codam-coding-college/MLX42.git ./lib/MLX42/; \
+	fi
+	@cd ./lib/MLX42/ && cmake -B build
+	@cmake --build ./lib/MLX42/build -j4
 
 $(LIB):
 	@echo "$(NC)Compiling [libraries]..."
@@ -46,17 +73,27 @@ $(OBJS_DIR)%.o: %.c ./include/cub3d.h
 clean:
 	@echo "$(NC)Removing [objs]..."
 	@rm -rf $(OBJS_DIR)
-	@echo "$(NC)Destroying [lib] archives..."
+	@echo "$(NC)Removing [lib] archives..."
 	@$(MAKE) fclean -C ./lib/
 
 fclean: clean
 	@echo "$(NC)Removing [$(NAME)]..."
 	@rm -f $(NAME)
-	@echo "$(G)	[$(NAME)] removed!$(NC)"
+	@echo "$(NC)Removing [MLX42 library]..."
+	@rm -rfd ./lib/MLX42/build $(MLX42)
+	@echo "$(G)	[$(NAME) && MLX42] removed!$(NC)"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# --------------------------------------------------------------- SPECIAL RULES
+# update:
+#  	git submodule update --remote MLX42
+
+mlx_fclean:
+	@rm -rfd ./lib/MLX42
+
+# ----------------------------------------------------------------------- UTILS
+.PHONY: all clean fclean re update
 
 G = \033[0;32m
 Y = \033[0;33m

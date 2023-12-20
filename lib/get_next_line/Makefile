@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 09:08:19 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/18 09:20:47 by ncasteln         ###   ########.fr        #
+#    Updated: 2023/12/18 10:56:47 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,11 +47,11 @@ $(OBJS_FLAG):
 
 clean:
 	@rm -rf $(OBJS_DIR)
-	@echo "$(GREEN)	$(NAME) objs successfully removed!"
+	@echo "$(GREEN)	$(NAME) objs successfully removed!$(NC)"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(GREEN)	$(NAME) successfully removed!"
+	@echo "$(GREEN)	$(NAME) successfully removed!$(NC)"
 
 re: fclean all
 
