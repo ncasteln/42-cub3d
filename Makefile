@@ -6,7 +6,7 @@
 #    By: nico <nico@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/20 08:47:43 by nico             ###   ########.fr        #
+#    Updated: 2023/12/20 09:08:41 by nico             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,15 +28,16 @@ INCLUDE = -I./include/ \
 	-I./lib/MLX42/include/MLX42/
 
 VPATH = ./src/ \
-	./src/parsing/ \
+	./src/parser/ \
 	./src/utils/ \
 
-PARSING = parse.c \
+PARSER = parse.c \
+	parse_assets.c \
 
 UTILS = error.c \
 
 SRC = cub3d.c \
-	$(PARSING) \
+	$(PARSER) \
 	$(UTILS)
 
 OBJS_DIR = ./objs/
@@ -46,9 +47,9 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
 # ----------------------------------------------------------------- BASIC RULES
 all: $(NAME)
 
-$(NAME): $(MLX42) $(LIB) $(OBJS)
+$(NAME): $(LIB) $(OBJS) #$(MLX42)
 	@echo "$(NC)Compiling $@ executable file..."
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX42) $(GLFW) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS)  $(GLFW) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
 
 $(MLX42):

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/18 14:34:19 by ncasteln         ###   ########.fr       */
+/*   Updated: 2023/12/20 09:11:40 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@
 
 int	parse(int argc, char **argv)
 {
+
 	if (argc != 2)
-		return (error(CE_ARGC), 1);
+		return (error(NULL, CE_ARGC), 1);
+	// parse extension
+	parse_assets(argv[0]);
+	// if something wrong exits
+	// parse_map()
 
 	return (0);
 }
