@@ -6,20 +6,28 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2023/12/20 11:58:59 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/20 12:37:14 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	is_valid_map_char(char c)
+{
+	if (c == '1' || c == '0' || c == ' '
+	|| c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (1);
+	return(0);
+}
 
 static int	is_map_line(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] && (s[i] == '1' || s[i] == '0' || s[i] == 'P' || s[i] == ' '))
+	while (s[i] && is_valid_map_char(s[i]))
 		i++;
-	if (i == ft_strlen(s))
+	if (i == ft_strlen(s) - 1) // because of the new line
 		return (1);
 	return (0);
 }
@@ -90,20 +98,26 @@ static int is_texture(char *line, t_cub3d *data)
 	return (NULL);
 }
 
-static int is_duplicate(char *line, t_cub3d *data)
+static int is_duplicate_asset(char *line, t_cub3d *data)
 {
 	if (!ft_strncmp(line, "NO", 2))
 		if (data->assets->no)
-			return (1);
+			err_free_exit("NO", data, CE_DUPASS);
 	if (!ft_strncmp(line, "EA", 2))
 		if (data->assets->ea)
-			return (1);
+			err_free_exit("EA", data, CE_DUPASS);
 	if (!ft_strncmp(line, "SO", 2))
 		if (data->assets->so)
-			return (1);
+			err_free_exit("SO", data, CE_DUPASS);
 	if (!ft_strncmp(line, "WE", 2))
 		if (data->assets->we)
-			return (1);
+			err_free_exit("WE", data, CE_DUPASS);
+	if (!ft_strncmp(line, "F", 1))
+		if (data->assets->f)
+			err_free_exit("F", data, CE_DUPASS);
+	if (!ft_strncmp(line, "C", 1))
+		if (data->assets->c)
+			err_free_exit("C", data, CE_DUPASS);
 	return (0);
 }
 
@@ -128,18 +142,25 @@ static int	parse_line(char *line, t_cub3d *data)
 		return (1);
 	if (is_texture(line, data))
 	{
-		if (is_duplicate(line, data) || store_texture_path(line, data))
+		if (is_duplicate_asset(line, data) || store_texture_path(line, data))
 			return (1);
 	}
 	else if (is_color(line))
 	{
-		if (is_duplicate(line, data) || store_color(line, data))
+		if (is_duplicate_asset(line, data) || store_color(line, data))
 			return (1);
 	}
 	else
 	{
+		// if (!all asset are present) ----> should catch extraneous lines
+		// error
+		// else
+		// parse map
 		if (!is_map_line(line))
+		{
+			ft_printf("POrcodio, non è la mapppa!\n");
 			return (1);
+		}
 	}
 	return (0);
 }
