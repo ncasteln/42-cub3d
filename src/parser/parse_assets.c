@@ -6,26 +6,42 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2023/12/20 12:37:14 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/20 19:27:18 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	is_valid_map_char(char c)
+static int	are_assets_complete(t_assets *assets)
 {
-	if (c == '1' || c == '0' || c == ' '
-	|| c == 'N' || c == 'S' || c == 'W' || c == 'E')
+	if (!assets->no)
+		return (0);
+	if (!assets->ea)
+		return (0);
+	if (!assets->so)
+		return (0);
+	if (!assets->we)
+		return (0);
+	if (!assets->f)
+		return (0);
+	if (!assets->c)
+		return (0);
+	return (1);
+}
+
+static int	is_valid_edge_char(char c)
+{
+	if (c == '1' || c == '0' || c == ' ')
 		return (1);
 	return(0);
 }
 
-static int	is_map_line(char *s)
+static int	is_valid_edge(char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i] && is_valid_map_char(s[i]))
+	while (s[i] && is_valid_edge_char(s[i]))
 		i++;
 	if (i == ft_strlen(s) - 1) // because of the new line
 		return (1);
@@ -102,22 +118,22 @@ static int is_duplicate_asset(char *line, t_cub3d *data)
 {
 	if (!ft_strncmp(line, "NO", 2))
 		if (data->assets->no)
-			err_free_exit("NO", data, CE_DUPASS);
+			err_free_exit("NO", data, E_DUP_ASSET);
 	if (!ft_strncmp(line, "EA", 2))
 		if (data->assets->ea)
-			err_free_exit("EA", data, CE_DUPASS);
+			err_free_exit("EA", data, E_DUP_ASSET);
 	if (!ft_strncmp(line, "SO", 2))
 		if (data->assets->so)
-			err_free_exit("SO", data, CE_DUPASS);
+			err_free_exit("SO", data, E_DUP_ASSET);
 	if (!ft_strncmp(line, "WE", 2))
 		if (data->assets->we)
-			err_free_exit("WE", data, CE_DUPASS);
+			err_free_exit("WE", data, E_DUP_ASSET);
 	if (!ft_strncmp(line, "F", 1))
 		if (data->assets->f)
-			err_free_exit("F", data, CE_DUPASS);
+			err_free_exit("F", data, E_DUP_ASSET);
 	if (!ft_strncmp(line, "C", 1))
 		if (data->assets->c)
-			err_free_exit("C", data, CE_DUPASS);
+			err_free_exit("C", data, E_DUP_ASSET);
 	return (0);
 }
 
@@ -135,9 +151,9 @@ static int	parse_line(char *line, t_cub3d *data)
 	char	*tmp;
 	char	*type;
 
-	// tmp = line;
+	tmp = line;
 	line = ft_strtrim(line, " \t");
-	// free(tmp);
+	free(tmp);
 	if (!line)
 		return (1);
 	if (is_texture(line, data))
@@ -152,14 +168,14 @@ static int	parse_line(char *line, t_cub3d *data)
 	}
 	else
 	{
-		// if (!all asset are present) ----> should catch extraneous lines
-		// error
-		// else
-		// parse map
-		if (!is_map_line(line))
+		if (is_valid_edge(line))
 		{
-			ft_printf("POrcodio, non è la mapppa!\n");
-			return (1);
+			// is just the beginning of the map
+			return (0); // start parsing the map, or 2nd part of the file
+		}
+		else
+		{
+			err_free_exit(line, data, E_INV_ASSET);
 		}
 	}
 	return (0);
@@ -176,22 +192,12 @@ void	parse_assets(char *f_name, t_cub3d *data)
 		err_free_exit("parse_assets", data, errno);
 	while (1)
 	{
-		if (line)
-			free(line);
 		line = get_next_line(fd);
 		if (errno)
 			err_free_exit("get_next_line", data, errno);
 		if (!line)
 			break ;
-		ft_printf("Checking ---> %s", line);
 		if (!is_blank_string(line))
-		{
-			if (parse_line(line, data))
-				err_free_exit("parse_assets", data, CE_PARSEASSETS);
-		}
+			parse_line(line, data); // make not returning and exit/free on site
 	}
-	ft_printf("asset NO [%s]\n", data->assets->no);
-	ft_printf("asset EA [%s]\n", data->assets->ea);
-	ft_printf("asset SO [%s]\n", data->assets->so);
-	ft_printf("asset WE [%s]\n", data->assets->we);
 }

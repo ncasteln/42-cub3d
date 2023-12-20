@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/20 12:27:30 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/20 19:11:45 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
 
 enum err
 {
-	CE_ARGC = 107,
-	CE_PARSEASSETS,
-	CE_DUPASS,
+	E_ARGC = 107,
+	E_PARSE_ASSETS,
+	E_DUP_ASSET,
+	E_INV_ASSET,
 };
 
 typedef struct s_assets

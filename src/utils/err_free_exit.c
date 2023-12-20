@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/20 12:28:40 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/20 19:15:37 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 static char	*get_err_msg(int err_n)
 {
-	if (err_n == CE_ARGC)
+	if (err_n == E_ARGC)
 		return ("invalid argc");
-	if (err_n == CE_PARSEASSETS)
+	if (err_n == E_PARSE_ASSETS)
 		return ("invalid assets");
-	if (err_n == CE_DUPASS)
+	if (err_n == E_DUP_ASSET)
 		return ("duplicate asset");
+	if (err_n == E_INV_ASSET)
+		return ("invalid asset");
 	return ("unknow error");
 }
 
