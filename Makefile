@@ -6,7 +6,7 @@
 #    By: nico <nico@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/20 09:08:41 by nico             ###   ########.fr        #
+#    Updated: 2023/12/20 10:16:54 by nico             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ VPATH = ./src/ \
 PARSER = parse.c \
 	parse_assets.c \
 
-UTILS = error.c \
+UTILS = err_free_exit.c \
 
 SRC = cub3d.c \
 	$(PARSER) \

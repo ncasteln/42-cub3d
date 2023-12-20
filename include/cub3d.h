@@ -6,12 +6,16 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/20 09:09:03 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/20 11:32:31 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+#include "errno.h"
+#include <string.h>
+#include <fcntl.h>
 
 #include "libft.h"
 #include "ft_printf.h"
@@ -20,7 +24,8 @@
 
 enum err
 {
-	CE_ARGC = 1
+	CE_ARGC = 107,
+	CE_PARSEASSETS,
 };
 
 typedef struct s_assets
@@ -35,14 +40,14 @@ typedef struct s_assets
 
 typedef struct s_cub3d
 {
-	t_assets	*data;
+	t_assets	*assets;
 	char		*map;
 }	t_cub3d;
 
 
-int		parse(int argc, char **argv);
-void	parse_assets(char *f_name);
+int		parse(int argc, char **argv, t_cub3d *data);
+void	parse_assets(char *f_name, t_cub3d *data);
 
-void	error(char *s1, int err_n);
+void	err_free_exit(char *func_name, t_cub3d *data, int err_n);
 
 #endif

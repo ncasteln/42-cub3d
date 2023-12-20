@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/20 09:11:40 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/20 10:21:19 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@
 	"Error\n" + custom message
 */
 
-int	parse(int argc, char **argv)
+int	parse(int argc, char **argv, t_cub3d *data)
 {
 
 	if (argc != 2)
-		return (error(NULL, CE_ARGC), 1);
+		err_free_exit("parse", data, CE_ARGC);
 	// parse extension
-	parse_assets(argv[0]);
+	parse_assets(argv[1], data);
 	// if something wrong exits
 	// parse_map()
 
