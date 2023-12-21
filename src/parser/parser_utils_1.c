@@ -1,0 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils_1.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/21 17:51:33 by nico              #+#    #+#             */
+/*   Updated: 2023/12/21 17:52:51 by nico             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+static int	is_valid_edge_char(char c)
+{
+	if (c == '1' || c == '0' || c == ' ')
+		return (1);
+	return(0);
+}
+
+int	is_valid_edge(char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] && is_valid_edge_char(s[i]))
+		i++;
+	if (i == ft_strlen(s) - 1) // because of the new line
+		return (1);
+	return (0);
+}
+
+int	is_blank_string(char *s) // check if needed
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+		i++;
+	if (s[i] == '\n')
+		return (1);
+	return (0);
+}
+

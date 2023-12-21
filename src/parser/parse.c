@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/20 19:10:22 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/21 17:46:33 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	parse(int argc, char **argv, t_cub3d *data)
 
 	if (argc != 2)
 		err_free_exit("parse", data, E_ARGC);
-	// parse extension
+	// parse extension/file
 	parse_assets(argv[1], data);
 	// if something wrong exits
 	// parse_map()
