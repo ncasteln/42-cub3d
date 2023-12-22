@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:53 by mrubina           #+#    #+#             */
-/*   Updated: 2023/12/21 22:02:14 by mrubina          ###   ########.fr       */
+/*   Updated: 2023/12/22 18:47:12 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //constants
 # define WIN_W 640
 # define WIN_H 480
-# define MAP_W 24
+# define MAP_W 13
 # define MAP_H 24
 
 # define RED 0x990000FF
@@ -40,7 +40,7 @@ typedef struct s_data {
 	double planeY;
 	double time; // current frame
 	double oldTime; // previous frame
-	int x; //pixel in camera space from 0 to game window width
+	int pixelX; //pixel in camera space from 0 to game window width
 	int mapX; //square coordinates - left upper side of the sqare
 	int mapY;
 	double sideDistX; // distance from the current position to next x side
@@ -58,7 +58,6 @@ typedef struct s_data {
 	int drawStart;
 	int drawEnd;
 	int h;
-	int sx;
 }	t_data;
 
 
