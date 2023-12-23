@@ -1,26 +1,10 @@
-NO./path
+NO ./assets/no
+WE ./assets/we
+SO ./assets/so
+EA ./assets/ea
+F 255,0,0
+C 200,8,8
 
-SO 23124
-
-
-EA shit
-
-WE                     ok
-
-F
-
-C
-
-
-111111
-100001
-100001
-1N1111
-1111
-11
-1
-
-
-
-
-shit!!!
+111111111
+1000N0001
+111111111

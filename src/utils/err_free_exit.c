@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/20 19:15:37 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/23 13:07:37 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,50 @@ static void	error(char *func_name, int err_n)
 	ft_putendl_fd(err_msg, 2);
 }
 
+static void	free_assets(t_assets *assets)
+{
+	if (assets->no)
+		free(assets->no);
+	if (assets->ea)
+		free(assets->ea);
+	if (assets->so)
+		free(assets->so);
+	if (assets->we)
+		free(assets->we);
+	if (assets->f)
+		free(assets->f);
+	if (assets->c)
+		free(assets->c);
+	free(assets);
+}
+
+static void	free_dptr(char **p)
+{
+	int	i;
+
+	i = 0;
+	while (p[i])
+	{
+		free(p[i]);
+		i++;
+	}
+	free(p);
+}
+
+static void	free_data(t_cub3d *data)
+{
+	if (data->assets)
+		free_assets(data->assets);
+	if (data->line)
+		free(data->line);
+	if (data->map)
+		free_dptr(data->map);
+}
+
 void	err_free_exit(char *func_name, t_cub3d *data, int err_n)
 {
 	if (err_n)
 		error(func_name, err_n);
-	// free everything
+	free_data(data);
 	exit (err_n);
 }

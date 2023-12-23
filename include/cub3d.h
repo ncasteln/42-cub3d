@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/21 17:53:45 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/23 13:02:48 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ typedef struct s_cub3d
 {
 	t_assets	*assets;
 	char		*map;
+	char		*line;
 }	t_cub3d;
 
 
 int		parse(int argc, char **argv, t_cub3d *data);
 void	parse_assets(char *f_name, t_cub3d *data);
-int		is_texture(char *line, t_cub3d *data);
+int		is_texture(char *line);
 int		is_color(char *line);
 int		is_duplicate_asset(char *line, t_cub3d *data);
 int		are_assets_complete(t_assets *assets);
