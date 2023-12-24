@@ -6,7 +6,7 @@
 #    By: nico <nico@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/24 10:33:03 by nico             ###   ########.fr        #
+#    Updated: 2023/12/24 19:37:08 by nico             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,12 @@ PARSER = parse.c \
 	parse_file_content.c \
 	parse_type_id.c \
 	extract_type_id_value.c \
+	parse_map.c \
 	parser_utils_0.c \
 	parser_utils_1.c \
 
 UTILS = err_free_exit.c \
+	print_map.c
 
 SRC = cub3d.c \
 	$(PARSER) \

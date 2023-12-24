@@ -6,30 +6,11 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:51:33 by nico              #+#    #+#             */
-/*   Updated: 2023/12/24 09:46:28 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 18:29:02 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	is_valid_edge_char(char c)
-{
-	if (c == '1' || c == '0' || c == ' ')
-		return (1);
-	return(0);
-}
-
-int	is_valid_edge(char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] && is_valid_edge_char(s[i]))
-		i++;
-	if (i == ft_strlen(s) - 1) // because of the new line
-		return (1);
-	return (0);
-}
 
 int	is_valid_map_char(char c)
 {

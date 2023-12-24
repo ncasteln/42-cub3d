@@ -6,11 +6,51 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2023/12/24 11:52:13 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 19:17:13 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	build_hex(int n, char **hex, int i)
+{
+	char	*base16;
+	char	a;
+	char	b;
+
+	base16 = "0123456789ABCDEF";
+	a = base16[n / 16]; 
+	b = base16[n % 16];
+	(*hex)[i + i + 2] = a;
+	(*hex)[i + i + 3] = b;
+}
+
+static char	*rgb_to_hex(char *color)
+{
+	int		n;
+	char	**rgb;
+	char	*hex;
+	int		i;
+
+	hex = ft_calloc(11, sizeof(char));
+	if (!hex)
+		return (NULL);
+	hex[0] = '0';
+	hex[1] = 'x';
+	rgb = ft_split(color, ',');
+	if (!rgb)
+		return (free(hex), NULL);
+	i = 0;
+	while (rgb[i])
+	{
+		n = ft_atoi(rgb[i]);
+		build_hex(n, &hex, i);
+		i++;
+	}
+	hex[8] = 'F';
+	hex[9] = 'F';
+	return (free_dptr(rgb), hex);
+}
 
 /*
 	Check if the return of ft_atoi() was caused by a real zero like 0 or 0000,
@@ -18,7 +58,7 @@
 */
 static int	is_valid_zero(char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i] && s[i] == '0')
@@ -46,14 +86,14 @@ static int	is_valid_color(char *color)
 	{
 		n = ft_atoi(rgb[i]);
 		if (n < 0 || n > 255)
-			return (0);
+			return (free_dptr(rgb), 0);
 		if (n == 0 && !is_valid_zero(rgb[i]))
-			return (0);
+			return (free_dptr(rgb), 0);
 		i++;
 	}
 	if (i != 3)
-		return (0);
-	return (1);
+		return (free_dptr(rgb), 0);
+	return (free_dptr(rgb), 1);
 }
 
 static int	is_valid_path(char *path)
@@ -71,6 +111,7 @@ static char	*extract_color(char **line, t_cub3d *data)
 {
 	int		i;
 	char	*color;
+	char	*hex;
 
 	i = 0;
 	// modify this rgb validator
@@ -87,7 +128,8 @@ static char	*extract_color(char **line, t_cub3d *data)
 		free(color);
 		err_free_exit("extract_color", data, errno);
 	}
-	return (color);
+	hex = rgb_to_hex(color);
+	return (hex); // change returned value
 }
 
 static char	*extract_texture_path(char **line, t_cub3d *data)

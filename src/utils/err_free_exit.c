@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/24 12:06:11 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 19:55:24 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ static char	*get_err_msg(int err_n)
 		return ("invalid asset");
 	if (err_n == E_MISS_ASSET)
 		return ("missing asset");
+	if (err_n == E_INV_CHAR)
+		return ("invalid character");
+	if (err_n == E_INV_FORMAT)
+		return ("invalid format");
 	return ("unknow error");
 }
 
@@ -63,17 +67,20 @@ static void	free_assets(t_assets *assets)
 	free(assets);
 }
 
-static void	free_dptr(char **p)
+void	free_dptr(char **p)
 {
 	int	i;
 
 	i = 0;
-	while (p[i])
+	if (p)
 	{
-		free(p[i]);
-		i++;
+		while (p[i])
+		{
+			free(p[i]);
+			i++;
+		}
+		free(p);
 	}
-	free(p);
 }
 
 static void	free_data(t_cub3d *data)

@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/24 12:01:29 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 19:55:04 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "errno.h"
 #include <string.h>
 #include <fcntl.h>
+#include <math.h>
 
 #include "libft.h"
 #include "ft_printf.h"
@@ -30,6 +31,8 @@ enum err
 	E_DUP_ASSET,
 	E_INV_ASSET,
 	E_MISS_ASSET,
+	E_INV_CHAR,
+	E_INV_FORMAT
 };
 
 typedef struct s_assets
@@ -56,16 +59,18 @@ void	parse_type_id(char **line, char *type_id, t_cub3d *data);
 char	*extract_type_id_value(char **line, char *id, t_cub3d *data);
 
 // -------------------------------------------------------------- PARSING UTILS
+int		is_texture(char *line);
 void	jump_whitspaces(char **line);
 int		is_duplicate_asset(char *id, t_cub3d *data);
 int		are_assets_complete(t_assets *assets);
 
+void	store_map_line(char *line, t_cub3d *data);
 int		is_valid_map_line(char *s);
 int		is_valid_map_char(char c);
-int		is_texture(char *line);
-int		is_valid_edge(char *s);
 
 // ---------------------------------------------------------------------- UTILS
 void	err_free_exit(char *s, t_cub3d *data, int err_n);
+void	free_dptr(char **p);
+void	print_map(char **p);
 
 #endif
