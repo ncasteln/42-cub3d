@@ -6,11 +6,17 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2023/12/23 12:57:15 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 10:30:56 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	jump_whitspaces(char **line)
+{
+	while (**line == ' ' || **line == '\t')
+		(*line)++;
+}
 
 int is_texture(char *line)
 {
@@ -21,15 +27,6 @@ int is_texture(char *line)
 	if (!ft_strncmp(line, "SO", 2))
 		return (1);
 	if (!ft_strncmp(line, "WE", 2))
-		return (1);
-	return (0);
-}
-
-int is_color(char *line)
-{
-	if (!ft_strncmp(line, "F", 1))
-		return (1);
-	if (!ft_strncmp(line, "C", 1))
 		return (1);
 	return (0);
 }
@@ -72,36 +69,4 @@ int	are_assets_complete(t_assets *assets)
 	if (!assets->c)
 		return (0);
 	return (1);
-}
-
-int	store_texture_path(char *line, t_cub3d *data)
-{
-	char	*path;
-
-	path = ft_strdup(line + 2);
-	if (!path)
-		return (1);
-	if (!ft_strncmp(line, "NO", 2))
-		data->assets->no = path;
-	if (!ft_strncmp(line, "EA", 2))
-		data->assets->ea = path;
-	if (!ft_strncmp(line, "SO", 2))
-		data->assets->so = path;
-	if (!ft_strncmp(line, "WE", 2))
-		data->assets->we = path;
-	return (0);
-}
-
-int	store_color(char *line, t_cub3d *data)
-{
-	char	*color;
-
-	color = ft_strdup(line + 1);
-	if (!color)
-		return (1);
-	if (!ft_strncmp(line, "F", 1))
-		data->assets->f = color;
-	if (!ft_strncmp(line, "C", 1))
-		data->assets->c = color;
-	return (0);
 }

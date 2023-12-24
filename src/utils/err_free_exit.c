@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/23 13:07:37 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 12:06:11 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ static char	*get_err_msg(int err_n)
 {
 	if (err_n == E_ARGC)
 		return ("invalid argc");
+	if (err_n == E_INV_EXT)
+		return ("invalid file extension");
 	if (err_n == E_PARSE_ASSETS)
 		return ("invalid assets");
 	if (err_n == E_DUP_ASSET)
 		return ("duplicate asset");
 	if (err_n == E_INV_ASSET)
 		return ("invalid asset");
+	if (err_n == E_MISS_ASSET)
+		return ("missing asset");
 	return ("unknow error");
 }
 
@@ -82,10 +86,10 @@ static void	free_data(t_cub3d *data)
 		free_dptr(data->map);
 }
 
-void	err_free_exit(char *func_name, t_cub3d *data, int err_n)
+void	err_free_exit(char *s, t_cub3d *data, int err_n)
 {
 	if (err_n)
-		error(func_name, err_n);
+		error(s, err_n);
 	free_data(data);
 	exit (err_n);
 }
