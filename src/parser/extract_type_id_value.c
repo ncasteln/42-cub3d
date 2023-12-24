@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2023/12/24 19:17:13 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 21:21:56 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,13 @@ static char	*extract_color(char **line, t_cub3d *data)
 		return (NULL);
 	ft_strlcpy(color, *line, i + 1);
 	(*line) += i;
-	ft_printf("color ---> [%s]\n", color);
 	if (!is_valid_color(color))
 	{
 		free(color);
-		err_free_exit("extract_color", data, errno);
+		err_free_exit("extract_color", data, E_INV_ASSET);
 	}
 	hex = rgb_to_hex(color);
-	return (hex); // change returned value
+	return (hex);
 }
 
 static char	*extract_texture_path(char **line, t_cub3d *data)
@@ -146,7 +145,6 @@ static char	*extract_texture_path(char **line, t_cub3d *data)
 		return (NULL);
 	ft_strlcpy(path, *line, i + 1);
 	(*line) += i;
-	ft_printf("path ---> [%s]\n", path);
 	if (!is_valid_path(path))
 	{
 		free(path);

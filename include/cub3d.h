@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/24 19:55:04 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 21:13:45 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ enum err
 	E_INV_ASSET,
 	E_MISS_ASSET,
 	E_INV_CHAR,
-	E_INV_FORMAT
+	E_INV_FORMAT,
+	E_EMPTY_FILE,
+	E_NO_MAP
 };
 
 typedef struct s_assets
@@ -62,7 +64,7 @@ char	*extract_type_id_value(char **line, char *id, t_cub3d *data);
 int		is_texture(char *line);
 void	jump_whitspaces(char **line);
 int		is_duplicate_asset(char *id, t_cub3d *data);
-int		are_assets_complete(t_assets *assets);
+int		is_missing_asset(t_assets *assets);
 
 void	store_map_line(char *line, t_cub3d *data);
 int		is_valid_map_line(char *s);
@@ -72,5 +74,6 @@ int		is_valid_map_char(char c);
 void	err_free_exit(char *s, t_cub3d *data, int err_n);
 void	free_dptr(char **p);
 void	print_map(char **p);
+void	print_assets(t_assets *assets);
 
 #endif

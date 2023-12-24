@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/24 19:55:24 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 21:14:04 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ static char	*get_err_msg(int err_n)
 		return ("invalid character");
 	if (err_n == E_INV_FORMAT)
 		return ("invalid format");
+	if (err_n == E_NO_MAP)
+		return ("no map provided");
+	if (err_n == E_EMPTY_FILE)
+		return ("empty file");
 	return ("unknow error");
 }
 

@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/24 19:51:45 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 21:28:38 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,23 @@ void	parse(int argc, char **argv, t_cub3d *data)
 		err_free_exit("parse", data, E_INV_EXT);
 	parse_file_content(argv[1], data);
 	print_map(data->map);
-	// flood fill()
+	/*
+		TO DO FOR MAP
+		check if player exists
+		check if player is unique
+		flood fill()
+	
+		needed ???
+			- player on the edge
+			- holes?
+	*/
+
+
+	/*
+		FIXES FOR ASSETS
+		check if open() a directory for textures
+
+		needed ???
+			- textures has .xpm extension ??
+	*/
 }

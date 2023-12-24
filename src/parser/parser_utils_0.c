@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2023/12/24 19:47:10 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/24 20:45:34 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,19 @@ int is_duplicate_asset(char *id, t_cub3d *data)
 	return (0);
 }
 
-int	are_assets_complete(t_assets *assets)
+int	is_missing_asset(t_assets *assets)
 {
 	if (!assets->no)
-		return (0);
+		return (1);
 	if (!assets->ea)
-		return (0);
+		return (1);
 	if (!assets->so)
-		return (0);
+		return (1);
 	if (!assets->we)
-		return (0);
+		return (1);
 	if (!assets->f)
-		return (0);
+		return (1);
 	if (!assets->c)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
