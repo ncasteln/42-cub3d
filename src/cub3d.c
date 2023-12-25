@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/24 11:03:12 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/25 18:48:34 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	init_cub3d(t_cub3d *data)
 	data->assets->c = NULL;
 	data->map = NULL;
 	data->line = NULL;
+	data->p = NULL;
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/24 21:14:04 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/25 19:13:37 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ static char	*get_err_msg(int err_n)
 		return ("no map provided");
 	if (err_n == E_EMPTY_FILE)
 		return ("empty file");
+	if (err_n == E_DUP_PLAYER)
+		return ("duplicate player");
+	if (err_n == E_NO_PLAYER)
+		return ("no player set");
 	return ("unknow error");
 }
 
@@ -52,49 +56,6 @@ static void	error(char *func_name, int err_n)
 		ft_putstr_fd(": ", 2);
 	}
 	ft_putendl_fd(err_msg, 2);
-}
-
-static void	free_assets(t_assets *assets)
-{
-	if (assets->no)
-		free(assets->no);
-	if (assets->ea)
-		free(assets->ea);
-	if (assets->so)
-		free(assets->so);
-	if (assets->we)
-		free(assets->we);
-	if (assets->f)
-		free(assets->f);
-	if (assets->c)
-		free(assets->c);
-	free(assets);
-}
-
-void	free_dptr(char **p)
-{
-	int	i;
-
-	i = 0;
-	if (p)
-	{
-		while (p[i])
-		{
-			free(p[i]);
-			i++;
-		}
-		free(p);
-	}
-}
-
-static void	free_data(t_cub3d *data)
-{
-	if (data->assets)
-		free_assets(data->assets);
-	if (data->line)
-		free(data->line);
-	if (data->map)
-		free_dptr(data->map);
 }
 
 void	err_free_exit(char *s, t_cub3d *data, int err_n)

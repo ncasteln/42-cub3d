@@ -6,32 +6,11 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/24 21:28:38 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/25 19:18:04 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*
-	Parses:
-	[OK] 0) .cub extension
-
-	1) Map content
-		- Surrounded by walls
-		- No empty lines
-		- Always the last
-		- Char allowed: 0 1 N E S W (only one letter)
-		- Decide if handle spaces or not
-
-	2) Textures - NO   SO   WE   EA   F   C
-		- Random number of empty lines between
-		- Allowed:
-			- NO WE SO EA + path
-			- F C + rgb color
-		- Any order
-
-	"Error\n" + custom message
-*/
 
 static int	is_valid_extension(const char *s, const char *ext)
 {
@@ -59,24 +38,21 @@ void	parse(int argc, char **argv, t_cub3d *data)
 	if (!is_valid_extension(argv[1], ".cub"))
 		err_free_exit("parse", data, E_INV_EXT);
 	parse_file_content(argv[1], data);
+	parse_player(data);
+	path_validation(data);
 	print_map(data->map);
 	/*
 		TO DO FOR MAP
-		check if player exists
-		check if player is unique
 		flood fill()
 	
 		needed ???
 			- player on the edge
 			- holes?
 	*/
-
-
 	/*
 		FIXES FOR ASSETS
-		check if open() a directory for textures
-
 		needed ???
+			- check if open() a directory for textures
 			- textures has .xpm extension ??
 	*/
 }

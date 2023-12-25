@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:51:33 by nico              #+#    #+#             */
-/*   Updated: 2023/12/24 18:29:02 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/25 19:17:35 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	is_valid_map_line(char *s)
 		return (1);
 	return (0);
 }
-
 
 int	is_blank_string(char *s) // check if needed
 {
