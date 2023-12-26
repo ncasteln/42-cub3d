@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2023/12/24 21:14:21 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/26 11:57:23 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 		type_id = is_valid_type_id(line);
 		if (!(*is_map_parsing))
 		{
-			jump_whitspaces(&line);			
+			// jump_whitspaces(&line);			
 			if (!line || line[0] == '\n')
 				break ;
 		}
@@ -91,8 +91,8 @@ void	parse_file_content(char *f_name, t_cub3d *data)
 		free(data->line); // right ???
 	}
 	if (data->assets && !data->map)
-		err_free_exit("parse_line", data, E_NO_MAP);		
+		err_free_exit("parse_line", data, E_NO_MAP);
 	if (!data->assets && !data->map)
-		err_free_exit("parse_line", data, E_EMPTY_FILE);		
+		err_free_exit("parse_line", data, E_EMPTY_FILE);
 	close(fd);
 }

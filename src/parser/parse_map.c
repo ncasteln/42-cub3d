@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 18:27:13 by nico              #+#    #+#             */
-/*   Updated: 2023/12/24 20:40:01 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/26 11:44:41 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	cpy_and_add_line(char *line, t_cub3d *data, int new_len)
 		data->map[i] = tmp[i];
 		i++;
 	}
-	data->map[i] = ft_strdup(line);
+	data->map[i] = ft_substr(line, 0, ft_strlen(line) - 1); //ft_strdup(line);
 	if (!data->map[i])
 		err_free_exit("cpy_and_add_line", data, errno);
 }
