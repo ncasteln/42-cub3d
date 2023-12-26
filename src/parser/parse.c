@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/26 11:45:23 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/26 19:13:11 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	parse(int argc, char **argv, t_cub3d *data)
 	parse_file_content(argv[1], data);
 	parse_player(data);
 	path_validation(data);
-	print_map(data->map);
+	print_map(data->map, data->n_col);
 	/*
 		TO DO FOR MAP
 		flood fill()
-	
 		needed ???
 			- player on the edge
-			- holes?
+			- tabs ??? convert to whitespaces???
+			- Asset on same line of first row of map
 	*/
 	/*
 		FIXES FOR ASSETS

@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2023/12/26 11:02:53 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/26 18:28:04 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ enum err
 	E_EMPTY_FILE,
 	E_NO_MAP,
 	E_DUP_PLAYER,
-	E_NO_PLAYER
+	E_NO_PLAYER,
+	E_MAP_OPEN
 };
 
 typedef struct s_assets
@@ -50,6 +51,8 @@ typedef struct s_cub3d
 {
 	t_assets	*assets;
 	char		**map;
+	size_t		n_rows;
+	size_t		n_col;
 	char		*line;
 	t_player	*p;
 }	t_cub3d;

@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/25 19:13:37 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/26 18:28:21 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static char	*get_err_msg(int err_n)
 		return ("duplicate player");
 	if (err_n == E_NO_PLAYER)
 		return ("no player set");
+	if (err_n == E_MAP_OPEN)
+		return ("map is not enclosed");
 	return ("unknow error");
 }
 
