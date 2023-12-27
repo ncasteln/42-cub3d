@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:04:41 by nico              #+#    #+#             */
-/*   Updated: 2023/12/27 14:08:42 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 17:11:36 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ void	parse_type_id(char **line, char *type_id, t_cub3d *data)
 	if (is_duplicate_asset(type_id, data))
 		err_free_exit("parse_line", data, E_DUP_ASSET);
 	value = extract_type_id_value(line, type_id, data);
+	if (value[ft_strlen(value) - 1] == '/')
+		err_free_exit("parse_type_id", data, E_INV_ASSET);
 	store_asset_value(value, type_id, data);
 }

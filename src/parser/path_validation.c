@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2023/12/27 14:04:27 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 16:01:01 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ static void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 		return ;
 	if (py <= 0 || px <= 0 || py >= y_limit || px >= x_limit)
 	{
+		// print_map(map_cpy, data->n_col); // remove
 		free_dptr(map_cpy);
 		err_free_exit("flood_fill", data, E_MAP_OPEN);
 	}
@@ -199,6 +200,6 @@ void	path_validation(t_cub3d *data)
 	data->map = map_rect;
 	map_cpy = cpy_map(data);
 	flood_fill(data->p->y, data->p->x, map_cpy, data);
-	print_map(map_cpy, data->n_rows);
+	// print_map(map_cpy, data->n_col); // remove
 	free_dptr(map_cpy);
 }

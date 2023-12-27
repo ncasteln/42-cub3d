@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2023/12/27 14:05:28 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 17:13:39 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,9 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 	line_already_parsed = 0;
 	while (line) // maybe not work if last line
 	{
-		// if (is_empty_line(line))
-		// 	break ;
 		type_id = is_valid_type_id(line);
-		ft_printf("TYPE ID [%s]\n", type_id);
-		// if (!(*is_map_parsing))
-		// {
-		// 	if (!line || line[0] == '\n')
-		// 	{
-		// 		ft_printf("---EOL reached---\n");
-		// 		break ;
-		// 	}
-		// 	// jump_whitspaces(&line);			
-		// }
+		if (is_empty_line(line) && !(*is_map_parsing))
+			break ;
 		if (type_id) // problem with empty lines -- here need to jump, but map need to save
 		{
 			jump_whitspaces(&line);

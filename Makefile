@@ -6,7 +6,7 @@
 #    By: nico <nico@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/25 19:17:19 by nico             ###   ########.fr        #
+#    Updated: 2023/12/27 17:06:26 by nico             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,9 @@ fclean: clean
 	@echo "$(NC)Removing [MLX42 library]..."
 	@rm -rfd ./lib/MLX42/build $(MLX42)
 	@echo "$(G)	[$(NAME) && MLX42] removed!$(NC)"
+
+test: $(NAME)
+	@./tests/tester
 
 re: fclean all
 

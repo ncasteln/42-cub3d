@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2023/12/27 14:16:21 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 17:15:22 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ static int	is_valid_zero(char *s)
 	size_t	i;
 
 	i = 0;
-	while (s[i] && s[i] == '0')
+	if (s[i] == '+')
+		i++;
+	while (s[i] && s[i] == '0') // add + 
 		i++;
 	if (i == ft_strlen(s))
 		return (1);
@@ -134,9 +136,7 @@ static char	*extract_color(char **line, t_cub3d *data)
 	char	*hex;
 
 	i = 0;
-	// modify this rgb validator
-	ft_printf("LINE --> [%s]\n", *line);
-	while ((*line)[i] && (ft_isdigit((*line)[i]) || (*line)[i] == ' ' || (*line)[i] == ','))
+	while ((*line)[i] && (ft_isdigit((*line)[i]) || (*line)[i] == ' ' || (*line)[i] == ',' || (*line)[i] == '+'))
 		i++;
 	color = ft_calloc(i + 1, sizeof(char));
 	if (!color)

@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/27 14:08:32 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 17:17:49 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,15 @@ void	parse(int argc, char **argv, t_cub3d *data)
 	if (!is_valid_extension(argv[1], ".cub"))
 		err_free_exit("parse", data, E_INV_EXT);
 	parse_file_content(argv[1], data);
-	print_assets(data->assets); //remove
 	parse_player(data);
 	path_validation(data);
-	print_map(data->map, data->n_col);
 	/*
-		TO DO FOR MAP
-		flood fill()
-		needed ???
-			- player on the edge
-			- tabs ??? convert to whitespaces???
-			- Asset on same line of first row of map
-	*/
-	/*
-		FIXES FOR ASSETS
-		needed ???
-			- check if open() a directory for textures
-			- textures has .xpm extension ??
+	DECISIONS:
+		- map_ass_same_line.cub (means: the map starts in the same line of an asset) is considered invalid
+		- map_texture_dir.cub (means: an asset file name is a directory like ./path/) is invalid
+		- ass_04.cub (means: color value has positive sign) is valid
+		- ass_05.cub (means: color value == 0 and has positive sign) is valid
+		- ass_06.cub (means: color value like 0000233 is 233) is valid
+	- textures has .xpm extension ??
 	*/
 }
