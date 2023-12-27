@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/26 19:13:11 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 14:08:32 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	parse(int argc, char **argv, t_cub3d *data)
 	if (!is_valid_extension(argv[1], ".cub"))
 		err_free_exit("parse", data, E_INV_EXT);
 	parse_file_content(argv[1], data);
+	print_assets(data->assets); //remove
 	parse_player(data);
 	path_validation(data);
 	print_map(data->map, data->n_col);

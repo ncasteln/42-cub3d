@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/26 17:30:04 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 13:48:27 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		is_valid_map_char(char c);
 void	err_free_exit(char *s, t_cub3d *data, int err_n);
 void	free_data(t_cub3d *data);
 void	free_dptr(char **p);
+int		is_empty_line(char *s);
 
 // -----------------------------------------------------------------PRINT UTILS
 void	print_map(char **p, int	row_len);

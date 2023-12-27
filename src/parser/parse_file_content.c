@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2023/12/26 17:44:44 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 14:05:28 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*is_valid_type_id(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
+	while (line[i] == ' ' || line[i] == '\t') //|| line[i] == '\n
 		i++;
 	if (!ft_strncmp(line + i, "NO", 2))
 		return ("NO");
@@ -43,20 +43,26 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 	line_already_parsed = 0;
 	while (line) // maybe not work if last line
 	{
+		// if (is_empty_line(line))
+		// 	break ;
 		type_id = is_valid_type_id(line);
-		if (!(*is_map_parsing))
-		{
-			// jump_whitspaces(&line);			
-			if (!line || line[0] == '\n')
-				break ;
-		}
+		ft_printf("TYPE ID [%s]\n", type_id);
+		// if (!(*is_map_parsing))
+		// {
+		// 	if (!line || line[0] == '\n')
+		// 	{
+		// 		ft_printf("---EOL reached---\n");
+		// 		break ;
+		// 	}
+		// 	// jump_whitspaces(&line);			
+		// }
 		if (type_id) // problem with empty lines -- here need to jump, but map need to save
 		{
 			jump_whitspaces(&line);
 			parse_type_id(&line, type_id, data);
-			if (!line || line[0] == '\n')
-				break ;
 			line_already_parsed = 1;
+			if (is_empty_line(line))
+				break ;
 		}
 		else
 		{
@@ -65,7 +71,7 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 			if (line_already_parsed)
 				err_free_exit("parse_line", data, E_INV_FORMAT);
 			*is_map_parsing = 1;
-			store_map_line(line, data); // need to break
+			store_map_line(line, data); // need to break ???
 			break ;
 		}
 	}

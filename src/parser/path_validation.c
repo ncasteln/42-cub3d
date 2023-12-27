@@ -6,18 +6,18 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2023/12/26 19:15:02 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 14:04:27 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	is_empty_line(char *s)
+int	is_empty_line(char *s) // move into utils
 {
 	size_t	i;
 
 	i = 0;
-	while (s[i] && (s[i] == ' ' || s[i] == '\n')) // tab??
+	while (s[i] && (s[i] == ' ' || s[i] == '\t' || s[i] == '\n'))
 		i++;
 	if (ft_strlen(s) == i)
 		return (1);
@@ -138,11 +138,16 @@ static void	trim_empty_lines(t_cub3d *data)
 	data->map = trimmed_map;
 }
 
-static int	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
+static void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 {
+	int	y_limit;
+	int	x_limit;
+
+	y_limit = (int)data->n_rows - 1;
+	x_limit = (int)data->n_col - 1;
 	if (map_cpy[py][px] == '1' || map_cpy[py][px] == 'x')
 		return ;
-	if (py <= 0 || px <= 0 || py >= data->n_rows - 1 || px >= data->n_col - 1)
+	if (py <= 0 || px <= 0 || py >= y_limit || px >= x_limit)
 	{
 		free_dptr(map_cpy);
 		err_free_exit("flood_fill", data, E_MAP_OPEN);
@@ -158,7 +163,7 @@ static int	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 static char	**cpy_map(t_cub3d *data)
 {
 	char	**map_cpy;
-	int		i;
+	size_t	i;
 
 	map_cpy = ft_calloc(data->n_rows + 1, sizeof(char *));
 	if (!map_cpy)
@@ -186,7 +191,6 @@ static char	**cpy_map(t_cub3d *data)
 void	path_validation(t_cub3d *data)
 {
 	char	**map_rect;
-	int		is_map_enclosed;
 	char	**map_cpy;
 
 	trim_empty_lines(data);

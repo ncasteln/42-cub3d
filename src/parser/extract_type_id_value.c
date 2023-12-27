@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2023/12/24 21:21:56 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/27 14:16:21 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,24 @@ static int	is_valid_zero(char *s)
 	return (0);
 }
 
+static int	trim_rgb(char **rgb)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (rgb[i])
+	{
+		tmp = rgb[i];
+		rgb[i] = ft_strtrim(rgb[i], " \t"); // new line??
+		if (!rgb[i])
+			return (free(tmp), 1);
+		free(tmp);
+		i++;
+	}
+	return (0);
+}
+
 /*
 	A color is valid when it has 3 positive digits between 0 and 255,
 	separated by commas and multiple possible whitespaces and tabs.
@@ -82,6 +100,8 @@ static int	is_valid_color(char *color)
 	if (!rgb)
 		return (0);
 	i = 0;
+	if (trim_rgb(rgb))
+		return (free_dptr(rgb), 1);
 	while (rgb[i])
 	{
 		n = ft_atoi(rgb[i]);
@@ -115,6 +135,7 @@ static char	*extract_color(char **line, t_cub3d *data)
 
 	i = 0;
 	// modify this rgb validator
+	ft_printf("LINE --> [%s]\n", *line);
 	while ((*line)[i] && (ft_isdigit((*line)[i]) || (*line)[i] == ' ' || (*line)[i] == ','))
 		i++;
 	color = ft_calloc(i + 1, sizeof(char));
