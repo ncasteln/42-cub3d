@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file_content.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2023/12/27 17:13:39 by nico             ###   ########.fr       */
+/*   Updated: 2024/01/02 10:30:44 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ void	parse_file_content(char *f_name, t_cub3d *data)
 		err_free_exit("parse_assets", data, errno);
 	while (1)
 	{
-		data->line = get_next_line(fd);
-		if (errno)
-			err_free_exit("get_next_line", data, errno);
+		data->line = get_next_line(fd); // how get errno from here ?
 		if (!data->line)
 			break ;
 		parse_line(data->line, &is_map_parsing, data);

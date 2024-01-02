@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nico <nico@student.42.fr>                  +#+  +:+       +#+         #
+#    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/27 17:06:26 by nico             ###   ########.fr        #
+#    Updated: 2024/01/02 10:27:53 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
 # ----------------------------------------------------------------- BASIC RULES
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJS) #$(MLX42)
+$(NAME): $(LIB) $(OBJS) $(MLX42)
 	@echo "$(NC)Compiling $@ executable file..."
 	@$(CC) $(CFLAGS) $(OBJS)  $(GLFW) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
