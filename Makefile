@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nico <nico@student.42.fr>                  +#+  +:+       +#+         #
+#    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2023/12/20 08:47:43 by nico             ###   ########.fr        #
+#    Updated: 2024/01/02 15:57:57 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ $(NAME): $(MLX42) $(LIB) $(OBJS)
 
 $(MLX42):
 	@echo "$(NC)Compiling [MLX42 library]..."
-	@if [ -d ./lib/MLX42/ ]; then \
+	@if [ -f $(MLX42) ]; then \
 		echo "$(G)[MLX42 library] exists!$(NC)"; \
 	else \
 		echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
