@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2023/12/22 18:45:52 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/04 15:13:02 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,16 @@ int	main()
 	//data.mlx->delta_time = 1;
 	init_data(&data);
 	//mlx_image_to_window(data.mlx, data.img, 0, 0);
-	mlx_texture_t* texture;
-	mlx_image_t *img = mlx_new_image(data.mlx, 10, 10);
-	//img->width = 10;
-	texture = mlx_load_png("src/colorstone.png");
-	texture->height = texture->height/2;
-	texture->width = texture->width/2;
-	printf("%d", texture->width);
-	
-	img = mlx_texture_to_image(data.mlx, texture);
+	//teture test
+	// mlx_texture_t* texture;
+	// mlx_image_t *img = mlx_new_image(data.mlx, 10, 10);
+	//texture = mlx_load_png("src/colorstone.png");
+	//texture->height = texture->height/2;
+	//texture->width = texture->width/2;
+	//img = mlx_texture_to_image(data.mlx, texture);
 	
 
-	mlx_image_to_window(data.mlx, img, 0, 0);
+	mlx_image_to_window(data.mlx, data.img, 0, 0);
 	//data.mlx->delta_time = 1;
 	//rayCasting(&data);
 	//data.map = &map;
