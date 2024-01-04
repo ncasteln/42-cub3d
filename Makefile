@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/02 10:27:53 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/04 16:13:36 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ $(NAME): $(LIB) $(OBJS) $(MLX42)
 
 $(MLX42):
 	@echo "$(NC)Compiling [MLX42 library]..."
-	@if [ -d ./lib/MLX42/ ]; then \
+	@if [ -f $(MLX42) ]; then \
 		echo "$(G)[MLX42 library] exists!$(NC)"; \
 	else \
 		echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
