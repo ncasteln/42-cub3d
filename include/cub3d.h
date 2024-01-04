@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/04 16:14:01 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/05 00:44:49 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 #include <string.h>
 #include <fcntl.h>
 #include <math.h>
+
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 #include "libft.h"
 #include "ft_printf.h"
@@ -53,5 +57,15 @@ int		is_empty_line(char *s);
 // -----------------------------------------------------------------PRINT UTILS
 void	print_map(char **p, int	row_len);
 void	print_assets(t_assets *assets);
+
+// -----------------------------------------------------------------RAYCASTING
+void	key_hook(mlx_key_data_t keydata, void *param);
+void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param);
+void	win_close(mlx_t* mlx);
+void	rayCasting(t_data *data);
+void	vert_line(t_data *data, int x, int drawStart, int drawEnd, int color);
+void	refresh(void *param);
+void	clearScreen(t_data *data);
+void	rotateP(t_data *data, double angle);
 
 #endif

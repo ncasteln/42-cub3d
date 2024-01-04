@@ -6,12 +6,12 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2023/12/22 20:36:21 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/05 00:45:16 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
 void	win_close(mlx_t* mlx)
 {
