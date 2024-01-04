@@ -47,8 +47,19 @@ int	main()
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
 	//data.mlx->delta_time = 1;
 	init_data(&data);
-	mlx_image_to_window(data.mlx, data.img, 0, 0);
+	//mlx_image_to_window(data.mlx, data.img, 0, 0);
+	mlx_texture_t* texture;
+	mlx_image_t *img = mlx_new_image(data.mlx, 10, 10);
+	//img->width = 10;
+	texture = mlx_load_png("src/colorstone.png");
+	texture->height = texture->height/2;
+	texture->width = texture->width/2;
+	printf("%d", texture->width);
+	
+	img = mlx_texture_to_image(data.mlx, texture);
+	
 
+	mlx_image_to_window(data.mlx, img, 0, 0);
 	//data.mlx->delta_time = 1;
 	//rayCasting(&data);
 	//data.map = &map;

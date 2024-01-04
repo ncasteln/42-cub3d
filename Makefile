@@ -4,7 +4,7 @@ LIBFT_A = lib/libft/libft.a
 LIBMLX	= lib/MLX42
 HEADERS	= -I ./inc -I $(LIBMLX)/include
 LIBS	= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm lib/libft/libft.a -L./lib/libft -lft
-SRCS = cub3d.c hooks.c utils.c
+SRCS = cub3d.c hooks.c utils.c raycast.c
 OBJS	= ${SRCS:.c=.o}
 
 all: $(NAME)
