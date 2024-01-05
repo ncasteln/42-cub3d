@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   cub3d_old.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/04 22:04:14 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/05 18:19:58 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,42 +39,42 @@ void init_data(t_data *data)
 	// printf("%i ", data->map[1][1]);
 }
 
-// int	main()
-// {
-// 	//atexit(find_leaks);
-// 	t_data	data;
-// 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
-// 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
-// 	//data.mlx->delta_time = 1;
-// 	init_data(&data);
-// 	//mlx_image_to_window(data.mlx, data.img, 0, 0);
-// 	//teture test
-// 	// mlx_texture_t* texture;
-// 	// mlx_image_t *img = mlx_new_image(data.mlx, 10, 10);
-// 	//texture = mlx_load_png("src/colorstone.png");
-// 	//texture->height = texture->height/2;
-// 	//texture->width = texture->width/2;
-// 	//img = mlx_texture_to_image(data.mlx, texture);
+int	main()
+{
+	//atexit(find_leaks);
+	t_data	rcdata;
+	rcdata.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
+	rcdata.img = mlx_new_image(rcdata.mlx, WIN_W, WIN_H);
+	//rcdata.mlx->delta_time = 1;
+	init_data(&rcdata);
+	//mlx_image_to_window(rcdata.mlx, rcdata.img, 0, 0);
+	//teture test
+	// mlx_texture_t* texture;
+	// mlx_image_t *img = mlx_new_image(rcdata.mlx, 10, 10);
+	//texture = mlx_load_png("src/colorstone.png");
+	//texture->height = texture->height/2;
+	//texture->width = texture->width/2;
+	//img = mlx_texture_to_image(rcdata.mlx, texture);
 	
 
-// 	mlx_image_to_window(data.mlx, data.img, 0, 0);
-// 	//data.mlx->delta_time = 1;
-// 	//rayCasting(&data);
-// 	//data.map = &map;
-// 	//raycasting calculation for each pixel in the game window
+	mlx_image_to_window(rcdata.mlx, rcdata.img, 0, 0);
+	//rcdata.mlx->delta_time = 1;
+	rayCasting(&rcdata);
+	//rcdata.map = &map;
+	//raycasting calculation for each pixel in the game window
 	
-// 	//vert_line(&data, 100, 5, 600);
-// 	//data.sx = 0;
-// 	//draw_square(&data, 10, 10, 100, WHITE);
-// 	//mlx_put_pixel(data.img, 20, 20, 0xFF00FFFF);
-// 	//draw_line(&data, -2, 1100);
-// 	//printf("%f, ", data.mlx->delta_time);
-// 	//vert_line(&data, (&data)->pixelX, 10, 300, RED);
-// 	mlx_loop_hook(data.mlx, refresh, &data);
-// 	mlx_key_hook(data.mlx, key_hook, &data);
-// 	//mlx_mouse_hook(data.mlx, mouse_hook, &data);
-// 	//mlx_loop_hook(data.mlx, )
-// 	mlx_loop(data.mlx);
-// 	mlx_terminate(data.mlx);
-// 	return (0);
-// }
+	//vert_line(&rcdata, 100, 5, 600);
+	//rcdata.sx = 0;
+	//draw_square(&rcdata, 10, 10, 100, WHITE);
+	//mlx_put_pixel(rcdata.img, 20, 20, 0xFF00FFFF);
+	//draw_line(&rcdata, -2, 1100);
+	//printf("%f, ", rcdata.mlx->delta_time);
+	//vert_line(&rcdata, (&rcdata)->pixelX, 10, 300, RED);
+	mlx_loop_hook(rcdata.mlx, refresh, &rcdata);
+	mlx_key_hook(rcdata.mlx, key_hook, &rcdata);
+	//mlx_mouse_hook(rcdata.mlx, mouse_hook, &rcdata);
+	//mlx_loop_hook(rcdata.mlx, )
+	mlx_loop(rcdata.mlx);
+	mlx_terminate(rcdata.mlx);
+	return (0);
+}
