@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/05 00:46:04 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/08 02:39:12 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ Some expanations, for now incomplete:
 
 */
 
-void rayCasting(t_data *data)
+void rayCasting(t_cub3d *data)
 {
 	// int map[MAP_W][MAP_H]=
 	// {
@@ -109,144 +109,160 @@ void rayCasting(t_data *data)
 	//   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 	// };
 
-		int map[MAP_H][MAP_W]=
-{
-	{3,3,3,3,3,3,3,3,3,3,3,3,3},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,4,4,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,2,2,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-	{1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
+// 		int map[MAP_H][MAP_W]=
+// {
+// 	{3,3,3,3,3,3,3,3,3,3,3,3,3},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,4,4,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,2,2,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
+// 	{1,1,1,1,1,1,1,1,1,1,1,1,1}
+// };
 
-
-	data->pixelX = 0;//we start at first pixel
-	//printf("start %f, ", ((t_data *)data)->posX);
+	data->rcdata->pixel_x = 0;//we start at first pixel
+	//printf("start %f, ", ((t_cub3d *)data)->pos_x);
 	//printf("%d, ", n);
 	//printf("%d, ", map[22][12]);
-	while (data->pixelX < WIN_W)
+	while (data->rcdata->pixel_x < WIN_W)
 	{
 		
-		data->camX = 2 * data->pixelX / ((double) WIN_W) - 1;
-		data->rayDirX = data->dirX + data->planeX * data->camX;
-		data->rayDirY = data->dirY + data->planeY * data->camX;
+		data->rcdata->cam_x = 2 * data->rcdata->pixel_x / ((double) WIN_W) - 1;
+		data->rcdata->raydir_x = data->rcdata->dir_x + data->rcdata->plane_x * data->rcdata->cam_x;
+		data->rcdata->raydir_y = data->rcdata->dir_y + data->rcdata->plane_y * data->rcdata->cam_x;
 		
-		//printf("(%f, %f) ", data->rayDirX, data->rayDirY);
-		data->mapX = (int) data->posX;
-		data->mapY = (int) data->posY;
+		//printf("(%f, %f) ", data->rcdata->raydir_x, data->rcdata->raydir_y);
+		data->rcdata->map_x = (int) data->rcdata->pos_x;
+		data->rcdata->map_y = (int) data->rcdata->pos_y;
+		//printf("%d ", data->rcdata->map_y);
 	
-		//printf("(%i, %i) ", data->mapX, data->mapY);
-		data->deltaDistX = fabs(1/data->rayDirX);
-		data->deltaDistY = fabs(1/data->rayDirY);
-		//printf("(%f, %f) ", data->deltaDistX, data->deltaDistY);
-		if (data->rayDirX < 0)
+		//printf("(%i, %i) ", data->rcdata->map_x, data->rcdata->map_y);
+		data->rcdata->delta_dist_x = fabs(1/data->rcdata->raydir_x);
+		data->rcdata->delta_dist_y = fabs(1/data->rcdata->raydir_y);
+		//printf("(%f, %f) ", data->rcdata->delta_dist_x, data->rcdata->delta_dist_y);
+		if (data->rcdata->raydir_x < 0)
 		{
-			data->stepX = -1;
-			data->sideDistX = (data->posX - data->mapX) * data->deltaDistX;
-			//printf("less %f ", data->sideDistX);
+			data->rcdata->step_x = -1;
+			data->rcdata->side_dist_x = (data->rcdata->pos_x - data->rcdata->map_x) * data->rcdata->delta_dist_x;
+			//printf("less %f ", data->rcdata->side_dist_x);
 		}
 		else
 		{
 
-			data->stepX = 1;
-			data->sideDistX = (data->mapX + 1.0 - data->posX) * data->deltaDistX;
-			//printf("greater %f ", data->sideDistX);
+			data->rcdata->step_x = 1;
+			data->rcdata->side_dist_x = (data->rcdata->map_x + 1.0 - data->rcdata->pos_x) * data->rcdata->delta_dist_x;
+			//printf("greater %f ", data->rcdata->side_dist_x);
 		}
-		if (data->rayDirY < 0)
+		if (data->rcdata->raydir_y < 0)
 		{
-			data->stepY = -1;
-			data->sideDistY = (data->posY - data->mapY) * data->deltaDistY;
-			//printf("less %f ", data->sideDistY);
+			data->rcdata->step_y = -1;
+			data->rcdata->side_dist_y = (data->rcdata->pos_y - data->rcdata->map_y) * data->rcdata->delta_dist_y;
+			//printf("less %f ", data->rcdata->side_dist_y);
 		}
 		else
 		{
-			data->stepY = 1;
-			data->sideDistY = (data->mapY + 1.0 - data->posY) * data->deltaDistY;
-			//printf("greater  %f ", data->sideDistY);
+			data->rcdata->step_y = 1;
+			data->rcdata->side_dist_y = (data->rcdata->map_y + 1.0 - data->rcdata->pos_y) * data->rcdata->delta_dist_y;
+			//printf("greater  %f ", data->rcdata->side_dist_y);
 		}
-	
 		//algorithm before hit
-		while (data->hit == 0)
+		while (data->rcdata->hit == 0)
 		{
-			//printf("%i, ", data->hit);
-			if (data->sideDistX < data->sideDistY)
+			//printf("%i, ", data->rcdata->hit);
+			// printf("%f ", data->rcdata->side_dist_x);
+			// printf("%f ", data->rcdata->side_dist_y);
+			//exit(0);
+			if (data->rcdata->side_dist_x < data->rcdata->side_dist_y)
 			{
-				data->sideDistX += data->deltaDistX;
-				data->mapX += data->stepX;
-				data->side = 0;
+				data->rcdata->side_dist_x += data->rcdata->delta_dist_x;
+				data->rcdata->map_x += data->rcdata->step_x;
+				data->rcdata->side = 0;
 			}
 			else
 			{
-				data->sideDistY += data->deltaDistY;
-				data->mapY += data->stepY;
-				data->side = 1;
+				data->rcdata->side_dist_y += data->rcdata->delta_dist_y;
+				data->rcdata->map_y += data->rcdata->step_y;
+				// printf("%d ", data->rcdata->map_y);
+				// exit(0);
+				data->rcdata->side = 1;
 			}
-			//if (data->map[data->mapX][data->mapY] > 0)
-			if (map[data->mapX][data->mapY] > 0)
-				data->hit = 1;
-			//printf("%i ", data->hit);
+			
+			//if (data->rcdata->map[data->rcdata->map_x][data->rcdata->map_y] > 0)
+			// printf("%d ", data->map[data->rcdata->map_y][data->rcdata->map_x]);
+			// printf("%d ", data->rcdata->map_y);
+			// exit(0);
+			if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 49)
+				data->rcdata->hit = 1;
+			//exit(0);
+			//printf("%i ", data->rcdata->hit);
 		}
-	
-		data->hit = 0;
-		if (data->side == 0)
-			data->wallDist = data->sideDistX - data->deltaDistX;
+		data->rcdata->hit = 0;
+		if (data->rcdata->side == 0)
+			data->rcdata->wall_dist = data->rcdata->side_dist_x - data->rcdata->delta_dist_x;
 		else
-			data->wallDist = data->sideDistY - data->deltaDistY;
-		data->lineHeight = (int)(data->h / data->wallDist);
-		data->drawStart = - data->lineHeight / 2 + data->h / 2;
-		if (data->drawStart < 0)
-			data->drawStart = 0;
-		data->drawEnd = data->lineHeight / 2 + data->h / 2;
-		if (data->drawStart >= data->h)
-			data->drawStart = data->h - 1;
-		//printf("%i, ", data->drawEnd);
-		int color;
+			data->rcdata->wall_dist = data->rcdata->side_dist_y - data->rcdata->delta_dist_y;
+		data->rcdata->line_h = (int)(data->rcdata->h / data->rcdata->wall_dist);
+		data->rcdata->draw_start = - data->rcdata->line_h / 2 + data->rcdata->h / 2;
+		if (data->rcdata->draw_start < 0)
+			data->rcdata->draw_start = 0;
+		data->rcdata->draw_end = data->rcdata->line_h / 2 + data->rcdata->h / 2;
+		if (data->rcdata->draw_start >= data->rcdata->h)
+			data->rcdata->draw_start = data->rcdata->h - 1;
+		//printf("%i, ", data->rcdata->draw_end);
+		//int color;
 
-	if (map[data->mapX][data->mapY] == 1)
-		color = RED;//red
-	else if (map[data->mapX][data->mapY] == 2)
-		color = GREEN;//green
-	else if (map[data->mapX][data->mapY] == 3)
-		color = BLUE;//blue
-	else if (map[data->mapX][data->mapY] == 4)
-		color = ORANGE;
+	//color = RED;
+	// if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 49)
+	// 	color = RED;//red
+	// else if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 2)
+	// 	color = GREEN;//green
+	// else if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 3)
+	// 	color = BLUE;//blue
+	// else if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 4)
+	// 	color = ORANGE;
+	// else
+	// 	color = WHITE;
+	data->rcdata->w_color = WALLC;
+	if (data->rcdata->side == 1)
+		data->rcdata->w_color = dim(WALLC, 50);
 	else
-		color = WHITE;
-	if (data->side == 1)
-		color = color / 2;
-	//printf("drawing %i, x %i", data->drawStart, data->pixelX);
-	vert_line(data, data->pixelX, data->drawStart, data->drawEnd, color);
-		data->pixelX++;
+		data->rcdata->w_color = WALLC;
+	//printf("drawing %i, x %i", data->rcdata->draw_start, data->rcdata->pixel_x);
+	vert_line(data, data->rcdata->pixel_x, data->rcdata->draw_start, data->rcdata->draw_end);
+		data->rcdata->pixel_x++;
 	}
-	//printf("built for %f, x %f", data->posX, data->posY);
+	// printf("x: %f \n", data->rcdata->dir_x);
+	// printf("y: %f \n", data->rcdata->dir_y);
+	// printf("px: %f \n", data->rcdata->plane_x);
+	// printf("py: %f \n", data->rcdata->plane_y);
+	//printf("built for %f, x %f", data->rcdata->dir_x, data->rcdata->dir_y);
 }
 
-void rotateP(t_data *data, double angle)
+void rotateP(t_rcdata *data, double angle)
 {
 	double tempX;
 
-	tempX = data->dirX;
-	data->dirX = data->dirX*cosf(angle) - data->dirY * sinf(angle);
-	data->dirY = tempX * sinf(angle) + data->dirY * cosf(angle);
-	tempX = data->planeX;
-	data->planeX = data->planeX*cosf(angle) - data->planeY * sinf(angle);
-	data->planeY = tempX * sinf(angle) + data->planeY * cosf(angle);
+	tempX = data->dir_x;
+	data->dir_x = data->dir_x*cosf(angle) - data->dir_y * sinf(angle);
+	data->dir_y = tempX * sinf(angle) + data->dir_y * cosf(angle);
+	tempX = data->plane_x;
+	data->plane_x = data->plane_x*cosf(angle) - data->plane_y * sinf(angle);
+	data->plane_y = tempX * sinf(angle) + data->plane_y * cosf(angle);
 }

@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/05 00:44:49 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/08 02:36:51 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ void	print_assets(t_assets *assets);
 void	key_hook(mlx_key_data_t keydata, void *param);
 void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param);
 void	win_close(mlx_t* mlx);
-void	rayCasting(t_data *data);
-void	vert_line(t_data *data, int x, int drawStart, int drawEnd, int color);
+void	rayCasting(t_cub3d *data);
+//void	vert_line(t_cub3d *data, int x, int draw_start, int draw_end, int color);
+void vert_line(t_cub3d *data, int x, int draw_start, int draw_end);
 void	refresh(void *param);
-void	clearScreen(t_data *data);
-void	rotateP(t_data *data, double angle);
+void	clearScreen(t_cub3d *data);
+void	rotateP(t_rcdata *data, double angle);
+unsigned int dim(unsigned int color, unsigned int shift);
 
 #endif

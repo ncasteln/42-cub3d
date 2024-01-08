@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/05 00:45:52 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/05 19:51:42 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ functions in this file were used for training
 and are saved just in case
  */
 
-/* void draw_square(t_data *data, int xStart, int yStart, int side, int color)
+/* void draw_square(t_rcdata *data, int xStart, int yStart, int side, int color)
 {
 	int x;
 	int y;
@@ -36,7 +36,7 @@ and are saved just in case
 } */
 
 //function draws a line
-void draw_line(t_data *data, int a, int b)
+void draw_line(t_cub3d *data, int a, int b)
 {
 	int x;
 	int y;
