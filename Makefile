@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/10 12:33:37 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/10 14:34:48 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ INCLUDE = -I./include/ \
 VPATH = ./src/ \
 	./src/parser/ \
 	./src/utils/ \
+	./src/raycast/ \
 
 PARSER = parse.c \
 	parse_file_content.c \
@@ -46,9 +47,14 @@ UTILS = err_free_exit.c \
 	print_assets.c \
 	free_utils.c
 
+RAYCAST = raycast.c \
+	hooks.c \
+	utils.c \
+
 SRC = cub3d.c \
 	$(PARSER) \
-	$(UTILS)
+	$(UTILS) \
+	$(RAYCAST)
 
 OBJS_DIR = ./objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
@@ -59,17 +65,17 @@ all: $(NAME)
 
 $(NAME): $(LIB) $(OBJS) $(MLX42)
 	@echo "$(NC)Compiling $@ executable file..."
-	@$(CC) $(CFLAGS) $(OBJS)  $(GLFW) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
 
 $(MLX42):
 	@echo "$(NC)Compiling [MLX42 library]..."
-# @if [ -f $(MLX42) ]; then \
-# 	echo "$(G)[MLX42 library] exists!$(NC)"; \
-# else \
-# 	echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
-# 	git clone https://github.com/codam-coding-college/MLX42.git ./lib/MLX42/; \
-# fi
+	# @if [ -f $(MLX42) ]; then \
+	# 	echo "$(G)[MLX42 library] exists!$(NC)"; \
+	# else \
+	# 	echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
+	# 	git clone https://github.com/codam-coding-college/MLX42.git ./lib/MLX42/; \
+	# fi
 	@cd ./lib/MLX42/ && cmake -B build
 	@cmake --build ./lib/MLX42/build -j4
 
