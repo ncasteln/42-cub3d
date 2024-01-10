@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/10 14:34:48 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/10 14:42:26 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,19 +63,19 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
 # ----------------------------------------------------------------- BASIC RULES
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJS) $(MLX42)
+$(NAME): $(LIB) $(MLX42) $(OBJS)
 	@echo "$(NC)Compiling $@ executable file..."
 	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
 
 $(MLX42):
 	@echo "$(NC)Compiling [MLX42 library]..."
-	# @if [ -f $(MLX42) ]; then \
-	# 	echo "$(G)[MLX42 library] exists!$(NC)"; \
-	# else \
-	# 	echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
-	# 	git clone https://github.com/codam-coding-college/MLX42.git ./lib/MLX42/; \
-	# fi
+	@if [ -d ./lib/MLX42/ ]; then \
+		echo "$(G)[MLX42 library] exists!$(NC)"; \
+	else \
+		echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
+		git clone https://github.com/codam-coding-college/MLX42.git ./lib/MLX42/; \
+	fi
 	@cd ./lib/MLX42/ && cmake -B build
 	@cmake --build ./lib/MLX42/build -j4
 
@@ -90,15 +90,19 @@ $(OBJS_DIR)%.o: %.c ./include/cub3d.h
 clean:
 	@echo "$(NC)Removing [objs]..."
 	@rm -rf $(OBJS_DIR)
-	@echo "$(NC)Removing [lib] archives..."
-	@$(MAKE) fclean -C ./lib/
+	@echo "$(NC)Removing [MLX42 build]..."
+	@rm -rfd ./lib/MLX42/build $(MLX42)
+	@echo "$(NC)Removing [lib objs]..."
+	@$(MAKE) clean -C ./lib/
 
 fclean: clean
 	@echo "$(NC)Removing [$(NAME)]..."
-	@rm -f $(NAME)
+	@rm -rf $(NAME)
 	@echo "$(NC)Removing [MLX42 library]..."
-	@rm -rfd ./lib/MLX42/build $(MLX42)
+	@rm -rfd ./lib/MLX42/ $(MLX42)
 	@echo "$(G)	[$(NAME) && MLX42] removed!$(NC)"
+	@echo "$(NC)Removing [lib archives]..."
+	@$(MAKE) fclean -C ./lib/
 
 test: $(NAME)
 	@./tests/tester
@@ -108,9 +112,6 @@ re: fclean all
 # --------------------------------------------------------------- SPECIAL RULES
 # update:
 #  	git submodule update --remote MLX42
-
-mlx_fclean:
-	@rm -rfd ./lib/MLX42
 
 # ----------------------------------------------------------------------- UTILS
 .PHONY: all clean fclean re update
