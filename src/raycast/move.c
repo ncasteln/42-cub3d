@@ -6,58 +6,58 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/10 15:21:32 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/10 17:08:09 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3d.h"
-//D
-// void move_r(t_cub3d *data)
-// {
-// 	if (data->rcdata->dir_x = )
-// 	data->rcdata->pos_y += 0.1;
-// }
-//
-void move_f(t_cub3d *data, double move)
+
+
+/*
+player moves forward - along the look direction
+ */
+void move(t_cub3d *data, double move, int dir)
 {
 	double abs_cos;
 	double abs_sin;
 	double tan;
+	double delta_x;
+	double delta_y;
+
 	tan = data->rcdata->dir_y / data->rcdata->dir_x;
 	abs_cos = sqrtf(1/(powf(tan, 2) + 1));
-	abs_sin =  sqrtf(1 - powf(abs_cos, 2));
-
-	if (data->rcdata->dir_x > 0)
-		data->rcdata->pos_x += move * abs_cos;
-	else
-		data->rcdata->pos_x += move * -abs_cos;
-	if (data->rcdata->dir_y > 0)
-		data->rcdata->pos_y += move * abs_sin;
-	else
-		data->rcdata->pos_y += move * -abs_sin;
-// 	 printf("dir: %f, %f \n", data->rcdata->dir_x, data->rcdata->dir_y);
-// 	 printf("stop: %f, %f \n", data->rcdata->pos_x, data->rcdata->pos_y);
+	abs_sin = sqrtf(1 - powf(abs_cos, 2));
+	delta_x = move * sign(data->rcdata->dir_x) * abs_cos;
+	delta_y = move * sign(data->rcdata->dir_y) * abs_sin;
+	if (dir == BACK)
+	{
+		delta_x *= -1;
+		delta_y *= -1;
+	}
+	if (check_space(data, delta_x, delta_y) == true)
+	{
+		data->rcdata->pos_x += delta_x;
+		data->rcdata->pos_y += delta_y;
+	}
+	//  printf("dir: %f, %f \n", data->rcdata->dir_x, data->rcdata->dir_y);
+	//  printf("stop: %f, %f \n", data->rcdata->pos_x, data->rcdata->pos_y);
 }
 
-void move_b(t_cub3d *data, double move)
+//checks if the movement is possible and the player doesn't go through walls
+int check_space(t_cub3d *data, double delta_x, double delta_y)
 {
-	double abs_cos;
-	double abs_sin;
-	double tan;
-	tan = data->rcdata->dir_y / data->rcdata->dir_x;
-	abs_cos = sqrtf(1/(powf(tan, 2) + 1));
-	abs_sin =  sqrtf(1 - powf(abs_cos, 2));
+	int x;
+	int y;
 
-	if (data->rcdata->dir_x > 0)
-		data->rcdata->pos_x -= move * abs_cos;
+	x = (int)(data->rcdata->pos_x + delta_x);
+	y = (int)(data->rcdata->pos_y + delta_y);
+	if (data->map[y][x] != '1')
+		return (true);
 	else
-		data->rcdata->pos_x -= move * -abs_cos;
-	if (data->rcdata->dir_y > 0)
-		data->rcdata->pos_y -= move * abs_sin;
-	else
-		data->rcdata->pos_y -= move * -abs_sin;
+		return (false);
 }
+
 
 // void	key_hook(mlx_key_data_t keydata, void *data)
 // {

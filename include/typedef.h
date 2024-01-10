@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/08 20:02:11 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/10 17:02:31 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ typedef struct s_player
 //constants
 # define WIN_W 640
 # define WIN_H 480
-# define MAP_W 13
-# define MAP_H 24
 
 # define RED 0x990000FF
 # define GREEN 0x00FF00FF
@@ -59,6 +57,9 @@ typedef struct s_player
 # define ORANGE 0xDD7700FF
 # define WHITE 0xFFFFFFFF
 # define WALLC WHITE
+
+# define FORWARD 100
+# define BACK 200
 
 //structures
 typedef struct	s_rcdata {

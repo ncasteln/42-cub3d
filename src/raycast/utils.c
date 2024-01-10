@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/08 16:16:04 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/10 16:39:04 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,6 @@ void clearScreen(t_cub3d *data)
 		x++;
 	}
 }
-
-// void vert_line(t_cub3d *data, int x, int draw_start, int draw_end, int color)
-// {
-// 	int y;
-
-// 	y = 0;
-// 	while (y >=0 && y < WIN_H)
-// 	{
-// 		if (y > draw_start && y < draw_end)
-// 			mlx_put_pixel(data->img, x, y, color);
-// 		y++;
-// 	}
-// }
 
 void vert_line(t_cub3d *data, int x, int draw_start, int draw_end)
 {
@@ -82,44 +69,13 @@ uint32_t dim(uint32_t color, uint32_t shift)
 	return ((r << 24) + (g << 16) + (b << 8) + 0xFF);
 }
 
-void set_map(int map[MAP_W][MAP_H])
+int sign(double x)
 {
-	int x;
-	int y;
-	x = 0;
-	y = 0;
-	while (x < MAP_W)
-	{
-		while (y < MAP_H)
-		{
-			if ((x == 0 || x == MAP_W - 1) || (y == 0 || y == MAP_H - 1))
-				map[x][y] = 1;
-			else
-				map[x][y] = 0;
-			y++;
-		}
-		x++;
-	}
-	// map[1][1] = 1;
-	// map[3][1] = 1;
-	// 1111111111
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000p00001
-	// 1111111111
+	if (x > 0)
+		return (1);
+	if (x < 0)
+		return (-1);
+	else
+		return (0);
 }
 
-double x_move(double dir_x, double dir_y, double move)
-{
-	double alpha;
-	double x_move;
-	
-	alpha = atan(dir_y/dir_x);
-	x_move = move * cosf(alpha);
-	return(x_move);
-}
