@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_type_id.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:04:41 by nico              #+#    #+#             */
-/*   Updated: 2023/12/27 17:11:36 by nico             ###   ########.fr       */
+/*   Updated: 2024/01/10 16:26:55 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	store_asset_value(char *value, char *type_id, t_cub3d *data)
 	if (!ft_strncmp(type_id, "WE", 2))
 		data->assets->we = value;
 	if (!ft_strncmp(type_id, "F", 1))
-		data->assets->f = value;
+		data->assets->f = str_to_ul(value);;
 	if (!ft_strncmp(type_id, "C", 1))
-		data->assets->c = value;
+		data->assets->c = str_to_ul(value);;
 }
 
 void	parse_type_id(char **line, char *type_id, t_cub3d *data)

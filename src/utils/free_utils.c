@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:49:00 by nico              #+#    #+#             */
-/*   Updated: 2023/12/26 17:21:01 by nico             ###   ########.fr       */
+/*   Updated: 2024/01/10 16:18:58 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ static void	free_assets(t_assets *assets)
 		free(assets->so);
 	if (assets->we)
 		free(assets->we);
-	if (assets->f)
-		free(assets->f);
-	if (assets->c)
-		free(assets->c);
 	free(assets);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:51:33 by nico              #+#    #+#             */
-/*   Updated: 2023/12/25 19:17:35 by nico             ###   ########.fr       */
+/*   Updated: 2024/01/10 16:20:50 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,26 @@ int	is_blank_string(char *s) // check if needed
 	return (0);
 }
 
+/*
+	str to uint32_t needed for mlx library. The function assumes that the
+	conversion is doing in base 16.
+*/
+uint32_t	str_to_ul(char *s)
+{
+	uint32_t	hex;
+	int			i;
+	int			current_digit;
+
+	hex = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (ft_isdigit(s[i]))
+			current_digit = s[i] - '0';
+		else
+			current_digit = s[i] - 'A' + 10;
+		hex = hex * 16 + current_digit;
+		i++;
+	}
+	return (hex);
+}
