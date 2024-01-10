@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/10 16:18:05 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/11 00:26:57 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,60 @@ static void	init_cub3d(t_cub3d *data)
 	data->n_col = 0;
 }
 
+void init_rc(t_cub3d *data)
+{
+	data->rc->pos_x = data->p->x;
+	data->rc->pos_y = data->p->y;
+	if (data->p->dir == 'N' || data->p->dir == 'S')
+		data->rc->dir_x = 0;
+	else if (data->p->dir == 'W' || data->p->dir == 'E')
+		data->rc->dir_y = 0;
+	if (data->p->dir == 'N')
+		data->rc->dir_y = -1;
+	else if (data->p->dir == 'S')
+		data->rc->dir_y = 1;
+	else if (data->p->dir == 'W')
+		data->rc->dir_x = -1;
+	else if (data->p->dir == 'E')
+		data->rc->dir_x = 1;
+	data->rc->plane_x = 0.66 * data->rc->dir_x;
+	data->rc->plane_y = 0.66 * data->rc->dir_y;
+	rotateV(&data->rc->plane_x, &data->rc->plane_y, -M_PI / 2);
+	data->rc->time = 0;
+	data->rc->oldTime = 0;
+	data->rc->hit = 0;
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;
+	t_rc rc;
 
 	// substitute with ftbzero???
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 	print_map(data.map, data.n_col);
-
+printf("%x \n", data.assets->c);
+	printf("%x \n", data.assets->f);
+	//exit(0);
+	//t_rc	rc;
+	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
+	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
+	data.rc = &rc;
+	init_rc(&data);
+	//exit(0);
+	mlx_image_to_window(data.mlx, data.img, 0, 0);
+	raycasting(&data);
+	printf("%i \n", data.p->x);
+	printf("%i \n", data.p->y);
+	// exit(0);
+	mlx_loop_hook(data.mlx, refresh, &data);
+	mlx_key_hook(data.mlx, key_hook, &data);
+	//mlx_mouse_hook(rc.mlx, mouse_hook, &rc);
+	//mlx_loop_hook(rc.mlx, )
+	mlx_loop(data.mlx);
+	mlx_terminate(data.mlx);
 	return (0);
 }
+
+

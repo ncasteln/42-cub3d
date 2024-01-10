@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/10 18:25:22 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/10 23:36:31 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_player
 # define BACK 200
 
 //structures
-typedef struct	s_rcdata {
+typedef struct	s_rc {
 
 	double			pos_x; //player position X
 	double			pos_y; //player position Y
@@ -91,9 +91,8 @@ typedef struct	s_rcdata {
 	double			wall_dist;
 	int				draw_start;
 	int				draw_end;
-	int				h;
 	uint32_t				w_color;
-}	t_rcdata;
+}	t_rc;
 
 
 typedef struct s_cub3d
@@ -106,7 +105,7 @@ typedef struct s_cub3d
 	size_t		n_col;
 	char		*line;
 	t_player	*p;
-	t_rcdata	*rcdata;
+	t_rc	*rc;
 }	t_cub3d;
 
 #endif

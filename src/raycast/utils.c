@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/10 16:39:04 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/11 00:12:59 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ void vert_line(t_cub3d *data, int x, int draw_start, int draw_end)
 	while (y >=0 && y < WIN_H)
 	{
 		if (y >= draw_start && y <= draw_end)
-			mlx_put_pixel(data->img, x, y, data->rcdata->w_color);
+			mlx_put_pixel(data->img, x, y, data->rc->w_color);
 		else if (y < draw_start)
-			///mlx_put_pixel(data->img, x, y, data->assets->f);
-			mlx_put_pixel(data->img, x, y, 0xFF0000FF);
+			mlx_put_pixel(data->img, x, y, data->assets->c);
 		else if (y > draw_end)
-			//mlx_put_pixel(data->img, x, y, data->assets->c);
-			mlx_put_pixel(data->img, x, y, 0xC80808FF);
+			mlx_put_pixel(data->img, x, y, data->assets->f);
 		y++;
 	}
 }
