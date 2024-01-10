@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/08 02:36:51 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/09 21:46:16 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void vert_line(t_cub3d *data, int x, int draw_start, int draw_end);
 void	refresh(void *param);
 void	clearScreen(t_cub3d *data);
 void	rotateP(t_rcdata *data, double angle);
-unsigned int dim(unsigned int color, unsigned int shift);
+uint32_t dim(uint32_t color, uint32_t shift);
+void move_f(t_cub3d *data, double move);
+void move_b(t_cub3d *data, double move);
+void rotateV(double *x, double *y, double angle);
 
 #endif

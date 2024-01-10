@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/08 02:40:14 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/08 16:16:04 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void vert_line(t_cub3d *data, int x, int draw_start, int draw_end)
 		if (y >= draw_start && y <= draw_end)
 			mlx_put_pixel(data->img, x, y, data->rcdata->w_color);
 		else if (y < draw_start)
-			//mlx_put_pixel(data->img, x, y, data->assets->f);
+			///mlx_put_pixel(data->img, x, y, data->assets->f);
 			mlx_put_pixel(data->img, x, y, 0xFF0000FF);
 		else if (y > draw_end)
 			//mlx_put_pixel(data->img, x, y, data->assets->c);
@@ -64,11 +64,11 @@ void vert_line(t_cub3d *data, int x, int draw_start, int draw_end)
 	}
 }
 
-unsigned int dim(unsigned int color, unsigned int shift)
+uint32_t dim(uint32_t color, uint32_t shift)
 {
-	unsigned int b;
-	unsigned int g;
-	unsigned int r;
+	uint32_t b;
+	uint32_t g;
+	uint32_t r;
 
 	b = (color << 16 >> 24);
 	g = (color << 8 >> 24);
@@ -112,4 +112,14 @@ void set_map(int map[MAP_W][MAP_H])
 	// 1000000001
 	// 1000p00001
 	// 1111111111
+}
+
+double x_move(double dir_x, double dir_y, double move)
+{
+	double alpha;
+	double x_move;
+	
+	alpha = atan(dir_y/dir_x);
+	x_move = move * cosf(alpha);
+	return(x_move);
 }

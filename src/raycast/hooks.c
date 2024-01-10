@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/07 18:46:01 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/09 23:37:40 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 	if (keydata.key == MLX_KEY_D)
 		((t_cub3d *)data)->rcdata->pos_y += 0.1;
 	if (keydata.key == MLX_KEY_S)
-		((t_cub3d *)data)->rcdata->pos_x += 0.1;
+		move_b((t_cub3d *)data, 0.1);
 	if (keydata.key == MLX_KEY_W)
-		((t_cub3d *)data)->rcdata->pos_x -= 0.1;
+		move_f((t_cub3d *)data, 0.1);
+	//	((t_cub3d *)data)->rcdata->pos_x -= 0.1;
 	if (keydata.key == MLX_KEY_RIGHT)
-		rotateP(((t_cub3d *)data)->rcdata, -0.01);
+		rotateP(((t_cub3d *)data)->rcdata, 0.1);
 	if (keydata.key == MLX_KEY_LEFT)
-		rotateP(((t_cub3d *)data)->rcdata, 0.01);
+		rotateP(((t_cub3d *)data)->rcdata, -0.1);
 	mlx_image_to_window(((t_cub3d *)data)-> mlx, ((t_cub3d *)data)->img, 0, 0);
 }
 

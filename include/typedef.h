@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/08 02:38:22 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/08 20:02:11 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_player
 # define BLUE 0x0000FF77
 # define ORANGE 0xDD7700FF
 # define WHITE 0xFFFFFFFF
-# define WALLC 0x0000FF77
+# define WALLC WHITE
 
 //structures
 typedef struct	s_rcdata {
@@ -91,7 +91,7 @@ typedef struct	s_rcdata {
 	int				draw_start;
 	int				draw_end;
 	int				h;
-	int				w_color;
+	uint32_t				w_color;
 }	t_rcdata;
 
 

@@ -6,7 +6,7 @@
 #    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/05 17:41:32 by mrubina          ###   ########.fr        #
+#    Updated: 2024/01/08 16:39:56 by mrubina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ UTILS = err_free_exit.c \
 RAYCAST = raycast.c \
 	hooks.c \
 	utils.c \
+	move.c \
 
 SRC = cub3d.c \
 	$(PARSER) \
