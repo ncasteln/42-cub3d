@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/08 02:36:51 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/10 16:09:04 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ void	parse_player(t_cub3d *data);
 void	path_validation(t_cub3d *data);
 
 // -------------------------------------------------------------- PARSING UTILS
-int		is_texture(char *line);
-void	jump_whitspaces(char **line);
-int		is_duplicate_asset(char *id, t_cub3d *data);
-int		is_missing_asset(t_assets *assets);
+int			is_texture(char *line);
+void		jump_whitspaces(char **line);
+int			is_duplicate_asset(char *id, t_cub3d *data);
+int			is_missing_asset(t_assets *assets);
 
-void	store_map_line(char *line, t_cub3d *data);
-int		is_valid_map_line(char *s);
-int		is_valid_map_char(char c);
+void		store_map_line(char *line, t_cub3d *data);
+int			is_valid_map_line(char *s);
+int			is_valid_map_char(char c);
+uint32_t	str_to_ul(char *s);
 
 // ---------------------------------------------------------------------- UTILS
 void	err_free_exit(char *s, t_cub3d *data, int err_n);
@@ -54,11 +55,11 @@ void	free_data(t_cub3d *data);
 void	free_dptr(char **p);
 int		is_empty_line(char *s);
 
-// -----------------------------------------------------------------PRINT UTILS
+// ---------------------------------------------------------------- PRINT UTILS
 void	print_map(char **p, int	row_len);
 void	print_assets(t_assets *assets);
 
-// -----------------------------------------------------------------RAYCASTING
+// ----------------------------------------------------------------- RAYCASTING
 void	key_hook(mlx_key_data_t keydata, void *param);
 void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param);
 void	win_close(mlx_t* mlx);

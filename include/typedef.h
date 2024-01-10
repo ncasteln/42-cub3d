@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/08 02:38:22 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/10 16:17:44 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ enum err
 
 typedef struct s_assets
 {
-	char	*no;
-	char	*ea;
-	char	*so;
-	char	*we;
-	char	*f;
-	char	*c;
+	char		*no;
+	char		*ea;
+	char		*so;
+	char		*we;
+	uint32_t	f;
+	uint32_t	c;
 }	t_assets;
 
 typedef struct s_player

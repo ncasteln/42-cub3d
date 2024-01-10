@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/10 14:42:26 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/10 16:19:40 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,8 +90,6 @@ $(OBJS_DIR)%.o: %.c ./include/cub3d.h
 clean:
 	@echo "$(NC)Removing [objs]..."
 	@rm -rf $(OBJS_DIR)
-	@echo "$(NC)Removing [MLX42 build]..."
-	@rm -rfd ./lib/MLX42/build $(MLX42)
 	@echo "$(NC)Removing [lib objs]..."
 	@$(MAKE) clean -C ./lib/
 

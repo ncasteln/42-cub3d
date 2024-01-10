@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/04 16:14:44 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/10 16:18:05 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	init_cub3d(t_cub3d *data)
 	data->assets->ea = NULL;
 	data->assets->so = NULL;
 	data->assets->we = NULL;
-	data->assets->f = NULL;
-	data->assets->c = NULL;
+	data->assets->f = 0;
+	data->assets->c = 0;
 	data->map = NULL;
 	data->line = NULL;
 	data->p = NULL;

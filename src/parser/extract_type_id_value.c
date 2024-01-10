@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_type_id_value.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2023/12/27 17:15:22 by nico             ###   ########.fr       */
+/*   Updated: 2024/01/10 16:26:09 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void	build_hex(int n, char **hex, int i)
 	char	b;
 
 	base16 = "0123456789ABCDEF";
-	a = base16[n / 16]; 
+	a = base16[n / 16];
 	b = base16[n % 16];
 	(*hex)[i + i + 2] = a;
 	(*hex)[i + i + 3] = b;
 }
 
-static char	*rgb_to_hex(char *color)
+static char	*rgb_to_hex_string(char *color)
 {
 	int		n;
 	char	**rgb;
@@ -63,7 +63,7 @@ static int	is_valid_zero(char *s)
 	i = 0;
 	if (s[i] == '+')
 		i++;
-	while (s[i] && s[i] == '0') // add + 
+	while (s[i] && s[i] == '0') // add +
 		i++;
 	if (i == ft_strlen(s))
 		return (1);
@@ -131,9 +131,9 @@ static int	is_valid_path(char *path)
 
 static char	*extract_color(char **line, t_cub3d *data)
 {
-	int		i;
-	char	*color;
-	char	*hex;
+	int			i;
+	char		*color;
+	char		*hex;
 
 	i = 0;
 	while ((*line)[i] && (ft_isdigit((*line)[i]) || (*line)[i] == ' ' || (*line)[i] == ',' || (*line)[i] == '+'))
@@ -148,7 +148,7 @@ static char	*extract_color(char **line, t_cub3d *data)
 		free(color);
 		err_free_exit("extract_color", data, E_INV_ASSET);
 	}
-	hex = rgb_to_hex(color);
+	hex = rgb_to_hex_string(color);
 	return (hex);
 }
 
