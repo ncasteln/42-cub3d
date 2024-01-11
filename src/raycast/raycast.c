@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/11 00:50:36 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/12 00:23:48 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,27 @@ functions for raycasting algorithm
 /*
 Some expanations, for now incomplete:
 	We have several spaces and each space has several coordinate systems
-	1. map space - this is a space where our player walks
-	it has two coordinate systems
+		1. Map space - this is a space where our player walks
+	it has two coordinate systems:
+		1.1 Integer coordinates
 	first system is integer and based on squares
 	for example we have a map 10x10 squares
 	A square can be occupied or not occupied by the wall
 	It's easy to say where is the wall on the map using integer coordinates
 	for example we can put a column at (6, 7)
-	float point coordinates
+		1.2 Float point coordinates
 	A player doesn't occupy the whole square and he can move inside it
 	so it makes sense using float point coordinates to show his precise position
 	if a player has integer coordinates (1,1) and he moves inside the square (1,1)
 	his float coordinates can be (1.24, 1.76) for example
-	2. screen space - this is what out player sees and therefore our game screen shows
-	it also has two types of coordinates
+		2. Screen space - this is what out player sees and therefore our game screen shows
+	it also has two types of coordinates:
+		2.1 Integer (pixel) coordinates
 	first system is integer pixel system
 	if for example our game window is 640x480 pixels
 	a pixel is going to have integer coordinates like (120,65)
-	float coordinates are used to make vector manipulations easier
+		2.2 Float point coordinates
+	float point coordinates are used to make vector manipulations easier
 	we use it only for x-dimension here
 	the left side of the window has x = -1, middle x = 0 right side - x = 1
 	I call them normalized coordinates because it's similar
@@ -54,6 +57,22 @@ Some expanations, for now incomplete:
 		//map square where player is
 			//init we start from player position
 // calculate distance before the first intersection and the step
+
+/*
+calculates the length of the ray from its start (player position)
+till the first intersection with x/y integer coordinate net
+|         |/
+|        /| - intersection with x
+|       / |
+|      /  |
+|     /   |
+|----/----|----- intersection with y
+|   /     |
+|  /      |
+	ray start
+calculation based on triangle proportion
+ */
+
 static void first_intersec(t_rc *rc)
 {
 	if (rc->raydir_x < 0)
@@ -78,6 +97,25 @@ static void first_intersec(t_rc *rc)
 	}
 }
 
+/*
+calculates some ray parameters
+
+|     | / (ray)
+|     |/
+|     /
+|----/|----- y
+|   / |
+|  /  |
+|-/---|----- y+1
+|/    |
+x     x+1
+
+1. Camera space FP(float point) coordinate (cam_x)
+2. Ray direction vector (raydir_x, raydir_y)
+3. Ray length between two adjacent integer x/y
+4. Map space integer coordinates
+5. First intersec parameters
+ */
 static void ray_init(t_rc *rc)
 {
 	rc->cam_x = 2 * rc->pixel_x / ((double) WIN_W) - 1;

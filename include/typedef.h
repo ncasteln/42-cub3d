@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/10 23:36:31 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/12 00:55:48 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ typedef struct	s_rc {
 	double			raydir_y;
 	double			plane_x; // camera plane
 	double			plane_y;
-	double			time; // current frame
-	double			oldTime; // previous frame
 	int				pixel_x; //pixel in camera space from 0 to game window width
 	int				map_x; //square coordinates - left upper side of the sqare
 	int				map_y;
@@ -86,12 +84,11 @@ typedef struct	s_rc {
 	int				step_x; //raycasting step
 	int				step_y;
 	int				side;
-	//struct Map map[MAP_H][MAP_W];
 	int				line_h;
 	double			wall_dist;
 	int				draw_start;
 	int				draw_end;
-	uint32_t				w_color;
+	uint32_t		w_color;
 }	t_rc;
 
 
