@@ -6,39 +6,54 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/11 00:23:51 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/12 16:29:53 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3d.h"
 
-
 /*
-player moves forward - along the look direction
+given the magnitude and the direction of the vector
+the vector is calculated
+input: direction, magnitude
+output: corresponding vector
  */
-void move(t_cub3d *data, double move, int dir)
+static void get_vector(t_dvect *vector, t_dvect *dir, double magnitude)
 {
 	double cos;
 	double sin;
 	double tan;
-	double delta_x;
-	double delta_y;
 
-	tan = data->rc->dir_y / data->rc->dir_x;
-	cos = sign(data->rc->dir_x) * sqrtf(1/(powf(tan, 2) + 1));
-	sin = sign(data->rc->dir_y) * sqrtf(1 - powf(cos, 2));
-	delta_x = move * cos;
-	delta_y = move * sin;
+	tan = dir->y / dir->x;
+	cos = sign(dir->x) * sqrtf(1/(powf(tan, 2) + 1));
+	sin = sign(dir->y) * sqrtf(1 - powf(cos, 2));
+	init_vect(vector, magnitude * cos, magnitude * sin);
+}
+
+/*
+player moves forward - along the look direction
+ */
+void move(t_cub3d *data, double incr, int dir)
+{
+	t_dvect incr_vector;
+	t_dvect dir_vector;
+
+	init_vect(&dir_vector, data->rc->dir_x, data->rc->dir_y);
+	if (dir == RIGHT)
+		rotateV(&(dir_vector.x), &(dir_vector.y), M_PI / 2);
+	else if (dir == LEFT)
+		rotateV(&(dir_vector.x), &(dir_vector.y), -M_PI / 2);
+	get_vector(&incr_vector, &dir_vector, incr);
 	if (dir == BACK)
 	{
-		delta_x *= -1;
-		delta_y *= -1;
+		incr_vector.x *= -1;
+		incr_vector.y *= -1;
 	}
-	if (check_space(data, delta_x, delta_y) == true)
+	if (check_space(data, incr_vector.x, incr_vector.y) == true)
 	{
-		data->rc->pos_x += delta_x;
-		data->rc->pos_y += delta_y;
+		data->rc->pos_x += incr_vector.x;
+		data->rc->pos_y += incr_vector.y;
 	}
 	//  printf("dir: %f, %f \n", data->rc->dir_x, data->rc->dir_y);
 	//  printf("stop: %f, %f \n", data->rc->pos_x, data->rc->pos_y);
@@ -57,7 +72,7 @@ int check_space(t_cub3d *data, double delta_x, double delta_y)
 	else
 		return (false);
 }
-
+//rotates any vector by a given angle (radians)
 void rotateV(double *x, double *y, double angle)
 {
 	double temp_x;
@@ -67,14 +82,9 @@ void rotateV(double *x, double *y, double angle)
 	*y = temp_x * sinf(angle) + *y * cosf(angle);
 }
 
+//rotates direction vector and plane vector
 void rotateP(t_rc *data, double angle)
 {
-	double tempX;
-
-	tempX = data->dir_x;
-	data->dir_x = data->dir_x*cosf(angle) - data->dir_y * sinf(angle);
-	data->dir_y = tempX * sinf(angle) + data->dir_y * cosf(angle);
-	tempX = data->plane_x;
-	data->plane_x = data->plane_x*cosf(angle) - data->plane_y * sinf(angle);
-	data->plane_y = tempX * sinf(angle) + data->plane_y * cosf(angle);
+	rotateV(&data->dir_x, &data->dir_y, angle);
+	rotateV(&data->plane_x, &data->plane_y, angle);
 }

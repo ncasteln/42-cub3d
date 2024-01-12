@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/11 00:26:38 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/12 16:16:03 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 	if (keydata.key == MLX_KEY_ESCAPE)
 		win_close(((t_cub3d *)data)->mlx);
 	if (keydata.key == MLX_KEY_A)
-		((t_cub3d *)data)->rc->pos_y -= 0.1;
+		move((t_cub3d *)data, 0.3, LEFT);
 	if (keydata.key == MLX_KEY_D)
-		((t_cub3d *)data)->rc->pos_y += 0.1;
+		move((t_cub3d *)data, 0.3, RIGHT);
 	if (keydata.key == MLX_KEY_S)
 		move((t_cub3d *)data, 0.3, BACK);
 	if (keydata.key == MLX_KEY_W)

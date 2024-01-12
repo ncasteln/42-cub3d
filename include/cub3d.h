@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/11 00:26:38 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/12 14:53:19 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 #include "MLX42.h"
 
 #include "typedef.h"
+
+// -D BONUS=1
+
+// #ifndef BONUS
+// # define BONUS = 0
+// #endif
 
 // -------------------------------------------------------------------- PARSING
 void	parse(int argc, char **argv, t_cub3d *data);
@@ -75,5 +81,7 @@ void move(t_cub3d *data, double move, int dir);
 void rotateV(double *x, double *y, double angle);
 int check_space(t_cub3d *data, double delta_x, double delta_y);
 int sign(double x);
+void move_s(t_cub3d *data, double move, int dir);
+t_dvect *init_vect(t_dvect *v, double x, double y);
 
 #endif

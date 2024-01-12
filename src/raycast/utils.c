@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/11 00:12:59 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/12 15:42:23 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,12 @@ int sign(double x)
 		return (-1);
 	else
 		return (0);
+}
+
+t_dvect *init_vect(t_dvect *v, double x, double y)
+{
+	v->x = x;
+	v->y = y;
+	return (v);
 }
 

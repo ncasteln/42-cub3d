@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/12 00:55:48 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/12 14:08:19 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_player
 
 # define FORWARD 100
 # define BACK 200
+# define RIGHT 300
+# define LEFT 400
 
 //structures
 typedef struct	s_rc {
@@ -104,5 +106,17 @@ typedef struct s_cub3d
 	t_player	*p;
 	t_rc	*rc;
 }	t_cub3d;
+
+typedef struct s_dvector
+{
+	double x;
+	double y;
+}	t_dvect;
+
+typedef struct s_ivector
+{
+	int x;
+	int y;
+}	t_ivect;
 
 #endif

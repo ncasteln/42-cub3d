@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/12 00:19:21 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/12 16:46:59 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void init_rc(t_cub3d *data)
 		data->rc->dir_x = -1;
 	else if (data->p->dir == 'E')
 		data->rc->dir_x = 1;
-	data->rc->plane_x = 0.9 * data->rc->dir_x;
-	data->rc->plane_y = 0.9 * data->rc->dir_y;
-	rotateV(&data->rc->plane_x, &data->rc->plane_y, -M_PI / 2);
+	data->rc->plane_x = 0.66 * data->rc->dir_x;
+	data->rc->plane_y = 0.66 * data->rc->dir_y;
+	rotateV(&data->rc->plane_x, &data->rc->plane_y, M_PI / 2);
 	data->rc->hit = 0;
 }
 

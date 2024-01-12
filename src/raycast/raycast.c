@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/12 00:23:48 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/12 16:47:14 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ till the first intersection with x/y integer coordinate net
 	ray start
 calculation based on triangle proportion
  */
-
 static void first_intersec(t_rc *rc)
 {
 	if (rc->raydir_x < 0)
@@ -119,8 +118,8 @@ x     x+1
 static void ray_init(t_rc *rc)
 {
 	rc->cam_x = 2 * rc->pixel_x / ((double) WIN_W) - 1;
-	rc->raydir_x = rc->dir_x - rc->plane_x * rc->cam_x;
-	rc->raydir_y = rc->dir_y - rc->plane_y * rc->cam_x;
+	rc->raydir_x = rc->dir_x + rc->plane_x * rc->cam_x;
+	rc->raydir_y = rc->dir_y + rc->plane_y * rc->cam_x;
 	rc->delta_dist_x = fabs(1/rc->raydir_x);
 	rc->delta_dist_y = fabs(1/rc->raydir_y);
 	rc->map_x = (int) rc->pos_x;
