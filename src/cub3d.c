@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/12 16:46:59 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/14 23:23:41 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,30 @@ printf("%x \n", data.assets->c);
 	//t_rc	rc;
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
+
+	//mlx_texture_t* texture = mlx_load_png("./src/raycast/colorstone.png");
+	// texture->height *= 2;
+	// texture->width *= 2;
+//	data.img1 = mlx_new_image(data.mlx, 64, 64);
+	//t_texmat col;
+	//texmat(texture, &col);
+	//draw_square1(&data, 10, 10, 60, &col);
+	//mlx_put_pixel(data.img1, 0, 0, texture->pixels[0]);
+	//data.img1 = mlx_texture_to_image(data.mlx, texture);
 	data.rc = &rc;
 	init_rc(&data);
 	//exit(0);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
+	//mlx_image_to_window(data.mlx, data.img1, 0, 0);
 	raycasting(&data);
-	printf("%i \n", data.p->x);
-	printf("%i \n", data.p->y);
+	// printf("%i \n", data.p->x);
+	// printf("b%i \n", texture->bytes_per_pixel);
+	// int i = 24;
+	// printf("%i \n", (int)texture->pixels[i]);
+	// printf("%i \n", (int)texture->pixels[i + 1]);
+	// printf("%i \n", (int)texture->pixels[i + 2]);
+	// printf("%i \n", (int)texture->pixels[i + 3]);
+	//uint8_t 
 	// exit(0);
 	mlx_loop_hook(data.mlx, refresh, &data);
 	mlx_key_hook(data.mlx, key_hook, &data);

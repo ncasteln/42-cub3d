@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/12 14:53:19 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/14 21:20:07 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,9 @@ int check_space(t_cub3d *data, double delta_x, double delta_y);
 int sign(double x);
 void move_s(t_cub3d *data, double move, int dir);
 t_dvect *init_vect(t_dvect *v, double x, double y);
-
+void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color);
+void texmat(mlx_texture_t *texture, t_texmat *col);
+void draw_square1(t_cub3d *data, int xStart, int yStart, int side, t_texmat *col);
+uint32_t getpixcol(uint8_t *p);
+uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
 #endif

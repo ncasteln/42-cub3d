@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/12 16:47:14 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/15 00:38:20 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,23 +155,72 @@ static void find_hit(t_cub3d *data)
 /*
 calculates line start and end and sets color
  */
+// static void set_draw(t_rc *rc)
+// {
+// 	rc->line_h = (int)(WIN_H / rc->wall_dist);
+// 		rc->draw_start = WIN_H / 2 - rc->line_h / 2;
+// 		if (rc->draw_start < 0)
+// 			rc->draw_start = 0;
+// 		rc->draw_end = WIN_H / 2 + rc->line_h / 2;
+// 		if (rc->draw_end >= WIN_H)
+// 			rc->draw_end = WIN_H;
+// 		rc->w_color = WALLC;
+// 		if (rc->side == 0)
+// 			rc->w_color = dim(WALLC, 10);
+// 		else
+// 			rc->w_color = WALLC;
+// }
+
 static void set_draw(t_rc *rc)
 {
+
+	
 	rc->line_h = (int)(WIN_H / rc->wall_dist);
-		rc->draw_start = WIN_H / 2 - rc->line_h / 2;
-		if (rc->draw_start < 0)
-			rc->draw_start = 0;
-		rc->draw_end = WIN_H / 2 + rc->line_h / 2;
-		if (rc->draw_end >= WIN_H)
-			rc->draw_end = WIN_H;
-		rc->w_color = WALLC;
-		if (rc->side == 0)
-			rc->w_color = dim(WALLC, 10);
-		else
-			rc->w_color = WALLC;
+	rc->draw_start = WIN_H / 2 - rc->line_h / 2;
+	if (rc->draw_start < 0)
+		rc->draw_start = 0;
+	rc->draw_end = WIN_H / 2 + rc->line_h / 2;
+	if (rc->draw_end >= WIN_H)
+		rc->draw_end = WIN_H;
+	// y = rc->draw_start;
+	// while (y < rc->draw_end)
+	// {
+	// 	tex_y = (int) rc->tex_pos & (TEX_H - 1);
+	// 	rc->tex_pos += step;
+	// 	rc->w_color = getpixcol(&tex->pixels[(tex_y * TEX_W + rc->tex_x)*4]);
+	// 	mlx_put_pixel(data->img, rc->pixel_x, y, rc->w_color);
+	// 	y++;
+	// }
 }
 
+static void putline(t_cub3d *data, int x, int draw_start, int draw_end)
+{
+	int y;
+	int tex_y;
+	double step;
+	mlx_texture_t* tex;
 
+	//tex = mlx_load_png(data->assets->no);
+	tex = mlx_load_png("./src/raycast/colorstone.png");
+	step = 1.0 * TEX_H / data->rc->line_h;
+	data->rc->tex_pos = (data->rc->draw_start - WIN_H / 2 + data->rc->line_h / 2) * step;
+	y = 0;
+	while (y >=0 && y < WIN_H)
+	{
+		if (y >= draw_start && y <= draw_end)
+		{
+			tex_y = (int) data->rc->tex_pos & (TEX_H - 1);
+		data->rc->tex_pos += step;
+		data->rc->w_color = getpixcol(&tex->pixels[(tex_y * TEX_W + data->rc->tex_x)*4]);
+		mlx_put_pixel(data->img, data->rc->pixel_x, y, data->rc->w_color);
+		}
+		else if (y < draw_start)
+			mlx_put_pixel(data->img, x, y, data->assets->c);
+		else if (y > draw_end)
+			mlx_put_pixel(data->img, x, y, data->assets->f);
+		y++;
+	}
+}
 /*
 for each horizontal pixel we take a ray
 that should be projected on the screen for that point
@@ -187,11 +236,25 @@ void raycasting(t_cub3d *data)
 		ray_init(data->rc);
 		find_hit(data);
 		if (data->rc->side == 0)
+		{
 			data->rc->wall_dist = data->rc->side_dist_x - data->rc->delta_dist_x;
+			data->rc->wall_x = data->rc->pos_y + data->rc->wall_dist * data->rc->raydir_y;
+		}
 		else
+		{
 			data->rc->wall_dist = data->rc->side_dist_y - data->rc->delta_dist_y;
+			data->rc->wall_x = data->rc->pos_x + data->rc->wall_dist * data->rc->raydir_x;
+		}
+		//texture x
+		data->rc->wall_x -= floor(data->rc->wall_x);
+		data->rc->tex_x = (int)(data->rc->wall_x * (double)TEX_W);
+		if (data->rc->side == 0 && data->rc->raydir_x > 0)
+			data->rc->tex_x = TEX_W - data->rc->tex_x - 1;
+		if (data->rc->side == 1 && data->rc->raydir_y < 0)
+			data->rc->tex_x = TEX_W - data->rc->tex_x - 1;
 		set_draw(data->rc);
-		vert_line(data, data->rc->pixel_x, data->rc->draw_start, data->rc->draw_end);
+		putline(data, data->rc->pixel_x, data->rc->draw_start, data->rc->draw_end);
+		//vert_line(data, data->rc->pixel_x, data->rc->draw_start, data->rc->draw_end);
 		data->rc->pixel_x++;
 	}
 }

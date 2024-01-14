@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/12 16:16:03 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/14 23:24:31 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,36 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 		move((t_cub3d *)data, 0.3, BACK);
 	if (keydata.key == MLX_KEY_W)
 		move((t_cub3d *)data, 0.3, FORWARD);
-	//	((t_cub3d *)data)->rc->pos_x -= 0.1;
 	if (keydata.key == MLX_KEY_RIGHT)
 		rotateP(((t_cub3d *)data)->rc, 0.05);
 	if (keydata.key == MLX_KEY_LEFT)
 		rotateP(((t_cub3d *)data)->rc, -0.05);
-	mlx_image_to_window(((t_cub3d *)data)-> mlx, ((t_cub3d *)data)->img, 0, 0);
+	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
+	//mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img1, 0, 0);
 }
 
 void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param)
 {
 	if (keydata.key == MLX_MOUSE_BUTTON_LEFT)
 		mlx_put_pixel(((t_cub3d *)param)->img, x, y, 0xFF0000FF);
+}
+
+void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color)
+{
+	int x;
+	int y;
+
+	x = xStart;
+	while (x < xStart + side)
+	{
+		y = yStart;
+		while (y < yStart + side)
+		{
+			mlx_put_pixel(data->img1, x, y, color);
+			y++;
+		}
+		x++;
+	}
 }
 
 void refresh(void *data)

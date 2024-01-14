@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/12 14:08:19 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/15 00:39:14 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ typedef struct s_player
 }	t_player;
 
 //constants
-# define WIN_W 640
-# define WIN_H 480
+# define WIN_W 1280
+# define WIN_H 1080
+#define TEX_W 64
+#define TEX_H 64
 
 # define RED 0x990000FF
 # define GREEN 0x00FF00FF
@@ -88,9 +90,14 @@ typedef struct	s_rc {
 	int				side;
 	int				line_h;
 	double			wall_dist;
+	double			wall_x;
 	int				draw_start;
 	int				draw_end;
+	int				tex_x;
+	double	tex_pos;
 	uint32_t		w_color;
+	//mlx_texture_t tex;
+
 }	t_rc;
 
 
@@ -98,6 +105,7 @@ typedef struct s_cub3d
 {
 	mlx_t*			mlx;
 	mlx_image_t*	img;
+	mlx_image_t*	img1;
 	t_assets	*assets;
 	char		**map;
 	size_t		n_rows;
@@ -112,6 +120,12 @@ typedef struct s_dvector
 	double x;
 	double y;
 }	t_dvect;
+
+typedef struct s_texmatrix
+{
+	uint32_t col[TEX_H][TEX_W];
+}	t_texmat;
+
 
 typedef struct s_ivector
 {
