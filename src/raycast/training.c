@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/12 21:27:39 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/15 20:26:42 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,22 @@ void draw_line(t_cub3d *data, int a, int b)
 		y = a*x + b;
 	}
 }
+
+/*
+calculates line start and end and sets color
+ */
+// static void set_draw(t_rc *rc)
+// {
+// 	rc->line_h = (int)(WIN_H / rc->wall_dist);
+// 		rc->draw_start = WIN_H / 2 - rc->line_h / 2;
+// 		if (rc->draw_start < 0)
+// 			rc->draw_start = 0;
+// 		rc->draw_end = WIN_H / 2 + rc->line_h / 2;
+// 		if (rc->draw_end >= WIN_H)
+// 			rc->draw_end = WIN_H;
+// 		rc->w_color = WALLC;
+// 		if (rc->side == 0)
+// 			rc->w_color = dim(WALLC, 10);
+// 		else
+// 			rc->w_color = WALLC;
+// }

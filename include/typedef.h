@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/15 00:39:14 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/16 01:34:48 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ typedef struct s_player
 }	t_player;
 
 //constants
-# define WIN_W 1280
-# define WIN_H 1080
+# define WIN_W 1600
+# define WIN_H 1200
 #define TEX_W 64
 #define TEX_H 64
+#define VERTICAL 0
+#define HORIZONTAL 1
 
 # define RED 0x990000FF
 # define GREEN 0x00FF00FF
@@ -72,18 +74,14 @@ typedef struct	s_rc {
 	double			pos_y; //player position Y
 	double			dir_x; // look direction
 	double			dir_y;
-	double			raydir_x; // ray direction
-	double			raydir_y;
 	double			plane_x; // camera plane
 	double			plane_y;
-	int				pixel_x; //pixel in camera space from 0 to game window width
 	int				map_x; //square coordinates - left upper side of the sqare
 	int				map_y;
 	double			side_dist_x; // distance from the current position to next x side
 	double			side_dist_y; // distance from the current position to next y side
 	double			delta_dist_x; // length from one x side to the  next
 	double			delta_dist_y; // length from one y side to the  next
-	double			cam_x; //normalized x: from -1 to 1
 	int				hit; //0 if the ray didn't hit a wall
 	int				step_x; //raycasting step
 	int				step_y;
@@ -96,8 +94,9 @@ typedef struct	s_rc {
 	int				tex_x;
 	double	tex_pos;
 	uint32_t		w_color;
-	//mlx_texture_t tex;
-
+	mlx_texture_t *tex[4];
+	int	tex_h;
+	int tex_w;
 }	t_rc;
 
 
@@ -121,11 +120,18 @@ typedef struct s_dvector
 	double y;
 }	t_dvect;
 
-typedef struct s_texmatrix
+//parameters for drawing
+typedef struct s_draw
 {
-	uint32_t col[TEX_H][TEX_W];
-}	t_texmat;
-
+	mlx_texture_t* tex;
+	//t_dvect *raydir
+	int start;
+	int end;
+	int tex_x;
+	int tex_y;
+	int tex_w;
+	int tex_h;
+}	t_draw;
 
 typedef struct s_ivector
 {

@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/14 23:23:41 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/15 23:23:35 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void init_rc(t_cub3d *data)
 	data->rc->plane_y = 0.66 * data->rc->dir_y;
 	rotateV(&data->rc->plane_x, &data->rc->plane_y, M_PI / 2);
 	data->rc->hit = 0;
+	load_textures(data);
 }
 
 int	main(int argc, char **argv)
@@ -61,41 +62,17 @@ int	main(int argc, char **argv)
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 	print_map(data.map, data.n_col);
-printf("%x \n", data.assets->c);
-	printf("%x \n", data.assets->f);
-	//exit(0);
-	//t_rc	rc;
+	// printf("%x \n", data.assets->c);
+	// printf("%x \n", data.assets->f);
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
-
-	//mlx_texture_t* texture = mlx_load_png("./src/raycast/colorstone.png");
-	// texture->height *= 2;
-	// texture->width *= 2;
-//	data.img1 = mlx_new_image(data.mlx, 64, 64);
-	//t_texmat col;
-	//texmat(texture, &col);
-	//draw_square1(&data, 10, 10, 60, &col);
-	//mlx_put_pixel(data.img1, 0, 0, texture->pixels[0]);
-	//data.img1 = mlx_texture_to_image(data.mlx, texture);
 	data.rc = &rc;
 	init_rc(&data);
-	//exit(0);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
-	//mlx_image_to_window(data.mlx, data.img1, 0, 0);
 	raycasting(&data);
-	// printf("%i \n", data.p->x);
-	// printf("b%i \n", texture->bytes_per_pixel);
-	// int i = 24;
-	// printf("%i \n", (int)texture->pixels[i]);
-	// printf("%i \n", (int)texture->pixels[i + 1]);
-	// printf("%i \n", (int)texture->pixels[i + 2]);
-	// printf("%i \n", (int)texture->pixels[i + 3]);
-	//uint8_t 
-	// exit(0);
 	mlx_loop_hook(data.mlx, refresh, &data);
 	mlx_key_hook(data.mlx, key_hook, &data);
 	//mlx_mouse_hook(rc.mlx, mouse_hook, &rc);
-	//mlx_loop_hook(rc.mlx, )
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 	return (0);

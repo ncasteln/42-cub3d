@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/15 00:04:02 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/16 00:58:57 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,6 @@ void vert_line(t_cub3d *data, int x, int draw_start, int draw_end)
 	}
 }
 
-//y * TEX_W + x)*4 first
-void texmat(mlx_texture_t *texture, t_texmat *col)
-{
-	uint32_t x;
-	uint32_t y;
-
-	y = 0;
-	while (y < TEX_H)
-	{
-		x = 0;
-		while (x < TEX_W)
-		{
-			col->col[y][x] = getpixcol(&texture->pixels[(y * TEX_W + x)*4]);
-			//exit(0);
-			x++;
-		}
-		y++;
-	}
-}
-
 uint32_t getpixcol(uint8_t *p)
 {
 	uint32_t b;
@@ -104,26 +84,6 @@ uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 	return ((r << 24) + (g << 16) + (b << 8) + a);
 }
 
- void draw_square1(t_cub3d *data, int xStart, int yStart, int side, t_texmat *col)
-{
-	int x;
-	int y;
-
-	y = yStart;
-	while (y < yStart + side)
-	{
-		x = xStart;
-		while (x < xStart + side - 6)
-		{
-			mlx_put_pixel(data->img1, x, y, col->col[y][x]);
-			x++;
-		}
-		y++;
-	}
-}
-
-
-
 uint32_t dim(uint32_t color, uint32_t shift)
 {
 	uint32_t b;
@@ -152,10 +112,20 @@ int sign(double x)
 		return (0);
 }
 
-t_dvect *init_vect(t_dvect *v, double x, double y)
+t_dvect *set_vectt(t_dvect *v, double x, double y)
 {
 	v->x = x;
 	v->y = y;
 	return (v);
+}
+
+//loads 4 texures from files
+//change to add mlx files
+void load_textures(t_cub3d *data)
+{
+	data->rc->tex[0] = mlx_load_png(data->assets->no);
+	data->rc->tex[1] = mlx_load_png(data->assets->we);
+	data->rc->tex[2] = mlx_load_png(data->assets->so);
+	data->rc->tex[3] = mlx_load_png(data->assets->ea);
 }
 

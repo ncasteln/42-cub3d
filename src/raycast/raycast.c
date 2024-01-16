@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/15 00:38:20 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/16 02:24:33 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ till the first intersection with x/y integer coordinate net
 	ray start
 calculation based on triangle proportion
  */
-static void first_intersec(t_rc *rc)
+static void first_intersec(t_rc *rc, t_dvect *raydir)
 {
-	if (rc->raydir_x < 0)
+	if (raydir->x < 0)
 	{
 		rc->step_x = -1;
 		rc->side_dist_x = (rc->pos_x - rc->map_x) * rc->delta_dist_x;
@@ -84,7 +84,7 @@ static void first_intersec(t_rc *rc)
 		rc->step_x = 1;
 		rc->side_dist_x = (rc->map_x + 1.0 - rc->pos_x) * rc->delta_dist_x;
 	}
-	if (rc->raydir_y < 0)
+	if (raydir->y < 0)
 	{
 		rc->step_y = -1;
 		rc->side_dist_y = (rc->pos_y - rc->map_y) * rc->delta_dist_y;
@@ -115,16 +115,18 @@ x     x+1
 4. Map space integer coordinates
 5. First intersec parameters
  */
-static void ray_init(t_rc *rc)
+static void ray_init(t_rc *rc, t_dvect *raydir, int pixel_x)
 {
-	rc->cam_x = 2 * rc->pixel_x / ((double) WIN_W) - 1;
-	rc->raydir_x = rc->dir_x + rc->plane_x * rc->cam_x;
-	rc->raydir_y = rc->dir_y + rc->plane_y * rc->cam_x;
-	rc->delta_dist_x = fabs(1/rc->raydir_x);
-	rc->delta_dist_y = fabs(1/rc->raydir_y);
+	double	cam_x;
+	cam_x = 2 * pixel_x / ((double) WIN_W) - 1;
+
+	raydir->x = rc->dir_x + rc->plane_x * cam_x;
+	raydir->y = rc->dir_y + rc->plane_y * cam_x;
+	rc->delta_dist_x = fabs(1 / raydir->x);
+	rc->delta_dist_y = fabs(1 / raydir->y);
 	rc->map_x = (int) rc->pos_x;
 	rc->map_y = (int) rc->pos_y;
-	first_intersec(rc);
+	first_intersec(rc, raydir);
 }
 
 /*
@@ -138,13 +140,13 @@ static void find_hit(t_cub3d *data)
 		{
 			data->rc->side_dist_x += data->rc->delta_dist_x;
 			data->rc->map_x += data->rc->step_x;
-			data->rc->side = 0;
+			data->rc->side = VERTICAL;
 		}
 		else
 		{
 			data->rc->side_dist_y += data->rc->delta_dist_y;
 			data->rc->map_y += data->rc->step_y;
-			data->rc->side = 1;
+			data->rc->side = HORIZONTAL;
 		}
 		if (data->map[data->rc->map_y][data->rc->map_x] == 49)
 			data->rc->hit = 1;
@@ -152,29 +154,38 @@ static void find_hit(t_cub3d *data)
 	data->rc->hit = 0;
 }
 
+
 /*
-calculates line start and end and sets color
+Selects a texture
+if a ray with positive y (ray direction vector) hits a horizontal wall
+it means that the wall faces North and we use the  "North texture"
+\    /
+ \  /
+__\/_________
+similarly for other cases
  */
-// static void set_draw(t_rc *rc)
-// {
-// 	rc->line_h = (int)(WIN_H / rc->wall_dist);
-// 		rc->draw_start = WIN_H / 2 - rc->line_h / 2;
-// 		if (rc->draw_start < 0)
-// 			rc->draw_start = 0;
-// 		rc->draw_end = WIN_H / 2 + rc->line_h / 2;
-// 		if (rc->draw_end >= WIN_H)
-// 			rc->draw_end = WIN_H;
-// 		rc->w_color = WALLC;
-// 		if (rc->side == 0)
-// 			rc->w_color = dim(WALLC, 10);
-// 		else
-// 			rc->w_color = WALLC;
-// }
+
+static mlx_texture_t* select_texture(t_cub3d *data, t_dvect *raydir)
+{
+	if (data->rc->side == HORIZONTAL)
+	{
+		if (raydir->y >= 0)
+			return (data->rc->tex[0]);
+		else if (raydir->y < 0)
+			return (data->rc->tex[2]);
+	}
+	else
+	{
+		if (raydir->x >= 0)
+			return (data->rc->tex[1]);
+		else if (raydir->x < 0)
+			return (data->rc->tex[3]);
+	}
+	return (NULL);
+}
 
 static void set_draw(t_rc *rc)
 {
-
-	
 	rc->line_h = (int)(WIN_H / rc->wall_dist);
 	rc->draw_start = WIN_H / 2 - rc->line_h / 2;
 	if (rc->draw_start < 0)
@@ -182,37 +193,28 @@ static void set_draw(t_rc *rc)
 	rc->draw_end = WIN_H / 2 + rc->line_h / 2;
 	if (rc->draw_end >= WIN_H)
 		rc->draw_end = WIN_H;
-	// y = rc->draw_start;
-	// while (y < rc->draw_end)
-	// {
-	// 	tex_y = (int) rc->tex_pos & (TEX_H - 1);
-	// 	rc->tex_pos += step;
-	// 	rc->w_color = getpixcol(&tex->pixels[(tex_y * TEX_W + rc->tex_x)*4]);
-	// 	mlx_put_pixel(data->img, rc->pixel_x, y, rc->w_color);
-	// 	y++;
-	// }
 }
 
-static void putline(t_cub3d *data, int x, int draw_start, int draw_end)
+/*
+prints a vertical line based on a texture
+ */
+static void putline(t_cub3d *data, int x, int draw_start, int draw_end, t_dvect *raydir, mlx_texture_t* tex)
 {
 	int y;
 	int tex_y;
 	double step;
-	mlx_texture_t* tex;
-
-	//tex = mlx_load_png(data->assets->no);
-	tex = mlx_load_png("./src/raycast/colorstone.png");
-	step = 1.0 * TEX_H / data->rc->line_h;
+	
+	step = 1.0 * data->rc->tex_h / data->rc->line_h;
 	data->rc->tex_pos = (data->rc->draw_start - WIN_H / 2 + data->rc->line_h / 2) * step;
 	y = 0;
 	while (y >=0 && y < WIN_H)
 	{
 		if (y >= draw_start && y <= draw_end)
 		{
-			tex_y = (int) data->rc->tex_pos & (TEX_H - 1);
-		data->rc->tex_pos += step;
-		data->rc->w_color = getpixcol(&tex->pixels[(tex_y * TEX_W + data->rc->tex_x)*4]);
-		mlx_put_pixel(data->img, data->rc->pixel_x, y, data->rc->w_color);
+			tex_y = (int) data->rc->tex_pos & (data->rc->tex_h - 1);
+			data->rc->tex_pos += step;
+			data->rc->w_color = getpixcol(&tex->pixels[(tex_y * data->rc->tex_w + data->rc->tex_x)*4]);
+			mlx_put_pixel(data->img, x, y, data->rc->w_color);
 		}
 		else if (y < draw_start)
 			mlx_put_pixel(data->img, x, y, data->assets->c);
@@ -221,6 +223,7 @@ static void putline(t_cub3d *data, int x, int draw_start, int draw_end)
 		y++;
 	}
 }
+
 /*
 for each horizontal pixel we take a ray
 that should be projected on the screen for that point
@@ -230,31 +233,40 @@ this allows us to draw the wall
  */
 void raycasting(t_cub3d *data)
 {
-	data->rc->pixel_x = 0;
-	while (data->rc->pixel_x < WIN_W)
+	t_dvect raydir;
+	int pixel_x;
+	mlx_texture_t* tex;
+
+	pixel_x = 0;
+	while (pixel_x < WIN_W)
 	{
-		ray_init(data->rc);
+		ray_init(data->rc, &raydir, pixel_x);
 		find_hit(data);
-		if (data->rc->side == 0)
+		if (data->rc->side == VERTICAL)
 		{
 			data->rc->wall_dist = data->rc->side_dist_x - data->rc->delta_dist_x;
-			data->rc->wall_x = data->rc->pos_y + data->rc->wall_dist * data->rc->raydir_y;
+			data->rc->wall_x = data->rc->pos_y + data->rc->wall_dist * raydir.y;
 		}
 		else
 		{
 			data->rc->wall_dist = data->rc->side_dist_y - data->rc->delta_dist_y;
-			data->rc->wall_x = data->rc->pos_x + data->rc->wall_dist * data->rc->raydir_x;
+			data->rc->wall_x = data->rc->pos_x + data->rc->wall_dist * raydir.x;
 		}
+		tex = select_texture(data, &raydir);
 		//texture x
 		data->rc->wall_x -= floor(data->rc->wall_x);
-		data->rc->tex_x = (int)(data->rc->wall_x * (double)TEX_W);
-		if (data->rc->side == 0 && data->rc->raydir_x > 0)
-			data->rc->tex_x = TEX_W - data->rc->tex_x - 1;
-		if (data->rc->side == 1 && data->rc->raydir_y < 0)
-			data->rc->tex_x = TEX_W - data->rc->tex_x - 1;
+		data->rc->tex_x = (int)(data->rc->wall_x * (double)data->rc->tex_w);
+		//printf("fgg %d \n", data->rc->tex_w);
+		//exit(0);
+		data->rc->tex_h = tex->height;
+		data->rc->tex_w = tex->width;
+		if (data->rc->side == VERTICAL && raydir.x > 0)
+			data->rc->tex_x = data->rc->tex_w - data->rc->tex_x - 1;
+		if (data->rc->side == HORIZONTAL && raydir.y < 0)
+			data->rc->tex_x = data->rc->tex_w - data->rc->tex_x - 1;
 		set_draw(data->rc);
-		putline(data, data->rc->pixel_x, data->rc->draw_start, data->rc->draw_end);
+		putline(data, pixel_x, data->rc->draw_start, data->rc->draw_end, &raydir, tex);
 		//vert_line(data, data->rc->pixel_x, data->rc->draw_start, data->rc->draw_end);
-		data->rc->pixel_x++;
+		pixel_x++;
 	}
 }

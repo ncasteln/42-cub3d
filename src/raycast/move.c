@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/12 16:29:53 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/16 00:58:57 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void get_vector(t_dvect *vector, t_dvect *dir, double magnitude)
 	tan = dir->y / dir->x;
 	cos = sign(dir->x) * sqrtf(1/(powf(tan, 2) + 1));
 	sin = sign(dir->y) * sqrtf(1 - powf(cos, 2));
-	init_vect(vector, magnitude * cos, magnitude * sin);
+	set_vectt(vector, magnitude * cos, magnitude * sin);
 }
 
 /*
@@ -39,7 +39,7 @@ void move(t_cub3d *data, double incr, int dir)
 	t_dvect incr_vector;
 	t_dvect dir_vector;
 
-	init_vect(&dir_vector, data->rc->dir_x, data->rc->dir_y);
+	set_vectt(&dir_vector, data->rc->dir_x, data->rc->dir_y);
 	if (dir == RIGHT)
 		rotateV(&(dir_vector.x), &(dir_vector.y), M_PI / 2);
 	else if (dir == LEFT)
