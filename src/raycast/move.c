@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/17 13:45:03 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:42:46 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void move(t_cub3d *data, double incr, int dir)
 	{
 		data->mv->pos.x += incr_vector.x;
 		data->mv->pos.y += incr_vector.y;
+		data->mv->map.x = (int) data->mv->pos.x;
+		data->mv->map.y = (int) data->mv->pos.y;
 	}
 	//  printf("dir: %f, %f \n", data->mv->dir_x, data->mv->dir.y);
 	//  printf("stop: %f, %f \n", data->mv->pos.x, data->mv->pos.y);
