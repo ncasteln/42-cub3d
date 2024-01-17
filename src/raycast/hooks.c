@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/15 20:25:31 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/16 21:57:09 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 	if (keydata.key == MLX_KEY_W)
 		move((t_cub3d *)data, 0.5, FORWARD);
 	if (keydata.key == MLX_KEY_RIGHT)
-		rotateP(((t_cub3d *)data)->rc, 0.1);
+		rotateP(((t_cub3d *)data)->mv, 0.1);
 	if (keydata.key == MLX_KEY_LEFT)
-		rotateP(((t_cub3d *)data)->rc, -0.1);
+		rotateP(((t_cub3d *)data)->mv, -0.1);
 	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
 	//mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img1, 0, 0);
 }

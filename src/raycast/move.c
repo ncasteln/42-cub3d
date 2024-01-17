@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/16 00:58:57 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/16 21:57:09 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void get_vector(t_dvect *vector, t_dvect *dir, double magnitude)
 	tan = dir->y / dir->x;
 	cos = sign(dir->x) * sqrtf(1/(powf(tan, 2) + 1));
 	sin = sign(dir->y) * sqrtf(1 - powf(cos, 2));
-	set_vectt(vector, magnitude * cos, magnitude * sin);
+	set_vect(vector, magnitude * cos, magnitude * sin);
 }
 
 /*
@@ -39,7 +39,7 @@ void move(t_cub3d *data, double incr, int dir)
 	t_dvect incr_vector;
 	t_dvect dir_vector;
 
-	set_vectt(&dir_vector, data->rc->dir_x, data->rc->dir_y);
+	set_vect(&dir_vector, data->mv->dir.x, data->mv->dir.y);
 	if (dir == RIGHT)
 		rotateV(&(dir_vector.x), &(dir_vector.y), M_PI / 2);
 	else if (dir == LEFT)
@@ -52,11 +52,11 @@ void move(t_cub3d *data, double incr, int dir)
 	}
 	if (check_space(data, incr_vector.x, incr_vector.y) == true)
 	{
-		data->rc->pos_x += incr_vector.x;
-		data->rc->pos_y += incr_vector.y;
+		data->mv->pos.x += incr_vector.x;
+		data->mv->pos.y += incr_vector.y;
 	}
-	//  printf("dir: %f, %f \n", data->rc->dir_x, data->rc->dir_y);
-	//  printf("stop: %f, %f \n", data->rc->pos_x, data->rc->pos_y);
+	//  printf("dir: %f, %f \n", data->mv->dir_x, data->mv->dir.y);
+	//  printf("stop: %f, %f \n", data->mv->pos.x, data->mv->pos.y);
 }
 
 //checks if the movement is possible and the player doesn't go through walls
@@ -65,8 +65,8 @@ int check_space(t_cub3d *data, double delta_x, double delta_y)
 	int x;
 	int y;
 
-	x = (int)(data->rc->pos_x + delta_x);
-	y = (int)(data->rc->pos_y + delta_y);
+	x = (int)(data->mv->pos.x + delta_x);
+	y = (int)(data->mv->pos.y + delta_y);
 	if (data->map[y][x] != '1')
 		return (true);
 	else
@@ -83,8 +83,8 @@ void rotateV(double *x, double *y, double angle)
 }
 
 //rotates direction vector and plane vector
-void rotateP(t_rc *data, double angle)
+void rotateP(t_move *data, double angle)
 {
-	rotateV(&data->dir_x, &data->dir_y, angle);
-	rotateV(&data->plane_x, &data->plane_y, angle);
+	rotateV(&data->dir.x, &data->dir.y, angle);
+	rotateV(&data->plane.x, &data->plane.y, angle);
 }

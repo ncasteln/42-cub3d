@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/16 00:58:57 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/16 21:55:17 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	raycasting(t_cub3d *data);
 void vert_line(t_cub3d *data, int x, int draw_start, int draw_end);
 void	refresh(void *param);
 void	clearScreen(t_cub3d *data);
-void	rotateP(t_rc *data, double angle);
+void	rotateP(t_move *data, double angle);
 uint32_t dim(uint32_t color, uint32_t shift);
 //void move(t_cub3d *data, double move);
 void move(t_cub3d *data, double move, int dir);
@@ -82,7 +82,7 @@ void rotateV(double *x, double *y, double angle);
 int check_space(t_cub3d *data, double delta_x, double delta_y);
 int sign(double x);
 void move_s(t_cub3d *data, double move, int dir);
-t_dvect *set_vectt(t_dvect *v, double x, double y);
+t_dvect *set_vect(t_dvect *v, double x, double y);
 void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color);
 uint32_t getpixcol(uint8_t *p);
 uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a);

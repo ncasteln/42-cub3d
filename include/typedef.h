@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/16 01:34:48 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 02:01:58 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,36 +68,27 @@ typedef struct s_player
 # define LEFT 400
 
 //structures
-typedef struct	s_rc {
+typedef struct s_dvector
+{
+	double x;
+	double y;
+}	t_dvect;
 
-	double			pos_x; //player position X
-	double			pos_y; //player position Y
-	double			dir_x; // look direction
-	double			dir_y;
-	double			plane_x; // camera plane
-	double			plane_y;
-	int				map_x; //square coordinates - left upper side of the sqare
-	int				map_y;
-	double			side_dist_x; // distance from the current position to next x side
-	double			side_dist_y; // distance from the current position to next y side
-	double			delta_dist_x; // length from one x side to the  next
-	double			delta_dist_y; // length from one y side to the  next
-	int				hit; //0 if the ray didn't hit a wall
-	int				step_x; //raycasting step
-	int				step_y;
-	int				side;
-	int				line_h;
-	double			wall_dist;
-	double			wall_x;
-	int				draw_start;
-	int				draw_end;
-	int				tex_x;
-	double	tex_pos;
-	uint32_t		w_color;
+typedef struct s_ivector
+{
+	int x;
+	int y;
+}	t_ivect;
+
+//variables related to movement
+typedef struct	s_move {
+
+	t_dvect			pos; // character position
+	t_dvect			dir; // look direction
+	t_dvect			plane; //camera plane
+	t_ivect		map;	//square coordinates - left upper side of the sqare
 	mlx_texture_t *tex[4];
-	int	tex_h;
-	int tex_w;
-}	t_rc;
+}	t_move;
 
 
 typedef struct s_cub3d
@@ -111,32 +102,28 @@ typedef struct s_cub3d
 	size_t		n_col;
 	char		*line;
 	t_player	*p;
-	t_rc	*rc;
+	t_move	*mv;
 }	t_cub3d;
 
-typedef struct s_dvector
+/* variables related to raycasting calculation
+ray direction
+distance from the current position to next x/y side
+length from one x/y side to the next
+distance from the player to the wall
+*/
+typedef struct s_raycast
 {
-	double x;
-	double y;
-}	t_dvect;
-
-//parameters for drawing
-typedef struct s_draw
-{
-	mlx_texture_t* tex;
-	//t_dvect *raydir
-	int start;
-	int end;
-	int tex_x;
-	int tex_y;
-	int tex_w;
-	int tex_h;
-}	t_draw;
-
-typedef struct s_ivector
-{
-	int x;
-	int y;
-}	t_ivect;
+	t_dvect	raydir;
+	t_dvect	side_dist;
+	t_dvect	delta_dist;
+	double	wall_dist;
+	double	wall_x;
+	int		hit; //0 if the ray didn't hit a wall
+	int		side;
+	int		line_h; //visible wall height for pixel_x
+	int		tex_x;
+	int		line_start;
+	int		line_end;
+}	t_raycast;
 
 #endif
