@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/08 02:39:12 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 02:06:12 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,27 @@ functions for raycasting algorithm
 /*
 Some expanations, for now incomplete:
 	We have several spaces and each space has several coordinate systems
-	1. map space - this is a space where our player walks
-	it has two coordinate systems
+		1. Map space - this is a space where our player walks
+	it has two coordinate systems:
+		1.1 Integer coordinates
 	first system is integer and based on squares
 	for example we have a map 10x10 squares
 	A square can be occupied or not occupied by the wall
 	It's easy to say where is the wall on the map using integer coordinates
 	for example we can put a column at (6, 7)
-	float point coordinates
+		1.2 Float point coordinates
 	A player doesn't occupy the whole square and he can move inside it
 	so it makes sense using float point coordinates to show his precise position
 	if a player has integer coordinates (1,1) and he moves inside the square (1,1)
 	his float coordinates can be (1.24, 1.76) for example
-	2. screen space - this is what out player sees and therefore our game screen shows
-	it also has two types of coordinates
+		2. Screen space - this is what out player sees and therefore our game screen shows
+	it also has two types of coordinates:
+		2.1 Integer (pixel) coordinates
 	first system is integer pixel system
 	if for example our game window is 640x480 pixels
 	a pixel is going to have integer coordinates like (120,65)
-	float coordinates are used to make vector manipulations easier
+		2.2 Float point coordinates
+	float point coordinates are used to make vector manipulations easier
 	we use it only for x-dimension here
 	the left side of the window has x = -1, middle x = 0 right side - x = 1
 	I call them normalized coordinates because it's similar
@@ -46,223 +49,212 @@ Some expanations, for now incomplete:
 	Input (non-constant): palyer position, player look direction
 	Output: the game screen shows what player sees
 	for each x of the game screen we find the wall that the player faces,
-	calculate the distance to that wall and it's size
+	calculate the distance to that wall and its size
 	and draw that wall
-
 */
+//for each pixel line we calculate ray direction
+// length of the ray between 2 closest integer x/y
+		//map square where player is
+			//init we start from player position
+// calculate distance before the first intersection and the step
 
-void rayCasting(t_cub3d *data)
+/*
+calculates the length of the ray from its start (player position)
+till the first intersection with x/y integer coordinate net
+|         |/
+|        /| - intersection with x
+|       / |
+|      /  |
+|     /   |
+|----/----|----- intersection with y
+|   /     |
+|  /      |
+	ray start
+calculation based on triangle proportion
+ */
+static void first_intersec(t_move *mv, t_raycast *rc)
 {
-	// int map[MAP_W][MAP_H]=
-	// {
-	//   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	//   {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-	//   {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	// };
-
-	// 	int map[MAP_W][MAP_H]=
-	// {
-	//   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	//   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	// };
-
-// 		int map[MAP_H][MAP_W]=
-// {
-// 	{3,3,3,3,3,3,3,3,3,3,3,3,3},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,4,4,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,2,2,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{4,0,0,0,0,0,0,0,0,0,0,0,2},
-// 	{1,1,1,1,1,1,1,1,1,1,1,1,1}
-// };
-
-	data->rcdata->pixel_x = 0;//we start at first pixel
-	//printf("start %f, ", ((t_cub3d *)data)->pos_x);
-	//printf("%d, ", n);
-	//printf("%d, ", map[22][12]);
-	while (data->rcdata->pixel_x < WIN_W)
-	{
-		
-		data->rcdata->cam_x = 2 * data->rcdata->pixel_x / ((double) WIN_W) - 1;
-		data->rcdata->raydir_x = data->rcdata->dir_x + data->rcdata->plane_x * data->rcdata->cam_x;
-		data->rcdata->raydir_y = data->rcdata->dir_y + data->rcdata->plane_y * data->rcdata->cam_x;
-		
-		//printf("(%f, %f) ", data->rcdata->raydir_x, data->rcdata->raydir_y);
-		data->rcdata->map_x = (int) data->rcdata->pos_x;
-		data->rcdata->map_y = (int) data->rcdata->pos_y;
-		//printf("%d ", data->rcdata->map_y);
-	
-		//printf("(%i, %i) ", data->rcdata->map_x, data->rcdata->map_y);
-		data->rcdata->delta_dist_x = fabs(1/data->rcdata->raydir_x);
-		data->rcdata->delta_dist_y = fabs(1/data->rcdata->raydir_y);
-		//printf("(%f, %f) ", data->rcdata->delta_dist_x, data->rcdata->delta_dist_y);
-		if (data->rcdata->raydir_x < 0)
-		{
-			data->rcdata->step_x = -1;
-			data->rcdata->side_dist_x = (data->rcdata->pos_x - data->rcdata->map_x) * data->rcdata->delta_dist_x;
-			//printf("less %f ", data->rcdata->side_dist_x);
-		}
-		else
-		{
-
-			data->rcdata->step_x = 1;
-			data->rcdata->side_dist_x = (data->rcdata->map_x + 1.0 - data->rcdata->pos_x) * data->rcdata->delta_dist_x;
-			//printf("greater %f ", data->rcdata->side_dist_x);
-		}
-		if (data->rcdata->raydir_y < 0)
-		{
-			data->rcdata->step_y = -1;
-			data->rcdata->side_dist_y = (data->rcdata->pos_y - data->rcdata->map_y) * data->rcdata->delta_dist_y;
-			//printf("less %f ", data->rcdata->side_dist_y);
-		}
-		else
-		{
-			data->rcdata->step_y = 1;
-			data->rcdata->side_dist_y = (data->rcdata->map_y + 1.0 - data->rcdata->pos_y) * data->rcdata->delta_dist_y;
-			//printf("greater  %f ", data->rcdata->side_dist_y);
-		}
-		//algorithm before hit
-		while (data->rcdata->hit == 0)
-		{
-			//printf("%i, ", data->rcdata->hit);
-			// printf("%f ", data->rcdata->side_dist_x);
-			// printf("%f ", data->rcdata->side_dist_y);
-			//exit(0);
-			if (data->rcdata->side_dist_x < data->rcdata->side_dist_y)
-			{
-				data->rcdata->side_dist_x += data->rcdata->delta_dist_x;
-				data->rcdata->map_x += data->rcdata->step_x;
-				data->rcdata->side = 0;
-			}
-			else
-			{
-				data->rcdata->side_dist_y += data->rcdata->delta_dist_y;
-				data->rcdata->map_y += data->rcdata->step_y;
-				// printf("%d ", data->rcdata->map_y);
-				// exit(0);
-				data->rcdata->side = 1;
-			}
-			
-			//if (data->rcdata->map[data->rcdata->map_x][data->rcdata->map_y] > 0)
-			// printf("%d ", data->map[data->rcdata->map_y][data->rcdata->map_x]);
-			// printf("%d ", data->rcdata->map_y);
-			// exit(0);
-			if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 49)
-				data->rcdata->hit = 1;
-			//exit(0);
-			//printf("%i ", data->rcdata->hit);
-		}
-		data->rcdata->hit = 0;
-		if (data->rcdata->side == 0)
-			data->rcdata->wall_dist = data->rcdata->side_dist_x - data->rcdata->delta_dist_x;
-		else
-			data->rcdata->wall_dist = data->rcdata->side_dist_y - data->rcdata->delta_dist_y;
-		data->rcdata->line_h = (int)(data->rcdata->h / data->rcdata->wall_dist);
-		data->rcdata->draw_start = - data->rcdata->line_h / 2 + data->rcdata->h / 2;
-		if (data->rcdata->draw_start < 0)
-			data->rcdata->draw_start = 0;
-		data->rcdata->draw_end = data->rcdata->line_h / 2 + data->rcdata->h / 2;
-		if (data->rcdata->draw_start >= data->rcdata->h)
-			data->rcdata->draw_start = data->rcdata->h - 1;
-		//printf("%i, ", data->rcdata->draw_end);
-		//int color;
-
-	//color = RED;
-	// if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 49)
-	// 	color = RED;//red
-	// else if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 2)
-	// 	color = GREEN;//green
-	// else if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 3)
-	// 	color = BLUE;//blue
-	// else if (data->map[data->rcdata->map_y][data->rcdata->map_x] == 4)
-	// 	color = ORANGE;
-	// else
-	// 	color = WHITE;
-	data->rcdata->w_color = WALLC;
-	if (data->rcdata->side == 1)
-		data->rcdata->w_color = dim(WALLC, 50);
+	if (rc->raydir.x < 0)
+		rc->side_dist.x = (mv->pos.x - mv->map.x) * rc->delta_dist.x;
 	else
-		data->rcdata->w_color = WALLC;
-	//printf("drawing %i, x %i", data->rcdata->draw_start, data->rcdata->pixel_x);
-	vert_line(data, data->rcdata->pixel_x, data->rcdata->draw_start, data->rcdata->draw_end);
-		data->rcdata->pixel_x++;
-	}
-	// printf("x: %f \n", data->rcdata->dir_x);
-	// printf("y: %f \n", data->rcdata->dir_y);
-	// printf("px: %f \n", data->rcdata->plane_x);
-	// printf("py: %f \n", data->rcdata->plane_y);
-	//printf("built for %f, x %f", data->rcdata->dir_x, data->rcdata->dir_y);
+		rc->side_dist.x = (mv->map.x + 1.0 - mv->pos.x) * rc->delta_dist.x;
+	if (rc->raydir.y < 0)
+		rc->side_dist.y = (mv->pos.y - mv->map.y) * rc->delta_dist.y;
+	else
+		rc->side_dist.y = (mv->map.y + 1.0 - mv->pos.y) * rc->delta_dist.y;
 }
 
-void rotateP(t_rcdata *data, double angle)
-{
-	double tempX;
+/*
+calculates some ray parameters
 
-	tempX = data->dir_x;
-	data->dir_x = data->dir_x*cosf(angle) - data->dir_y * sinf(angle);
-	data->dir_y = tempX * sinf(angle) + data->dir_y * cosf(angle);
-	tempX = data->plane_x;
-	data->plane_x = data->plane_x*cosf(angle) - data->plane_y * sinf(angle);
-	data->plane_y = tempX * sinf(angle) + data->plane_y * cosf(angle);
+|     | / (ray)
+|     |/
+|     /
+|----/|----- y
+|   / |
+|  /  |
+|-/---|----- y+1
+|/    |
+x     x+1
+
+1. Camera space FP(float point) coordinate (cam_x)
+2. Ray direction vector (raydir_x, raydir_y)
+3. Ray length between two adjacent integer x/y
+4. Map space integer coordinates
+5. First intersec parameters
+ */
+static void ray_init(t_move *mv, int pixel_x, t_raycast *rc)
+{
+	double	cam_x;
+
+	cam_x = 2 * pixel_x / ((double) WIN_W) - 1;
+	rc->raydir.x = mv->dir.x + mv->plane.x * cam_x;
+	rc->raydir.y = mv->dir.y + mv->plane.y * cam_x;
+	rc->delta_dist.x = fabs(1 / rc->raydir.x);
+	rc->delta_dist.y = fabs(1 / rc->raydir.y);
+	mv->map.x = (int) mv->pos.x;
+	mv->map.y = (int) mv->pos.y;
+	first_intersec(mv, rc);
+}
+
+/*
+propagates the ray until it hits a wall
+ */
+static void find_hit(t_cub3d *data, t_raycast *rc)
+{
+	rc->hit = 0;
+	while (rc->hit == 0)
+	{
+		if (rc->side_dist.x < rc->side_dist.y)
+		{
+			rc->side_dist.x += rc->delta_dist.x;
+			data->mv->map.x += sign(rc->raydir.x);
+			rc->side = VERTICAL;
+		}
+		else
+		{
+			rc->side_dist.y += rc->delta_dist.y;
+			data->mv->map.y += sign(rc->raydir.y);
+			rc->side = HORIZONTAL;
+		}
+		if (data->map[data->mv->map.y][data->mv->map.x] == 49)
+			rc->hit = 1;
+	}
+	
+}
+
+
+/*
+Selects a texture
+if a ray with positive y (ray direction vector) hits a horizontal wall
+it means that the wall faces North and we use the  "North texture"
+\    /
+ \  /
+__\/_________
+similarly for other cases
+ */
+static mlx_texture_t* select_texture(t_cub3d *data, t_dvect *raydir, int side)
+{
+	if (side == HORIZONTAL)
+	{
+		if (raydir->y >= 0)
+			return (data->mv->tex[0]);
+		else if (raydir->y < 0)
+			return (data->mv->tex[2]);
+	}
+	else
+	{
+		if (raydir->x >= 0)
+			return (data->mv->tex[1]);
+		else if (raydir->x < 0)
+			return (data->mv->tex[3]);
+	}
+	return (NULL);
+}
+
+static void set_draw(t_raycast *rc)
+{
+	rc->line_h = (int)(WIN_H / rc->wall_dist);
+	rc->line_start = WIN_H / 2 - rc->line_h / 2;
+	if (rc->line_start < 0)
+		rc->line_start = 0;
+	rc->line_end = WIN_H / 2 + rc->line_h / 2;
+	if (rc->line_end >= WIN_H)
+		rc->line_end = WIN_H;
+}
+
+/*
+prints a vertical line based on a texture
+color that we want to use for a pixel depends on
+
+ */
+static void putline(t_cub3d *data, int x, mlx_texture_t* tex, t_raycast *rc)
+{
+	int			y;
+	int			tex_y;
+	double		step;
+	double		tex_pos;
+	uint32_t	w_color;
+
+	step = 1.0 * tex->height / rc->line_h;//we move along th texture height with this step
+	tex_pos = (rc->line_start - WIN_H / 2 + rc->line_h / 2) * step;
+	y = 0;
+	while (y >=0 && y < WIN_H)
+	{
+		if (y >= rc->line_start && y <= rc->line_end)
+		{
+			tex_y = (int) tex_pos & (tex->height - 1);
+			tex_pos += step;
+			w_color = getpixcol(&tex->pixels[(tex_y * tex->width + rc->tex_x)*4]);
+			mlx_put_pixel(data->img, x, y, w_color);
+		}
+		else if (y < rc->line_start)
+			mlx_put_pixel(data->img, x, y, data->assets->c);
+		else if (y > rc->line_end)
+			mlx_put_pixel(data->img, x, y, data->assets->f);
+		y++;
+	}
+}
+
+/*
+for each horizontal pixel we take a ray
+that should be projected on the screen for that point
+we find where the ray hits the wall and
+calculte the distance to this wall
+this allows us to draw the wall
+ */
+void raycasting(t_cub3d *data)
+{
+	int pixel_x;
+	mlx_texture_t* tex;
+	t_raycast rc;
+
+	pixel_x = 0;
+	while (pixel_x < WIN_W)
+	{
+		ray_init(data->mv, pixel_x, &rc);
+		find_hit(data,  &rc);
+		if (rc.side == VERTICAL)
+		{
+			rc.wall_dist = rc.side_dist.x - rc.delta_dist.x;
+			rc.wall_x = data->mv->pos.y + rc.wall_dist * rc.raydir.y;
+		}
+		else
+		{
+			rc.wall_dist = rc.side_dist.y - rc.delta_dist.y;
+			rc.wall_x = data->mv->pos.x + rc.wall_dist * rc.raydir.x;
+		}
+		tex = select_texture(data, &rc.raydir, rc.side);
+		//texture x
+		rc.wall_x -= floor(rc.wall_x);
+		rc.tex_x = (int)(rc.wall_x * (double)tex->width);
+
+		if (rc.side == VERTICAL && rc.raydir.x > 0)
+			rc.tex_x = tex->width - rc.tex_x - 1;
+		if (rc.side == HORIZONTAL && rc.raydir.y < 0)
+			rc.tex_x = tex->width - rc.tex_x - 1;
+		set_draw(&rc);
+		putline(data, pixel_x, tex, &rc);
+		pixel_x++;
+	}
 }

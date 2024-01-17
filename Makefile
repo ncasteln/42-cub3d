@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/17 09:42:02 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/17 09:50:44 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ UTILS = err_free_exit.c \
 RAYCAST = raycast.c \
 	hooks.c \
 	utils.c \
+	move.c \
 
 SRC = cub3d.c \
 	$(PARSER) \

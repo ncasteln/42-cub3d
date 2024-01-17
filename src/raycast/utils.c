@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/08 02:40:14 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 00:37:38 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,84 +32,66 @@ void clearScreen(t_cub3d *data)
 	}
 }
 
-// void vert_line(t_cub3d *data, int x, int draw_start, int draw_end, int color)
+// void vert_line(t_cub3d *data, int x, int draw_start, int draw_end)
 // {
 // 	int y;
 
 // 	y = 0;
 // 	while (y >=0 && y < WIN_H)
 // 	{
-// 		if (y > draw_start && y < draw_end)
-// 			mlx_put_pixel(data->img, x, y, color);
+// 		if (y >= draw_start && y <= draw_end)
+// 			mlx_put_pixel(data->img, x, y, data->mv->w_color);
+// 		else if (y < draw_start)
+// 			mlx_put_pixel(data->img, x, y, data->assets->c);
+// 		else if (y > draw_end)
+// 			mlx_put_pixel(data->img, x, y, data->assets->f);
 // 		y++;
 // 	}
 // }
 
-void vert_line(t_cub3d *data, int x, int draw_start, int draw_end)
+uint32_t getpixcol(uint8_t *p)
 {
-	int y;
+	uint32_t b;
+	uint32_t g;
+	uint32_t r;
+	uint32_t a;
 
-	y = 0;
-	while (y >=0 && y < WIN_H)
-	{
-		if (y >= draw_start && y <= draw_end)
-			mlx_put_pixel(data->img, x, y, data->rcdata->w_color);
-		else if (y < draw_start)
-			//mlx_put_pixel(data->img, x, y, data->assets->f);
-			mlx_put_pixel(data->img, x, y, 0xFF0000FF);
-		else if (y > draw_end)
-			//mlx_put_pixel(data->img, x, y, data->assets->c);
-			mlx_put_pixel(data->img, x, y, 0xC80808FF);
-		y++;
-	}
+	r = (uint32_t) *p;
+	g = (uint32_t) *(p + 1);
+	b = (uint32_t) *(p + 2);
+	a = (uint32_t) *(p + 3);
+	return (getcol(r, g, b, a));
 }
 
-unsigned int dim(unsigned int color, unsigned int shift)
+uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 {
-	unsigned int b;
-	unsigned int g;
-	unsigned int r;
-
-	b = (color << 16 >> 24);
-	g = (color << 8 >> 24);
-	r = (color >> 24);
-	if (b >= shift)
-		b = b - shift;
-	if (g >= shift)
-		g = g - shift;
-	if (r >= shift)
-		r = r - shift;
-	return ((r << 24) + (g << 16) + (b << 8) + 0xFF);
+	return ((r << 24) + (g << 16) + (b << 8) + a);
 }
 
-void set_map(int map[MAP_W][MAP_H])
+int sign(double x)
 {
-	int x;
-	int y;
-	x = 0;
-	y = 0;
-	while (x < MAP_W)
-	{
-		while (y < MAP_H)
-		{
-			if ((x == 0 || x == MAP_W - 1) || (y == 0 || y == MAP_H - 1))
-				map[x][y] = 1;
-			else
-				map[x][y] = 0;
-			y++;
-		}
-		x++;
-	}
-	// map[1][1] = 1;
-	// map[3][1] = 1;
-	// 1111111111
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000000001
-	// 1000p00001
-	// 1111111111
+	if (x > 0)
+		return (1);
+	if (x < 0)
+		return (-1);
+	else
+		return (0);
 }
+
+t_dvect *set_vect(t_dvect *v, double x, double y)
+{
+	v->x = x;
+	v->y = y;
+	return (v);
+}
+
+//loads 4 texures from files
+//change to add mlx files
+void load_textures(t_cub3d *data)
+{
+	data->mv->tex[0] = mlx_load_png(data->assets->no);
+	data->mv->tex[1] = mlx_load_png(data->assets->we);
+	data->mv->tex[2] = mlx_load_png(data->assets->so);
+	data->mv->tex[3] = mlx_load_png(data->assets->ea);
+}
+
