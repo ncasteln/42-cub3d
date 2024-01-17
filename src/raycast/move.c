@@ -6,20 +6,12 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/11 09:32:26 by ncasteln         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/16 21:57:09 by mrubina          ###   ########.fr       */
->>>>>>> merge
+/*   Updated: 2024/01/17 13:45:03 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-<<<<<<< HEAD
-//D
-void move_r(t_cub3d *data)
-=======
 /*
 given the magnitude and the direction of the vector
 the vector is calculated
@@ -27,7 +19,6 @@ input: direction, magnitude
 output: corresponding vector
  */
 static void get_vector(t_dvect *vector, t_dvect *dir, double magnitude)
->>>>>>> merge
 {
 	double cos;
 	double sin;

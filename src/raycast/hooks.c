@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/16 21:57:09 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 13:54:18 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 	if (keydata.key == MLX_KEY_ESCAPE)
 		win_close(((t_cub3d *)data)->mlx);
 	if (keydata.key == MLX_KEY_A)
-		move((t_cub3d *)data, 0.5, LEFT);
+		move((t_cub3d *)data, 0.75, LEFT);
 	if (keydata.key == MLX_KEY_D)
-		move((t_cub3d *)data, 0.5, RIGHT);
+		move((t_cub3d *)data, 0.75, RIGHT);
 	if (keydata.key == MLX_KEY_S)
-		move((t_cub3d *)data, 0.5, BACK);
+		move((t_cub3d *)data, 0.75, BACK);
 	if (keydata.key == MLX_KEY_W)
-		move((t_cub3d *)data, 0.5, FORWARD);
+		move((t_cub3d *)data, 0.75, FORWARD);
 	if (keydata.key == MLX_KEY_RIGHT)
-		rotateP(((t_cub3d *)data)->mv, 0.1);
+		rotateP(((t_cub3d *)data)->mv, 0.2);
 	if (keydata.key == MLX_KEY_LEFT)
-		rotateP(((t_cub3d *)data)->mv, -0.1);
+		rotateP(((t_cub3d *)data)->mv, -0.2);
 	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
 	//mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img1, 0, 0);
 }
@@ -67,4 +67,9 @@ void refresh(void *data)
 {
 	clearScreen(((t_cub3d *)data));
 	raycasting(((t_cub3d *)data));
+	if (BONUS)
+	{
+		clear_minimap((t_cub3d *)data);
+		draw_minimap((t_cub3d *)data);
+	}
 }

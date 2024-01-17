@@ -1,9 +1,9 @@
-NO ./assets/no
-WE ./assets/we
-SO ./assets/so
-EA ./assets/ea
-F 255,0,0
-C 200,8,8
+NO ./assets/no.png
+WE ./assets/we.png
+SO ./assets/so.png
+EA ./assets/ea.png
+F 66, 110, 65
+C 142, 191, 187
 
 
 

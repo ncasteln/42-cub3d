@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/17 09:50:28 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:44:50 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #include "MLX42.h"
 
 #include "typedef.h"
+#include "cub3d_bonus.h"
 
 #ifndef BONUS
 # define BONUS 0
