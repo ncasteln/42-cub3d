@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/17 19:30:13 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:06:36 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ typedef struct s_assets
 	uint32_t	c;
 }	t_assets;
 
+typedef struct s_dvector
+{
+	double x;
+	double y;
+}	t_dvect;
+
+typedef struct s_ivector
+{
+	int x;
+	int y;
+}	t_ivect;
+
 // t_dvect			pos; // character position
 // 	t_dvect			dir; // look direction
 // 	t_dvect			plane; //camera plane
@@ -49,10 +61,9 @@ typedef struct s_player
 	int		x;
 	int		y;
 	char	dir;
-	// t_dvect			pos; // character position
-	// t_dvect			dir; // look direction
-	// t_dvect			plane; //camera plane
-	// t_ivect		map;	//square coordinates - left upper side of the sqare
+	t_dvect	pos;
+	t_dvect	dirv;
+	t_dvect	plane;
 }	t_player;
 
 //constants
@@ -76,27 +87,6 @@ typedef struct s_player
 # define LEFT 400
 
 //structures
-typedef struct s_dvector
-{
-	double x;
-	double y;
-}	t_dvect;
-
-typedef struct s_ivector
-{
-	int x;
-	int y;
-}	t_ivect;
-
-//variables related to movement
-typedef struct	s_move {
-
-	t_dvect			pos; // character position
-	t_dvect			dir; // look direction
-	t_dvect			plane; //camera plane
-	t_ivect			map;	//square coordinates - left upper side of the sqare
-	mlx_texture_t	*tex[4];
-}	t_move;
 
 
 typedef struct s_cub3d
@@ -104,13 +94,13 @@ typedef struct s_cub3d
 	mlx_t*			mlx;
 	mlx_image_t*	img;
 	mlx_image_t*	img1;
+	mlx_texture_t	*tex[4];
 	t_assets	*assets;
 	char		**map;
 	size_t		n_rows;
 	size_t		n_col;
 	char		*line;
 	t_player	*p;
-	t_move	*mv;
 }	t_cub3d;
 
 /* variables related to raycasting calculation

@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/17 15:42:46 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:06:36 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void move(t_cub3d *data, double incr, int dir)
 	t_dvect incr_vector;
 	t_dvect dir_vector;
 
-	set_vect(&dir_vector, data->mv->dir.x, data->mv->dir.y);
+	set_vect(&dir_vector, data->p->dirv.x, data->p->dirv.y);
 	if (dir == RIGHT)
 		rotateV(&(dir_vector.x), &(dir_vector.y), M_PI / 2);
 	else if (dir == LEFT)
@@ -51,13 +51,13 @@ void move(t_cub3d *data, double incr, int dir)
 	}
 	if (check_space(data, incr_vector.x, incr_vector.y) == true)
 	{
-		data->mv->pos.x += incr_vector.x;
-		data->mv->pos.y += incr_vector.y;
-		data->mv->map.x = (int) data->mv->pos.x;
-		data->mv->map.y = (int) data->mv->pos.y;
+		data->p->pos.x += incr_vector.x;
+		data->p->pos.y += incr_vector.y;
+		data->p->x = (int) data->p->pos.x;
+		data->p->y = (int) data->p->pos.y;
 	}
-	//  printf("dir: %f, %f \n", data->mv->dir_x, data->mv->dir.y);
-	//  printf("stop: %f, %f \n", data->mv->pos.x, data->mv->pos.y);
+	//  printf("dir: %f, %f \n", data->mv->dir_x, data->p->dirv.y);
+	//  printf("stop: %f, %f \n", data->p->pos.x, data->p->pos.y);
 }
 
 //checks if the movement is possible and the player doesn't go through walls
@@ -66,8 +66,8 @@ int check_space(t_cub3d *data, double delta_x, double delta_y)
 	int x;
 	int y;
 
-	x = (int)(data->mv->pos.x + delta_x);
-	y = (int)(data->mv->pos.y + delta_y);
+	x = (int)(data->p->pos.x + delta_x);
+	y = (int)(data->p->pos.y + delta_y);
 	if (data->map[y][x] != '1')
 		return (true);
 	else
@@ -84,8 +84,8 @@ void rotateV(double *x, double *y, double angle)
 }
 
 //rotates direction vector and plane vector
-void rotateP(t_move *data, double angle)
+void rotateP(t_player *p, double angle)
 {
-	rotateV(&data->dir.x, &data->dir.y, angle);
-	rotateV(&data->plane.x, &data->plane.y, angle);
+	rotateV(&p->dirv.x, &p->dirv.y, angle);
+	rotateV(&p->plane.x, &p->plane.y, angle);
 }

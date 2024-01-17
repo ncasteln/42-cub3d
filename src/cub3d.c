@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/17 19:23:55 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:06:36 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,30 @@ static void	init_cub3d(t_cub3d *data)
 	data->n_col = 0;
 }
 
-void init_move(t_cub3d *data)
+void init_move(t_player *p)
 {
-	data->mv->pos.x = data->p->x;
-	data->mv->pos.y = data->p->y;
-	if (data->p->dir == 'N' || data->p->dir == 'S')
-		data->mv->dir.x = 0;
-	else if (data->p->dir == 'W' || data->p->dir == 'E')
-		data->mv->dir.y = 0;
-	if (data->p->dir == 'N')
-		data->mv->dir.y = -1;
-	else if (data->p->dir == 'S')
-		data->mv->dir.y = 1;
-	else if (data->p->dir == 'W')
-		data->mv->dir.x = -1;
-	else if (data->p->dir == 'E')
-		data->mv->dir.x = 1;
-	data->mv->plane.x = 0.66 * data->mv->dir.x;
-	data->mv->plane.y = 0.66 * data->mv->dir.y;
-	rotateV(&data->mv->plane.x, &data->mv->plane.y, M_PI / 2);
-	//data->mv->hit = 0;
-	load_textures(data);
+	p->pos.x = p->x;
+	p->pos.y = p->y;
+	if (p->dir == 'N' || p->dir == 'S')
+		p->dirv.x = 0;
+	else if (p->dir == 'W' || p->dir == 'E')
+		p->dirv.y = 0;
+	if (p->dir == 'N')
+		p->dirv.y = -1;
+	else if (p->dir == 'S')
+		p->dirv.y = 1;
+	else if (p->dir == 'W')
+		p->dirv.x = -1;
+	else if (p->dir == 'E')
+		p->dirv.x = 1;
+	p->plane.x = 0.66 * p->dirv.x;
+	p->plane.y = 0.66 * p->dirv.y;
+	rotateV(&p->plane.x, &p->plane.y, M_PI / 2);
 }
 
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;
-	t_move mv;
 
 	// substitute with ftbzero???
 	init_cub3d(&data);
@@ -66,9 +63,8 @@ int	main(int argc, char **argv)
 	// printf("%x \n", data.assets->f);
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
-	data.mv = &mv;
-	init_move(&data);
-
+	init_move(data.p);
+	load_textures(&data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 	raycasting(&data);
 	mlx_loop_hook(data.mlx, refresh, &data);

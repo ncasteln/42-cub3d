@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_player.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:51:01 by nico              #+#    #+#             */
-/*   Updated: 2023/12/25 19:13:48 by nico             ###   ########.fr       */
+/*   Updated: 2024/01/17 20:23:31 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_valid_direction(char c)
 
 static void	store_p_data(t_cub3d *data, int i, int j)
 {
-	data->p = ft_calloc(1, sizeof(t_player *));
+	data->p = ft_calloc(1, sizeof(t_player));
 	if (!data->p)
 		err_free_exit("parse_player", data, errno);
 	data->p->dir = data->map[i][j];

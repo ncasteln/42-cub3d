@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/17 19:32:47 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:06:36 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,16 @@ till the first intersection with x/y integer coordinate net
 	ray start
 calculation based on triangle proportion
  */
-static void first_intersec(t_move *mv, t_raycast *rc)
+static void first_intersec(t_raycast *rc, t_player *p)
 {
 	if (rc->raydir.x < 0)
-		rc->side_dist.x = (mv->pos.x - mv->map.x) * rc->delta_dist.x;
+		rc->side_dist.x = (p->pos.x - p->x) * rc->delta_dist.x;
 	else
-		rc->side_dist.x = (mv->map.x + 1.0 - mv->pos.x) * rc->delta_dist.x;
+		rc->side_dist.x = (p->x + 1.0 - p->pos.x) * rc->delta_dist.x;
 	if (rc->raydir.y < 0)
-		rc->side_dist.y = (mv->pos.y - mv->map.y) * rc->delta_dist.y;
+		rc->side_dist.y = (p->pos.y - p->y) * rc->delta_dist.y;
 	else
-		rc->side_dist.y = (mv->map.y + 1.0 - mv->pos.y) * rc->delta_dist.y;
+		rc->side_dist.y = (p->y + 1.0 - p->pos.y) * rc->delta_dist.y;
 }
 
 /*
@@ -103,18 +103,18 @@ x     x+1
 4. Map space integer coordinates
 5. First intersec parameters
  */
-static void ray_init(t_move *mv, int pixel_x, t_raycast *rc)
+static void ray_init(int pixel_x, t_raycast *rc, t_player *p)
 {
 	double	cam_x;
 
 	cam_x = 2 * pixel_x / ((double) WIN_W) - 1;
-	rc->raydir.x = mv->dir.x + mv->plane.x * cam_x;
-	rc->raydir.y = mv->dir.y + mv->plane.y * cam_x;
+	rc->raydir.x = p->dirv.x + p->plane.x * cam_x;
+	rc->raydir.y = p->dirv.y + p->plane.y * cam_x;
 	rc->delta_dist.x = fabs(1 / rc->raydir.x);
 	rc->delta_dist.y = fabs(1 / rc->raydir.y);
-	mv->map.x = (int) mv->pos.x;
-	mv->map.y = (int) mv->pos.y;
-	first_intersec(mv, rc);
+	p->x = (int) p->pos.x;
+	p->y = (int) p->pos.y;
+	first_intersec(rc, p);
 }
 
 /*
@@ -128,16 +128,16 @@ static void find_hit(t_cub3d *data, t_raycast *rc)
 		if (rc->side_dist.x < rc->side_dist.y)
 		{
 			rc->side_dist.x += rc->delta_dist.x;
-			data->mv->map.x += sign(rc->raydir.x);
+			data->p->x += sign(rc->raydir.x);
 			rc->side = VERTICAL;
 		}
 		else
 		{
 			rc->side_dist.y += rc->delta_dist.y;
-			data->mv->map.y += sign(rc->raydir.y);
+			data->p->y += sign(rc->raydir.y);
 			rc->side = HORIZONTAL;
 		}
-		if (data->map[data->mv->map.y][data->mv->map.x] == 49)
+		if (data->map[data->p->y][data->p->x] == 49)
 			rc->hit = 1;
 	}
 	
@@ -158,16 +158,16 @@ static mlx_texture_t* select_texture(t_cub3d *data, t_dvect *raydir, int side)
 	if (side == HORIZONTAL)
 	{
 		if (raydir->y >= 0)
-			return (data->mv->tex[0]);
+			return (data->tex[0]);
 		else if (raydir->y < 0)
-			return (data->mv->tex[2]);
+			return (data->tex[2]);
 	}
 	else
 	{
 		if (raydir->x >= 0)
-			return (data->mv->tex[1]);
+			return (data->tex[1]);
 		else if (raydir->x < 0)
-			return (data->mv->tex[3]);
+			return (data->tex[3]);
 	}
 	return (NULL);
 }
@@ -232,17 +232,17 @@ void raycasting(t_cub3d *data)
 	pixel_x = 0;
 	while (pixel_x < WIN_W)
 	{
-		ray_init(data->mv, pixel_x, &rc);
+		ray_init(pixel_x, &rc, data->p);
 		find_hit(data,  &rc);
 		if (rc.side == VERTICAL)
 		{
 			rc.wall_dist = rc.side_dist.x - rc.delta_dist.x;
-			rc.wall_x = data->mv->pos.y + rc.wall_dist * rc.raydir.y;
+			rc.wall_x = data->p->pos.y + rc.wall_dist * rc.raydir.y;
 		}
 		else
 		{
 			rc.wall_dist = rc.side_dist.y - rc.delta_dist.y;
-			rc.wall_x = data->mv->pos.x + rc.wall_dist * rc.raydir.x;
+			rc.wall_x = data->p->pos.x + rc.wall_dist * rc.raydir.x;
 		}
 		tex = select_texture(data, &rc.raydir, rc.side);
 		//texture x

@@ -6,7 +6,7 @@
 #    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/10 18:26:17 by mrubina          ###   ########.fr        #
+#    Updated: 2024/01/17 19:43:35 by mrubina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,11 +97,11 @@ clean:
 fclean: clean
 	@echo "$(NC)Removing [$(NAME)]..."
 	@rm -rf $(NAME)
-	@echo "$(NC)Removing [MLX42 library]..."
-	@rm -rfd ./lib/MLX42/ $(MLX42)
-	@echo "$(G)	[$(NAME) && MLX42] removed!$(NC)"
-	@echo "$(NC)Removing [lib archives]..."
-	@$(MAKE) fclean -C ./lib/
+	# @echo "$(NC)Removing [MLX42 library]..."
+	# @rm -rfd ./lib/MLX42/ $(MLX42)
+	# @echo "$(G)	[$(NAME) && MLX42] removed!$(NC)"
+	# @echo "$(NC)Removing [lib archives]..."
+	# @$(MAKE) fclean -C ./lib/
 
 test: $(NAME)
 	@./tests/tester

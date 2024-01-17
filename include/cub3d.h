@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/17 19:33:30 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 20:51:56 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	raycasting(t_cub3d *data);
 void vert_line(t_cub3d *data, int x, int draw_start, int draw_end);
 void	refresh(void *param);
 void	clearScreen(t_cub3d *data);
-void rotateP(t_move *data, double angle);
+void rotateP(t_player *p, double angle);
 uint32_t dim(uint32_t color, uint32_t shift);
 //void move(t_cub3d *data, double move);
 void move(t_cub3d *data, double move, int dir);

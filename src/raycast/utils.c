@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/17 19:29:22 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 19:38:06 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ t_dvect *set_vect(t_dvect *v, double x, double y)
 //change to add mlx files
 void load_textures(t_cub3d *data)
 {
-	data->mv->tex[0] = mlx_load_png(data->assets->no);
-	data->mv->tex[1] = mlx_load_png(data->assets->we);
-	data->mv->tex[2] = mlx_load_png(data->assets->so);
-	data->mv->tex[3] = mlx_load_png(data->assets->ea);
+	data->tex[0] = mlx_load_png(data->assets->no);
+	data->tex[1] = mlx_load_png(data->assets->we);
+	data->tex[2] = mlx_load_png(data->assets->so);
+	data->tex[3] = mlx_load_png(data->assets->ea);
 }
 
