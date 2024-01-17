@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/17 02:01:58 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 19:30:13 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,19 @@ typedef struct s_assets
 	uint32_t	c;
 }	t_assets;
 
+// t_dvect			pos; // character position
+// 	t_dvect			dir; // look direction
+// 	t_dvect			plane; //camera plane
+// 	t_ivect		map;	//square coordinates - left upper side of the sqare
 typedef struct s_player
 {
 	int		x;
 	int		y;
 	char	dir;
+	// t_dvect			pos; // character position
+	// t_dvect			dir; // look direction
+	// t_dvect			plane; //camera plane
+	// t_ivect		map;	//square coordinates - left upper side of the sqare
 }	t_player;
 
 //constants
@@ -86,8 +94,8 @@ typedef struct	s_move {
 	t_dvect			pos; // character position
 	t_dvect			dir; // look direction
 	t_dvect			plane; //camera plane
-	t_ivect		map;	//square coordinates - left upper side of the sqare
-	mlx_texture_t *tex[4];
+	t_ivect			map;	//square coordinates - left upper side of the sqare
+	mlx_texture_t	*tex[4];
 }	t_move;
 
 
