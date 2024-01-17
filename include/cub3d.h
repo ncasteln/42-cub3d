@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/10 16:09:04 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/17 09:26:14 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 #include "MLX42.h"
 
 #include "typedef.h"
+
+#ifndef BONUS
+# define BONUS 0
+#endif
 
 // -------------------------------------------------------------------- PARSING
 void	parse(int argc, char **argv, t_cub3d *data);
