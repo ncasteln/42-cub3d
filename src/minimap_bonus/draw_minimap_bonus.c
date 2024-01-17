@@ -6,13 +6,13 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:17:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/17 14:02:21 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/17 17:12:38 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	clear_map_tile(t_cub3d *data, char c, int cellY, int cellX)
+static void	minimap_clear_tile(t_cub3d *data, int cellY, int cellX)
 {
 	int	startX;
 	int	startY;
@@ -35,7 +35,7 @@ static void	clear_map_tile(t_cub3d *data, char c, int cellY, int cellX)
 	}
 }
 
-void clear_minimap(t_cub3d *data)
+void minimap_clear(t_cub3d *data)
 {
 	int	y;
 	int	x;
@@ -50,14 +50,34 @@ void clear_minimap(t_cub3d *data)
 		x = 0;
 		while (data->map[y][x])
 		{
-			clear_map_tile(data, data->map[y][x], y, x);
+			minimap_clear_tile(data, y, x);
 			x++;
 		}
 		y++;
 	}
 }
 
-static void	draw_map_tile(t_cub3d *data, char c, int cellY, int cellX)
+void	minimap_draw_player(t_cub3d *data)
+{
+	int y = 0;
+	int x = 0;
+
+	while (y < 5)
+	{
+		x = 0;
+		while (x < 5)
+		{
+			int drawAtX = data->mv->pos.x * MAP_PIXEL + x;
+			int drawAtY = data->mv->pos.y * MAP_PIXEL + y;
+			if (data->mv->map.y <= drawAtX && data->mv->map.y <= drawAtY)
+				mlx_put_pixel(data->img, drawAtX, drawAtY, 0x00000050);
+			x++;
+		}
+		y++;
+	}
+}
+
+static void	minimap_draw_tile(t_cub3d *data, char c, int cellY, int cellX)
 {
 	int	startX;
 	int	startY;
@@ -74,20 +94,18 @@ static void	draw_map_tile(t_cub3d *data, char c, int cellY, int cellX)
 		while (startX < endX)
 		{
 			if (c == '1')
-				mlx_put_pixel(data->img, startX, startY, 0xF5F0F0FF);
-			else if (c == '0')
-				mlx_put_pixel(data->img, startX, startY, 0x74ba56FF);
+				mlx_put_pixel(data->img, startX, startY, 0xF5F0F020);
 			else if (c == ' ')
-				mlx_put_pixel(data->img, startX, startY, 0x2ab567FF);
+				mlx_put_pixel(data->img, startX, startY, 0x2ab56720);
 			else
-				mlx_put_pixel(data->img, startX, startY, 0x000000FF);
+				mlx_put_pixel(data->img, startX, startY, 0x74ba5620);
 			startX++;
 		}
 		startY++;
 	}
 }
 
-void	draw_minimap(t_cub3d *data)
+void	minimap_draw_ambient(t_cub3d *data)
 {
 	int	y;
 	int	x;
@@ -102,7 +120,7 @@ void	draw_minimap(t_cub3d *data)
 		x = 0;
 		while (data->map[y][x])
 		{
-			draw_map_tile(data, data->map[y][x], y, x);
+			minimap_draw_tile(data, data->map[y][x], y, x);
 			x++;
 		}
 		y++;

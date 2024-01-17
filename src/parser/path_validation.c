@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2023/12/27 16:01:01 by nico             ###   ########.fr       */
+/*   Updated: 2024/01/17 17:20:26 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	get_longest_row_size(char **map)
 static void	fill_row(char *new_row, char *old_row, size_t new_row_len)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (i < new_row_len)
 	{
@@ -180,6 +180,25 @@ static char	**cpy_map(t_cub3d *data)
 	return (map_cpy);
 }
 
+static void	check_behind_doors(t_cub3d *data, char **map_cpy) // move to bonus stuff
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (map_cpy[y])
+	{
+		x = 0;
+		while (map_cpy[y][x])
+		{
+			if (map_cpy[y][x] == 'D')
+				flood_fill(y, x, map_cpy, data);
+			x++;
+		}
+		y++;
+	}
+}
+
 /*
 	The map in which the player can walk has to be enclosed by walls (1). It is
 	still possible that in this portion of map, there are empty spaces.
@@ -200,6 +219,7 @@ void	path_validation(t_cub3d *data)
 	data->map = map_rect;
 	map_cpy = cpy_map(data);
 	flood_fill(data->p->y, data->p->x, map_cpy, data);
-	// print_map(map_cpy, data->n_col); // remove
+	if (BONUS) // flood_fill for doors
+		check_behind_doors(data, map_cpy);
 	free_dptr(map_cpy);
 }

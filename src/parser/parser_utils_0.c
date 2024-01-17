@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_0.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2023/12/27 13:51:35 by nico             ###   ########.fr       */
+/*   Updated: 2024/01/17 17:29:44 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int is_texture(char *line)
 	if (!ft_strncmp(line, "SO", 2))
 		return (1);
 	if (!ft_strncmp(line, "WE", 2))
+		return (1);
+	if (BONUS && !ft_strncmp(line, "D", 1))
 		return (1);
 	return (0);
 }

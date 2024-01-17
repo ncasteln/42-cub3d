@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:18:22 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/17 15:24:58 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/17 16:35:46 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 #define MAP_PIXEL 10
 
-void	draw_minimap(t_cub3d *data);
-void	clear_minimap(t_cub3d *data);
+void	minimap_draw_ambient(t_cub3d *data);
+void	minimap_draw_player(t_cub3d *data);
+void	minimap_clear(t_cub3d *data);
 
 #endif

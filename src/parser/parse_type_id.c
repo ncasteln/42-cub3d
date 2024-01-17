@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:04:41 by nico              #+#    #+#             */
-/*   Updated: 2024/01/10 16:26:55 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/17 17:12:59 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	store_asset_value(char *value, char *type_id, t_cub3d *data)
 		data->assets->f = str_to_ul(value);;
 	if (!ft_strncmp(type_id, "C", 1))
 		data->assets->c = str_to_ul(value);;
+	if (BONUS && !ft_strncmp(type_id, "D", 1))
+		data->assets->d = value;
 }
 
 void	parse_type_id(char **line, char *type_id, t_cub3d *data)
