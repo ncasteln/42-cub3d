@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2024/01/18 12:12:06 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:31:36 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 		type_id = is_valid_type_id(line);
 		if (is_empty_line(line) && !(*is_map_parsing))
 			break ;
-		if (type_id) // problem with empty lines -- here need to jump, but map need to save
+		if (type_id && !(*is_map_parsing)) // problem with empty lines -- here need to jump, but map need to save
 		{
 			jump_whitspaces(&line);
 			parse_type_id(&line, type_id, data);
@@ -64,7 +64,7 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 				err_free_exit("parse_line", data, E_INV_FORMAT);
 			*is_map_parsing = 1;
 			store_map_line(line, data);
-			break ;// need to break ???
+			break ; // need to break ???
 		}
 	}
 }

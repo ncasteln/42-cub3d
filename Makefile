@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/18 11:54:20 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/18 16:28:42 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ VPATH = ./src/ \
 	./src/parser/ \
 	./src/utils/ \
 	./src/raycast/ \
-	./src/minimap_bonus/ \
+	./src/minimap/ \
 
 PARSER = parse.c \
 	parse_file_content.c \
@@ -53,13 +53,13 @@ RAYCAST = raycast.c \
 	utils.c \
 	move.c \
 
-MINIMAP = draw_minimap_bonus.c
+SRC_BONUS = draw_minimap_bonus.c
 
 SRC = cub3d.c \
 	$(PARSER) \
 	$(UTILS) \
 	$(RAYCAST) \
-	$(MINIMAP)
+	$(SRC_BONUS)
 
 OBJS_DIR = ./objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
@@ -72,14 +72,11 @@ endif
 ifeq ($(filter test_bonus,$(MAKECMDGOALS)),test_bonus)
 	IS_BONUS = -DBONUS=1
 endif
-# OBJS_FLAG = $(OBJS_DIR).mandatory_flag
-# OBJS_FLAG = $(OBJS_DIR).bonus_flag
-# OBJS = $(addprefix $(OBJS_DIR), $(SRC_BONUS:.c=.o))
 
 # ----------------------------------------------------------------- BASIC RULES
-all: $(NAME)
+all: fclean $(NAME)
 
-bonus: $(NAME)
+bonus: fclean $(NAME)
 
 $(NAME): $(LIB) $(MLX42) $(OBJS) #$(OBJS_FLAG)
 	@echo "$(NC)Compiling $@ executable file..."
@@ -105,15 +102,6 @@ $(OBJS_DIR)%.o: %.c ./include/cub3d.h
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) -c $(CFLAGS) $< $(INCLUDE) -o $@ $(IS_BONUS)
 
-# [objs_flag] make possible to re-make the exe file alternately between
-# 'all' and 'bonus' rule, without clean or fclean them
-# $(OBJS_FLAG):
-# 	@rm -rf $(OBJS_DIR).mandatory_flag
-# 	@rm -rf $(OBJS_DIR).bonus_flag
-# 	@mkdir -p $(OBJS_DIR)
-# 	@touch $(OBJS_FLAG)
-# 	@echo "$(Y)	Created [$(OBJS_FLAG)]"
-
 clean:
 	@echo "$(NC)Removing [objs]..."
 	@rm -rf $(OBJS_DIR)
@@ -133,7 +121,7 @@ destroy: fclean
 
 re: fclean all
 
-# --------------------------------------------------------------- SPECIAL RULES
+# ------------------------------------------------------------------ TEST RULES
 test: fclean all
 	@./tests/tester
 

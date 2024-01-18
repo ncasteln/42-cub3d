@@ -6,13 +6,13 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/01/18 10:03:28 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:31:34 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_empty_line(char *s) // move into utils
+int	is_empty_line(char *s) // move into utils/ there is a double of it
 {
 	size_t	i;
 
@@ -227,13 +227,8 @@ static int	is_reachable_by_player(int y, int x, char **map_cpy, t_cub3d *data)
 
 	player_reached = 0;
 	door_look_for_player(y, x, map_cpy, &player_reached, data);
-	ft_printf("DOOR [%d][%d] - ", y, x);
-	if (player_reached == 1)
-		ft_printf("REACH PLAYER!\n");
-	else
-		ft_printf("DOES NOT REACH PLAYER!\n");
-	return (player_reached);
 	// free mapcpy
+	return (player_reached);
 }
 
 /*

@@ -6,31 +6,12 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/17 17:03:11 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:35:02 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3d.h"
-
-// this function clears the image - makes it black
-void clearScreen(t_cub3d *data)
-{
-	int x;
-	int y;
-
-	x = 0;
-	while (x < WIN_W)
-	{
-		y = 0;
-		while (y < WIN_H)
-		{
-			mlx_put_pixel(data->img, x, y, 0x00000000);
-			y++;
-		}
-		x++;
-	}
-}
 
 // void vert_line(t_cub3d *data, int x, int draw_start, int draw_end)
 // {
