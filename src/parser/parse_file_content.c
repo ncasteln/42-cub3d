@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2024/01/17 17:27:20 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 08:46:06 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static char	*is_valid_type_id(char *line)
 		return ("F");
 	if (!ft_strncmp(line + i, "C", 1))
 		return ("C");
-	if (BONUS && !ft_strncmp(line + i, "D", 1))
-		return ("D");
+	if (BONUS && !ft_strncmp(line + i, "DO", 2))
+		return ("DO");
 	return (NULL);
 }
 

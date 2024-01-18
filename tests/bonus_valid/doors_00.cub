@@ -4,7 +4,7 @@ SO ./assets/so.png
 EA ./assets/ea.png
 F 66, 110, 65
 C 142, 191, 187
-D ./assets/door.png
+DO ./assets/door.png
 
 
 

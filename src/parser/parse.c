@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/17 17:12:51 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:21:38 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,8 @@ void	parse(int argc, char **argv, t_cub3d *data)
 	parse_player(data);
 	path_validation(data);
 	/*
-	DECISIONS:
-		- map_ass_same_line.cub (means: the map starts in the same line of an asset) is considered invalid
-		- map_texture_dir.cub (means: an asset file name is a directory like ./path/) is invalid
-		- ass_04.cub (means: color value has positive sign) is valid
-		- ass_05.cub (means: color value == 0 and has positive sign) is valid
-		- ass_06.cub (means: color value like 0000233 is 233) is valid
-	- textures has .xpm extension ??
+		CHECK
+		- Asset of door after map
+		- Invalid path
 	*/
 }

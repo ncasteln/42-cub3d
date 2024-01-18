@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2024/01/17 17:29:44 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 08:44:36 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int is_texture(char *line)
 		return (1);
 	if (!ft_strncmp(line, "WE", 2))
 		return (1);
-	if (BONUS && !ft_strncmp(line, "D", 1))
+	if (BONUS && !ft_strncmp(line, "DO", 2))
 		return (1);
 	return (0);
 }
@@ -56,6 +56,10 @@ int is_duplicate_asset(char *id, t_cub3d *data)
 	return (0);
 }
 
+/*
+	Doors are not required to run the game, they are just optional and the
+	game can still run without them.
+*/
 int	is_missing_asset(t_assets *assets)
 {
 	if (!assets->no)

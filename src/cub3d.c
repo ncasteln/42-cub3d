@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/17 17:12:13 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:04:09 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ int	main(int argc, char **argv)
 	// substitute with ftbzero???
 	init_cub3d(&data);
 	parse(argc, argv, &data);
-	print_map(data.map, data.n_col);
-	printf("%x \n", data.assets->c);
-	printf("%x \n", data.assets->f);
+
+	print_map(data.map, data.n_col);	// print remove
 
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);

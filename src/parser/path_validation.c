@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/01/17 17:20:26 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:03:28 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,69 @@ static char	**cpy_map(t_cub3d *data)
 	return (map_cpy);
 }
 
+static int	door_need_to_continue(char c, int *player_reached)
+{
+	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
+	{
+		*player_reached = 1;
+		return (0);
+	}
+	if (c == '1' || c == 'D' || c == 'x')
+		return (0);
+	return (1);
+}
+
+static void	door_look_for_player(int y, int x, char **map_cpy, int *player_reached, t_cub3d *data)
+{
+	int	y_limit;
+	int	x_limit;
+
+	y_limit = (int)data->n_rows - 1;
+	x_limit = (int)data->n_col - 1;
+	if (*player_reached == 0 && (y - 1 > 0) && door_need_to_continue(map_cpy[y - 1][x], player_reached))
+	{
+		map_cpy[y - 1][x] = 'x';
+		door_look_for_player(y - 1, x, map_cpy, player_reached, data);
+	}
+	if (*player_reached == 0 && (x + 1 < x_limit) && door_need_to_continue(map_cpy[y][x + 1], player_reached))
+	{
+		map_cpy[y][x + 1] = 'x';
+		door_look_for_player(y, x + 1, map_cpy, player_reached, data);
+	}
+	if (*player_reached == 0 && (y + 1 < y_limit) && door_need_to_continue(map_cpy[y + 1][x], player_reached))
+	{
+		map_cpy[y + 1][x] = 'x';
+		door_look_for_player(y + 1, x, map_cpy, player_reached, data);
+	}
+	if (*player_reached == 0 && (x - 1 > 0) && door_need_to_continue(map_cpy[y][x - 1], player_reached))
+	{
+		map_cpy[y][x - 1] = 'x';
+		door_look_for_player(y, x - 1, map_cpy, player_reached, data);
+	}
+}
+
+static int	is_reachable_by_player(int y, int x, char **map_cpy, t_cub3d *data)
+{
+	int	player_reached;
+
+	player_reached = 0;
+	door_look_for_player(y, x, map_cpy, &player_reached, data);
+	ft_printf("DOOR [%d][%d] - ", y, x);
+	if (player_reached == 1)
+		ft_printf("REACH PLAYER!\n");
+	else
+		ft_printf("DOES NOT REACH PLAYER!\n");
+	return (player_reached);
+	// free mapcpy
+}
+
+/*
+	In case of BONUS version, the flood fill has to be improved: since the
+	player can open doors, behind them there could be a room without a wall
+	which can be reached.
+	The unreachable doors which lead to unenclosed piece of maps, are
+	considered valid.
+*/
 static void	check_behind_doors(t_cub3d *data, char **map_cpy) // move to bonus stuff
 {
 	int	y;
@@ -192,7 +255,10 @@ static void	check_behind_doors(t_cub3d *data, char **map_cpy) // move to bonus s
 		while (map_cpy[y][x])
 		{
 			if (map_cpy[y][x] == 'D')
-				flood_fill(y, x, map_cpy, data);
+			{
+				if (is_reachable_by_player(y, x, map_cpy, data))
+					flood_fill(y, x, map_cpy, data);
+			}
 			x++;
 		}
 		y++;
@@ -219,7 +285,9 @@ void	path_validation(t_cub3d *data)
 	data->map = map_rect;
 	map_cpy = cpy_map(data);
 	flood_fill(data->p->y, data->p->x, map_cpy, data);
-	if (BONUS) // flood_fill for doors
+	free_dptr(map_cpy);
+	map_cpy = cpy_map(data);
+	if (BONUS)
 		check_behind_doors(data, map_cpy);
 	free_dptr(map_cpy);
 }

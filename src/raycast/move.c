@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/17 16:29:26 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:05:02 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void move(t_cub3d *data, double incr, int dir)
 		data->mv->map.x = (int) data->mv->pos.x;
 		data->mv->map.y = (int) data->mv->pos.y;
 	}
-	printf("pos [%f][%f]\n", data->mv->pos.x, data->mv->pos.y);
-	printf("map [%d][%d]\n", data->mv->map.x, data->mv->map.y);
+	// printf("pos [%f][%f]\n", data->mv->pos.x, data->mv->pos.y);
+	// printf("map [%d][%d]\n", data->mv->map.x, data->mv->map.y);
 	//  printf("dir: %f, %f \n", data->mv->dir_x, data->mv->dir.y);
 	//  printf("stop: %f, %f \n", data->mv->pos.x, data->mv->pos.y);
 }
