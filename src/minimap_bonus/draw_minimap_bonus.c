@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:17:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/18 08:37:00 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:55:31 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	minimap_draw_tile(t_cub3d *data, char c, int cellY, int cellX)
 			else if (c == ' ')
 				mlx_put_pixel(data->img, startX, startY, 0x2ab567FF);
 			else if (c == 'D')
-				mlx_put_pixel(data->img, startX, startY, 0x000000FF);
+				mlx_put_pixel(data->img, startX, startY, RED);
 			else
 				mlx_put_pixel(data->img, startX, startY, 0x74ba56FF);
 			startX++;

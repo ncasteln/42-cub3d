@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 18:27:13 by nico              #+#    #+#             */
-/*   Updated: 2024/01/18 08:45:52 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:25:02 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ static void	cpy_and_add_line(char *line, t_cub3d *data)
 	free_dptr(tmp);
 }
 
+/*
+	From this point, is assumed that the rest of the file content is just the
+	map. If a line contains characters which are not valid for the map, the
+	program throws an error.
+	IMPORTANT: If an assets is written after the map, it is considered invalid.
+*/
 void	store_map_line(char *line, t_cub3d *data)
 {
 	if (!is_valid_map_line(line))

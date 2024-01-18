@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/17 10:47:07 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/18 11:54:20 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,9 @@ IS_BONUS = -DBONUS=0
 ifeq ($(filter bonus,$(MAKECMDGOALS)),bonus)
 	IS_BONUS = -DBONUS=1
 endif
+ifeq ($(filter test_bonus,$(MAKECMDGOALS)),test_bonus)
+	IS_BONUS = -DBONUS=1
+endif
 # OBJS_FLAG = $(OBJS_DIR).mandatory_flag
 # OBJS_FLAG = $(OBJS_DIR).bonus_flag
 # OBJS = $(addprefix $(OBJS_DIR), $(SRC_BONUS:.c=.o))
@@ -128,17 +131,17 @@ destroy: fclean
 	@rm -rfd ./lib/MLX42/ $(MLX42)
 	@echo "$(G)	[$(NAME) && MLX42] removed!$(NC)"
 
-test: $(NAME)
-	@./tests/tester
-
 re: fclean all
 
 # --------------------------------------------------------------- SPECIAL RULES
-# update:
-#  	git submodule update --remote MLX42
+test: fclean all
+	@./tests/tester
+
+test_bonus: fclean bonus
+	@./tests/tester_bonus
 
 # ----------------------------------------------------------------------- UTILS
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus clean fclean re test
 
 G = \033[0;32m
 Y = \033[0;33m

@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/18 09:21:38 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:55:42 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ void	parse(int argc, char **argv, t_cub3d *data)
 	path_validation(data);
 	/*
 		CHECK
-		- Asset of door after map
-		- Invalid path
+		- Asset of door after map should not work
+		- Invalid path/flood fill for doors
+		- Make a last check of the parsing maps
+
+		QUESTIONS:
+		- Why first rendered thing is not the texture? Solution: move the player 0.1 behind
 	*/
 }

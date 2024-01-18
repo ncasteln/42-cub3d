@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2024/01/18 08:46:06 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:12:06 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 			if (line_already_parsed)
 				err_free_exit("parse_line", data, E_INV_FORMAT);
 			*is_map_parsing = 1;
-			store_map_line(line, data); // need to break ???
-			break ;
+			store_map_line(line, data);
+			break ;// need to break ???
 		}
 	}
 }
