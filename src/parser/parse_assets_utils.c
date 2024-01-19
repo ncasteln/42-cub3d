@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils_0.c                                   :+:      :+:    :+:   */
+/*   parse_assets_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2024/01/18 08:44:36 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:36:38 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	jump_whitspaces(char **line)
+char	*is_valid_asset_id(char *line)
 {
-	while (**line == ' ' || **line == '\t')
-		(*line)++;
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t' || line[i] == '\n') // || line[i] == '\n' added
+		i++;
+	if (!ft_strncmp(line + i, "NO", 2))
+		return ("NO");
+	if (!ft_strncmp(line + i, "EA", 2))
+		return ("EA");
+	if (!ft_strncmp(line + i, "SO", 2))
+		return ("SO");
+	if (!ft_strncmp(line + i, "WE", 2))
+		return ("WE");
+	if (!ft_strncmp(line + i, "F", 1))
+		return ("F");
+	if (!ft_strncmp(line + i, "C", 1))
+		return ("C");
+	if (BONUS && !ft_strncmp(line + i, "DO", 2))
+		return ("DO");
+	return (NULL);
 }
 
 int is_texture(char *line)

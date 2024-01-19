@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/18 16:09:53 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:56:23 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,10 @@ typedef struct s_cub3d
 	char		**map;
 	size_t		n_rows;
 	size_t		n_col;
-	char		*line;
 	t_player	*p;
 	t_move	*mv;
+	char		*line;
+	int			fd;
 }	t_cub3d;
 
 /* variables related to raycasting calculation

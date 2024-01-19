@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:49:00 by nico              #+#    #+#             */
-/*   Updated: 2024/01/10 16:18:58 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:59:20 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,6 @@ void	free_data(t_cub3d *data)
 		free_dptr(data->map);
 	if (data->p)
 		free(data->p);
+	if (data->fd != -1)
+		close(data->fd);
 }

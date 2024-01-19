@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/18 08:37:23 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:41:16 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,34 @@
 // -------------------------------------------------------------------- PARSING
 void	parse(int argc, char **argv, t_cub3d *data);
 void	parse_file_content(char *f_name, t_cub3d *data);
-void	parse_type_id(char **line, char *type_id, t_cub3d *data);
-char	*extract_type_id_value(char **line, char *id, t_cub3d *data);
-
 void	parse_player(t_cub3d *data);
 void	path_validation(t_cub3d *data);
 
-// -------------------------------------------------------------- PARSING UTILS
-int			is_texture(char *line);
-void		jump_whitspaces(char **line);
-int			is_duplicate_asset(char *id, t_cub3d *data);
-int			is_missing_asset(t_assets *assets);
+// ------------------------------------------------------- ASSETS PARSING UTILS
+void	parse_assets(char **line, char *type_id, t_cub3d *data);
+char	*extract_asset_value(char **line, char *id, t_cub3d *data);
+int		is_valid_color(char *color);
+char	*rgb_to_hex_string(char *color);
+char	*is_valid_asset_id(char *line);
+int		is_texture(char *line);
+int		is_duplicate_asset(char *id, t_cub3d *data);
+int		is_missing_asset(t_assets *assets);
 
-void		store_map_line(char *line, t_cub3d *data);
-int			is_valid_map_line(char *s);
-int			is_valid_map_char(char c);
-uint32_t	str_to_ul(char *s);
+// ---------------------------------------------------------- MAP PARSING UTILS
+void	jump_whitespaces(char **line);
+void	store_map_line(char *line, t_cub3d *data);
+int		is_valid_map_line(char *s);
+
+// ------------------------------------------------------------ PATH VALIDATION
+// char	**rectangolize(t_cub3d *data);
+int		get_n_rows(char **map);
+// void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data);
 
 // ---------------------------------------------------------------------- UTILS
 void	err_free_exit(char *s, t_cub3d *data, int err_n);
 void	free_data(t_cub3d *data);
 void	free_dptr(char **p);
-int		is_empty_line(char *s);
+int		is_blank_line(char *s);
 
 // ---------------------------------------------------------------- PRINT UTILS
 void	print_map(char **p, int	row_len);

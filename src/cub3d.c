@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/18 17:33:57 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:56:44 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ static void	init_cub3d(t_cub3d *data)
 	data->assets->f = 0;
 	data->assets->c = 0;
 	data->map = NULL;
-	data->line = NULL;
 	data->p = NULL;
 	data->n_rows = 0;
 	data->n_col = 0;
+	data->line = NULL;
+	data->fd = -1;
 }
 
 void init_move(t_cub3d *data)
@@ -62,6 +63,12 @@ int	main(int argc, char **argv)
 	// substitute with ftbzero???
 	init_cub3d(&data);
 	parse(argc, argv, &data);
+
+	/*
+		Check Makefile:
+		- Compile two different program names?
+		- Why? Becasueso you can use both testers on both versions
+	*/
 
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);

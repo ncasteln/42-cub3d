@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/18 16:28:42 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/19 10:42:20 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,18 +35,21 @@ VPATH = ./src/ \
 
 PARSER = parse.c \
 	parse_file_content.c \
-	parse_type_id.c \
-	extract_type_id_value.c \
+	parse_assets.c \
+	extract_asset_value.c \
+	extract_color_utils.c \
 	parse_map.c \
 	parse_player.c \
 	path_validation.c \
-	parser_utils_0.c \
-	parser_utils_1.c \
+	parse_assets_utils.c \
+	rectangolize.c \
+	check_behind_doors.c \
 
 UTILS = err_free_exit.c \
 	print_map.c \
 	print_assets.c \
-	free_utils.c
+	free_utils.c \
+	is_blank_line.c \
 
 RAYCAST = raycast.c \
 	hooks.c \
@@ -78,7 +81,7 @@ all: fclean $(NAME)
 
 bonus: fclean $(NAME)
 
-$(NAME): $(LIB) $(MLX42) $(OBJS) #$(OBJS_FLAG)
+$(NAME): $(LIB) $(MLX42) $(OBJS)
 	@echo "$(NC)Compiling $@ executable file..."
 	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
@@ -122,10 +125,10 @@ destroy: fclean
 re: fclean all
 
 # ------------------------------------------------------------------ TEST RULES
-test: fclean all
+test:
 	@./tests/tester
 
-test_bonus: fclean bonus
+test_bonus:
 	@./tests/tester_bonus
 
 # ----------------------------------------------------------------------- UTILS

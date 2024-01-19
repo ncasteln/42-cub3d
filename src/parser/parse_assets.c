@@ -1,16 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_type_id.c                                    :+:      :+:    :+:   */
+/*   parse_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:04:41 by nico              #+#    #+#             */
-/*   Updated: 2024/01/18 16:07:57 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:52:57 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/*
+	str to uint32_t needed for mlx library. The function assumes that the
+	conversion is doing in base 16.
+*/
+static uint32_t	str_to_ul(char *s)
+{
+	uint32_t	hex;
+	int			i;
+	int			current_digit;
+
+	hex = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (ft_isdigit(s[i]))
+			current_digit = s[i] - '0';
+		else
+			current_digit = s[i] - 'A' + 10;
+		hex = hex * 16 + current_digit;
+		i++;
+	}
+	return (hex);
+}
 
 /*
 	Example.
@@ -50,7 +74,7 @@ static void	store_asset_value(char *value, char *type_id, t_cub3d *data)
 		data->assets->d = value;
 }
 
-void	parse_type_id(char **line, char *type_id, t_cub3d *data)
+void	parse_assets(char **line, char *type_id, t_cub3d *data)
 {
 	char	*value;
 
@@ -60,8 +84,8 @@ void	parse_type_id(char **line, char *type_id, t_cub3d *data)
 		err_free_exit("parse_line", data, E_INV_ASSET);
 	if (is_duplicate_asset(type_id, data))
 		err_free_exit("parse_line", data, E_DUP_ASSET);
-	value = extract_type_id_value(line, type_id, data);
+	value = extract_asset_value(line, type_id, data);
 	if (value[ft_strlen(value) - 1] == '/')
-		err_free_exit("parse_type_id", data, E_INV_ASSET);
+		err_free_exit("parse_asset", data, E_INV_ASSET);
 	store_asset_value(value, type_id, data);
 }

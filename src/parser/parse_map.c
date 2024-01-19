@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 18:27:13 by nico              #+#    #+#             */
-/*   Updated: 2024/01/18 12:25:02 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:47:16 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	init_map(char *line, t_cub3d *data)
 	data->map = ft_calloc(2, sizeof(char *));
 	if (!data->map)
 		err_free_exit("init_map", data, errno);
-	data->map[0] = ft_substr(line, 0, ft_strlen(line) - 1); // ft_strdup(line);
+	data->map[0] = ft_substr(line, 0, ft_strlen(line) - 1);
 	if (!data->map[0])
 		err_free_exit("init_map", data, errno);
 }
@@ -56,6 +56,27 @@ static void	cpy_and_add_line(char *line, t_cub3d *data)
 	if (!data->map[i])
 		err_free_exit("cpy_and_add_line", data, errno);
 	free_dptr(tmp);
+}
+
+int	is_valid_map_line(char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if (is_blank_line(s))
+		return (1);
+	while (s[i])
+	{
+		if (s[i] == '0' || s[i] == '1' || s[i] == ' ' || s[i] == '\n')
+			return (1);
+		if (s[i] == 'N' || s[i] == 'E' || s[i] == 'S' || s[i] == 'W')
+			return (1);
+		if (BONUS && s[i] == 'D')
+			return (1);
+		return (0);
+		i++;
+	}
+	return (1);
 }
 
 /*
