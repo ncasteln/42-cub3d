@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/19 10:42:20 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/19 10:59:50 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ PARSER = parse.c \
 	parse_player.c \
 	path_validation.c \
 	parse_assets_utils.c \
-	rectangolize.c \
 	check_behind_doors.c \
+	rectangolize.c \
 
 UTILS = err_free_exit.c \
 	print_map.c \

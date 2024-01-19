@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/19 10:41:16 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:58:39 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	store_map_line(char *line, t_cub3d *data);
 int		is_valid_map_line(char *s);
 
 // ------------------------------------------------------------ PATH VALIDATION
-// char	**rectangolize(t_cub3d *data);
+char	**rectangolize(t_cub3d *data);
 int		get_n_rows(char **map);
-// void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data);
+void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data);
 
 // ---------------------------------------------------------------------- UTILS
 void	err_free_exit(char *s, t_cub3d *data, int err_n);
