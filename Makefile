@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/19 11:37:21 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/19 15:52:58 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,9 +77,9 @@ ifeq ($(filter test_bonus,$(MAKECMDGOALS)),test_bonus)
 endif
 
 # ----------------------------------------------------------------- BASIC RULES
-all: fclean $(NAME)
+all: $(NAME)
 
-bonus: fclean $(NAME)
+bonus: $(NAME)
 
 $(NAME): $(LIB) $(MLX42) $(OBJS)
 	@echo "$(NC)Compiling $@ executable file..."
@@ -93,6 +93,7 @@ $(MLX42):
 	else \
 		echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
 		git clone https://github.com/codam-coding-college/MLX42.git ./lib/MLX42/; \
+		cd ./lib/MLX42/ && git checkout e84ea88; \
 	fi
 	@cd ./lib/MLX42/ && cmake -B build
 	@cmake --build ./lib/MLX42/build -j4
