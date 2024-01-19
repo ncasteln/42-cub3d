@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:18:22 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/19 10:57:17 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:39:38 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 
 #define MAP_PIXEL 15
 
+// -------------------------------------------------------------------- PARSING
 void	check_behind_doors(t_cub3d *data, char **map_cpy);
 
+// -------------------------------------------------------------------- MINIMAP
 void	minimap_draw_ambient(t_cub3d *data);
 void	minimap_draw_player(t_cub3d *data);
 void	minimap_clear(t_cub3d *data);

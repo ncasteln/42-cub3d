@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2024/01/19 10:55:44 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:46:41 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,21 @@ void	jump_whitespaces(char **line)
 		(*line)++;
 }
 
-static int	asset_line(char **line, char *asset_id, int *is_line_parsed, t_cub3d *data)
+static int	asset_line(char **line, char *asset_id, t_cub3d *data)
 {
 	jump_whitespaces(line);
 	parse_assets(line, asset_id, data);
-	*is_line_parsed = 1;
 	if (is_blank_line(*line))
 		return (1);
 	return (0);
 }
 
-static void	map_line(char *line, int *is_map_parsing, int is_line_parsed, t_cub3d *data)
+static void	map_line(char *line, int is_line_parsed, t_cub3d *data)
 {
 	if (is_missing_asset(data->assets))
 		err_free_exit("parse_line", data, E_MISS_ASSET);
 	if (is_line_parsed)
 		err_free_exit("parse_line", data, E_INV_FORMAT);
-	*is_map_parsing = 1;
 	store_map_line(line, data);
 }
 
@@ -60,12 +58,14 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 			break ;
 		if (asset_id && !(*is_map_parsing))
 		{
-			if (asset_line(&line, asset_id, &is_line_parsed, data))
+			is_line_parsed = 1;
+			if (asset_line(&line, asset_id, data))
 				break ;
 		}
 		else
 		{
-			map_line(line, is_map_parsing, is_line_parsed, data);
+			*is_map_parsing = 1;
+			map_line(line, is_line_parsed, data);
 			break ;
 		}
 	}

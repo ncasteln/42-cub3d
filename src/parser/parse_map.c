@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 18:27:13 by nico              #+#    #+#             */
-/*   Updated: 2024/01/19 10:55:37 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:42:33 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@ static void	init_map(char *line, t_cub3d *data)
 	data->map[0] = ft_substr(line, 0, ft_strlen(line) - 1); // ft_strdup(line);
 	if (!data->map[0])
 		err_free_exit("init_map", data, errno);
-}
-
-static int	count_map_rows(char **map)
-{
-	int	i;
-
-	i = 0;
-	if (map)
-	{
-		while (map[i])
-			i++;
-	}
-	return (i);
 }
 
 static void	cpy_and_add_line(char *line, t_cub3d *data)
@@ -97,6 +84,6 @@ void	store_map_line(char *line, t_cub3d *data)
 		err_free_exit("store_map_line", data, E_INV_CHAR);
 	if (!data->map)
 		return (init_map(line, data));
-	data->n_rows = count_map_rows(data->map) + 1;
+	data->n_rows = get_n_rows(data->map) + 1;
 	cpy_and_add_line(line, data);
 }

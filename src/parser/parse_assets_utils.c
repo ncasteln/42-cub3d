@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2024/01/19 09:36:38 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:41:00 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*is_valid_asset_id(char *line)
 	return (NULL);
 }
 
-int is_texture(char *line)
+int	is_texture(char *line)
 {
 	if (!ft_strncmp(line, "NO", 2))
 		return (1);
@@ -51,7 +51,7 @@ int is_texture(char *line)
 	return (0);
 }
 
-int is_duplicate_asset(char *id, t_cub3d *data)
+int	is_duplicate_asset(char *id, t_cub3d *data)
 {
 	if (!ft_strncmp(id, "NO", 2))
 		if (data->assets->no)

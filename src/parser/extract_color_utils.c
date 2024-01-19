@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:39:29 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/19 09:43:34 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:47:09 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	is_valid_color(char *color)
 	int		i;
 	int		n;
 
-	rgb = ft_split(color, ','); // remember to freeee!!!!
+	rgb = ft_split(color, ',');
 	if (!rgb)
 		return (0);
 	i = 0;

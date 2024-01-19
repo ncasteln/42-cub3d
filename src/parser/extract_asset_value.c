@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2024/01/19 09:46:00 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:03:08 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ static char	*extract_texture_path(char **line, t_cub3d *data)
 	char	*path;
 
 	i = 0;
-	// go until it finds a space !!!
-	while ((*line)[i] && ((*line)[i] != ' ' && (*line)[i] != '\t' && (*line)[i] != '\n'))
+	while ((*line)[i])
+	{
+		if ((*line)[i] == ' ' || (*line)[i] == '\t' || (*line)[i] == '\n')
+			break ;
 		i++;
+	}
 	path = ft_calloc(i + 1, sizeof(char));
 	if (!path)
 		return (NULL);
@@ -47,13 +50,19 @@ static char	*extract_texture_path(char **line, t_cub3d *data)
 
 static char	*extract_color(char **line, t_cub3d *data)
 {
-	int			i;
-	char		*color;
-	char		*hex;
+	int		i;
+	char	*color;
+	char	*hex;
+	char	c;
 
 	i = 0;
-	while ((*line)[i] && (ft_isdigit((*line)[i]) || (*line)[i] == ' ' || (*line)[i] == ',' || (*line)[i] == '+'))
+	while ((*line)[i])
+	{
+		c = (*line)[i];
+		if (!ft_isdigit(c) && c != ' ' && c != ',' && c != '+')
+			break ;
 		i++;
+	}
 	color = ft_calloc(i + 1, sizeof(char));
 	if (!color)
 		return (NULL);
