@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/19 15:21:08 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:56:42 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	init_cub3d(t_cub3d *data)
 	data->assets->f = 0;
 	data->assets->c = 0;
 	data->map = NULL;
+	data->minimap = NULL;
 	data->p = NULL;
 	data->n_rows = 0;
 	data->n_col = 0;
@@ -61,15 +62,8 @@ int	main(int argc, char **argv)
 	t_move mv;
 
 	// substitute with ftbzero???
-	ft_printf("errno = [%d]\n", errno);
 	init_cub3d(&data);
 	parse(argc, argv, &data);
-
-	/*
-		Check Makefile:
-		- Compile two different program names?
-		- Why? Becasueso you can use both testers on both versions
-	*/
 
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
@@ -77,7 +71,8 @@ int	main(int argc, char **argv)
 	init_move(&data);
 
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
-	raycasting(&data);
+	
+	raycasting(&data); // necessary ????
 	mlx_loop_hook(data.mlx, refresh, &data);
 	mlx_key_hook(data.mlx, key_hook, &data);
 	//mlx_mouse_hook(mv.mlx, mouse_hook, &mv);

@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/18 17:47:18 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:49:03 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,5 @@ void refresh(void *data)
 {
 	raycasting(((t_cub3d *)data));
 	if (BONUS)
-	{
-		minimap_clear((t_cub3d *)data); // modify 
-		minimap_draw_ambient((t_cub3d *)data);
-		minimap_draw_player((t_cub3d *)data);
-	}
+		minimap(data);
 }

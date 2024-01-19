@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/19 15:52:58 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/19 17:52:25 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,13 +56,13 @@ RAYCAST = raycast.c \
 	utils.c \
 	move.c \
 
-SRC_BONUS = draw_minimap_bonus.c
+MINIMAP = draw_minimap_bonus.c
 
 SRC = cub3d.c \
 	$(PARSER) \
 	$(UTILS) \
 	$(RAYCAST) \
-	$(SRC_BONUS)
+	$(MINIMAP)
 
 OBJS_DIR = ./objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
