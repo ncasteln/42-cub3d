@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:39:29 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/19 11:47:09 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:08:27 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ static int	is_valid_zero(char *s)
 	size_t	i;
 
 	i = 0;
-	if (s[i] == '+')
-		i++;
-	while (s[i] && s[i] == '0') // add +
+	while (s[i] && s[i] == '0' && s[i] == '+')
 		i++;
 	if (i == ft_strlen(s))
 		return (1);
@@ -39,7 +37,7 @@ static int	trim_rgb(char **rgb)
 	while (rgb[i])
 	{
 		tmp = rgb[i];
-		rgb[i] = ft_strtrim(rgb[i], " \t"); // new line??
+		rgb[i] = ft_strtrim(rgb[i], " \t");
 		if (!rgb[i])
 			return (free(tmp), 1);
 		free(tmp);

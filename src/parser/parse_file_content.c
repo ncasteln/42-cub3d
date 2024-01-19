@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2024/01/19 11:46:41 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:22:34 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	parse_file_content(char *f_name, t_cub3d *data)
 		err_free_exit("parse_assets", data, errno);
 	while (1)
 	{
-		data->line = get_next_line(data->fd); // how get errno from here (print to understand)
+		data->line = get_next_line(data->fd);
 		if (!data->line)
 			break ;
 		parse_line(data->line, &is_map_parsing, data);

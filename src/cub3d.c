@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/19 09:56:44 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:21:08 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	main(int argc, char **argv)
 	t_move mv;
 
 	// substitute with ftbzero???
+	ft_printf("errno = [%d]\n", errno);
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 

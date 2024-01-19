@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2024/01/19 11:41:00 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:12:23 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*is_valid_asset_id(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == ' ' || line[i] == '\t' || line[i] == '\n') // || line[i] == '\n' added
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (!ft_strncmp(line + i, "NO", 2))
 		return ("NO");
