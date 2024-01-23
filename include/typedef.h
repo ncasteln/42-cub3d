@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/17 21:06:36 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/23 20:34:19 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,20 @@ typedef struct s_player
 }	t_player;
 
 //constants
+
 # define WIN_W 1600
 # define WIN_H 1200
-#define TEX_W 64
-#define TEX_H 64
-#define VERTICAL 0
-#define HORIZONTAL 1
+#define NORTH_SOUTH 1
+#define WEST_EAST 0
+#define X 0
+#define Y 1
+
+//textures array indices
+#define NO 0
+#define WE 1
+#define SO 2
+#define EA 3
+
 
 # define RED 0x990000FF
 # define GREEN 0x00FF00FF
@@ -88,13 +96,12 @@ typedef struct s_player
 
 //structures
 
-
 typedef struct s_cub3d
 {
 	mlx_t*			mlx;
 	mlx_image_t*	img;
 	mlx_image_t*	img1;
-	mlx_texture_t	*tex[4];
+	mlx_texture_t	*tex[5];
 	t_assets	*assets;
 	char		**map;
 	size_t		n_rows;
@@ -112,16 +119,26 @@ distance from the player to the wall
 typedef struct s_raycast
 {
 	t_dvect	raydir;
-	t_dvect	side_dist;
-	t_dvect	delta_dist;
+	t_dvect	ray_len;
+	t_dvect	ray_delta;
 	double	wall_dist;
 	double	wall_x;
 	int		hit; //0 if the ray didn't hit a wall
-	int		side;
+	int		wall_dir;//wall direction NORTH_SOUTH or WEST_EAST
 	int		line_h; //visible wall height for pixel_x
 	int		tex_x;
 	int		line_start;
 	int		line_end;
+	int		b_size;
+	t_ivect	ray;
 }	t_raycast;
+
+typedef struct s_ftile
+{
+	double dist;
+	double delta;
+	int bottom;
+	int h;
+}	t_ftile;
 
 #endif

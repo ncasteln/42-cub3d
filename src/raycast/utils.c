@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/17 19:38:06 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/23 23:22:54 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ void clearScreen(t_cub3d *data)
 // 	}
 // }
 
-uint32_t getpixcol(uint8_t *p)
+/*
+reads rgba values from a pixel and returns its color
+p points to the r value of a pixel followed by the others
+*/
+uint32_t readcol(uint8_t *p)
 {
 	uint32_t b;
 	uint32_t g;
@@ -63,6 +67,7 @@ uint32_t getpixcol(uint8_t *p)
 	return (getcol(r, g, b, a));
 }
 
+//takes separate rgba values and returns color
 uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 {
 	return ((r << 24) + (g << 16) + (b << 8) + a);
@@ -89,9 +94,32 @@ t_dvect *set_vect(t_dvect *v, double x, double y)
 //change to add mlx files
 void load_textures(t_cub3d *data)
 {
-	data->tex[0] = mlx_load_png(data->assets->no);
-	data->tex[1] = mlx_load_png(data->assets->we);
-	data->tex[2] = mlx_load_png(data->assets->so);
-	data->tex[3] = mlx_load_png(data->assets->ea);
+	data->tex[NO] = mlx_load_png(data->assets->no);
+	data->tex[WE] = mlx_load_png(data->assets->we);
+	data->tex[SO] = mlx_load_png(data->assets->so);
+	data->tex[EA] = mlx_load_png(data->assets->ea);
+	data->tex[4] = mlx_load_png("src/textures/lava.png");
 }
+
+// t_ftile *revert_buff(t_dvect *buff, int size)
+// {
+// 	t_dvect *new_buff;
+// 	int i;
+
+// 	if (size == 0)
+// 		return(NULL);
+// 	i = 0;
+// 	new_buff = malloc(sizeof(t_dvect) * size);
+// 	while (i < size)
+// 	{
+// 		new_buff[i].x = buff[i + size - 1].x;
+// 		new_buff[i].y = buff[i + size - 1].y;
+// 		i++;
+// 	}
+// 	printf("%s \n", "free");
+// 	free(buff);
+// 	buff = NULL;
+// 	return (new_buff);
+// }
+
 

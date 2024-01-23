@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/17 21:06:36 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/22 15:16:41 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ int	main(int argc, char **argv)
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 	print_map(data.map, data.n_col);
+	 printf("%i \n", (int) 5.7);
 	// printf("%x \n", data.assets->c);
 	// printf("%x \n", data.assets->f);
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
 	init_move(data.p);
+	correction(&data);
 	load_textures(&data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 	raycasting(&data);
