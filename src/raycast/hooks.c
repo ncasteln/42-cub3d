@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/24 08:18:43 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 08:20:19 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 	if (keydata.key == MLX_KEY_W)
 		move((t_cub3d *)data, 0.2, FORWARD);
 	if (keydata.key == MLX_KEY_RIGHT)
-		rotateP(((t_cub3d *)data)->mv, 0.2);
+		rotateP(((t_cub3d *)data)->p, 0.2);
 	if (keydata.key == MLX_KEY_LEFT)
-		rotateP(((t_cub3d *)data)->mv, -0.2);
+		rotateP(((t_cub3d *)data)->p, -0.2);
 	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
 	//mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img1, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/24 08:16:02 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 08:21:12 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,35 +185,11 @@ void move(t_cub3d *data, double incr, int dir)
 	//add_delta(data, &incr_vector.x, &incr_vector.y);
 	if (check_space(data, incr_vector.x, incr_vector.y) == true)
 	{
-<<<<<<< HEAD
-		data->mv->pos.x += incr_vector.x;
-		data->mv->pos.y += incr_vector.y;
-		data->mv->map.x = (int) data->mv->pos.x;
-		data->mv->map.y = (int) data->mv->pos.y;
-	}
-	// printf("pos [%f][%f]\n", data->mv->pos.x, data->mv->pos.y);
-	// printf("map [%d][%d]\n", data->mv->map.x, data->mv->map.y);
-	//  printf("dir: %f, %f \n", data->mv->dir_x, data->mv->dir.y);
-	//  printf("stop: %f, %f \n", data->mv->pos.x, data->mv->pos.y);
-}
-
-//checks if the movement is possible and the player doesn't go through walls
-int check_space(t_cub3d *data, double delta_x, double delta_y)
-{
-	int x;
-	int y;
-
-	x = (int)(data->mv->pos.x + delta_x);
-	y = (int)(data->mv->pos.y + delta_y);
-	if (data->map[y][x] != '1')
-		return (true);
-=======
 		data->p->pos.x += incr_vector.x;
 		data->p->pos.y += incr_vector.y;
 		data->p->x = (int) data->p->pos.x;
 		data->p->y = (int) data->p->pos.y;
 	}
->>>>>>> merge
 	else
 		minimove(data, incr_vector);
 

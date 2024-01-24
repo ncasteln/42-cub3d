@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:17:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/19 17:59:59 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 08:21:40 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static void	draw_player(t_cub3d *data)
 		x = 0;
 		while (x < 5)
 		{
-			int drawAtX = (data->mv->pos.x) * MAP_PIXEL + x;
-			int drawAtY = (data->mv->pos.y) * MAP_PIXEL + y;
-			if (data->mv->map.y <= drawAtX && data->mv->map.y <= drawAtY)
-				mlx_put_pixel(data->minimap, drawAtX, drawAtY, 0x000000FF);
+			// int drawAtX = (data->mv->pos.x) * MAP_PIXEL + x;
+			// int drawAtY = (data->mv->pos.y) * MAP_PIXEL + y;
+			// if (data->mv->map.y <= drawAtX && data->mv->map.y <= drawAtY)
+			// 	mlx_put_pixel(data->minimap, drawAtX, drawAtY, 0x000000FF);
 			x++;
 		}
 		y++;
