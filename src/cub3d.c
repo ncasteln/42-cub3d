@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 14:25:13 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:46:23 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@
 	- t_player which is the diff between x, y and pos.x, pos.y ?
 	- The pixel are written top-down left-right, right?
 	- What is line_start and _end in putline() ?
+
+	NOTES:
+	- Doors and other sprites can be placed anywhere, but sure to let the user
+	change the texture?
+	- Error map_06 something works not properly
+	- Modfy fllod_fill() for bonus sprites
+	- Remember to move out sprites.c because is not bonus anymore
 */
 
 int	main(int argc, char **argv)
@@ -56,6 +63,7 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 
 	raycasting(&data); // ----- Necessary? if removed nothing changes
+	sprites(&data);
 	mlx_loop_hook(data.mlx, refresh, &data);
 	mlx_key_hook(data.mlx, key_hook, &data);
 

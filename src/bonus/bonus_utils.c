@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*   bonus_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 10:18:22 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 15:25:33 by ncasteln         ###   ########.fr       */
+/*   Created: 2024/01/24 15:11:12 by ncasteln          #+#    #+#             */
+/*   Updated: 2024/01/24 16:40:34 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_BONUS_H
-# define CUB3D_BONUS_H
+#include "cub3d.h"
 
-#include "typedef.h" // remove otherwise is in two places ?
+void	count_sprites(t_cub3d *data)
+{
+	int	i;
+	int	j;
 
-#define MAP_PIXEL 10
-
-void	check_behind_doors(t_cub3d *data, char **map_cpy);
-void	minimap(t_cub3d *data);
-void	sprites(t_cub3d *data);
-void	count_sprites(t_cub3d *data);
-
-#endif
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == ' ')
+				data->n_h += 1;
+			if (BONUS)
+			{
+				if (data->map[i][j] == '$')
+					data->n_s += 1;
+				if (data->map[i][j] == 'D')
+					data->n_d += 1;
+			}
+			j++;
+		}
+		i++;
+	}
+}

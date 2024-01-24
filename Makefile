@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/24 09:49:39 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/24 16:38:42 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ VPATH = ./src/ \
 	./src/parser/ \
 	./src/utils/ \
 	./src/raycast/ \
-	./src/minimap/ \
+	./src/bonus/ \
 
 PARSER = parse.c \
 	parse_file_content.c \
@@ -57,13 +57,15 @@ RAYCAST = raycast.c \
 	utils.c \
 	move.c \
 
-MINIMAP = draw_minimap_bonus.c
+BONUS = draw_minimap.c \
+	sprites.c \
+	bonus_utils.c
 
 SRC = cub3d.c \
 	$(PARSER) \
 	$(UTILS) \
 	$(RAYCAST) \
-	$(MINIMAP)
+	$(BONUS)
 
 OBJS_DIR = ./objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))

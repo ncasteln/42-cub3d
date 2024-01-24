@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/24 12:06:18 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:40:54 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,11 @@ void load_textures(t_cub3d *data)
 	data->tex[WE] = mlx_load_png(data->assets->we);
 	data->tex[SO] = mlx_load_png(data->assets->so);
 	data->tex[EA] = mlx_load_png(data->assets->ea);
-	data->tex[4] = mlx_load_png("assets/hole_1.png"); //  ?????
+	data->tex[H] = mlx_load_png("assets/hole_1.png"); // check if needed at the end  ?????
+	if (BONUS && data->n_d)
+		data->tex[D] = mlx_load_png(data->assets->d); // check if needed at the end  ?????
+	if (BONUS && data->n_s)
+		data->tex[S] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
 }
 
 // t_ftile *revert_buff(t_dvect *buff, int size)

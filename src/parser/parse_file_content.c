@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 12:43:15 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:37:19 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 	is_line_parsed = 0;
 	while (line)
 	{
+
 		asset_id = is_valid_asset_id(line);
 		if (is_blank_line(line) && !(*is_map_parsing))
 			break ;

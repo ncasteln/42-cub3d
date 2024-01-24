@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/01/19 11:41:09 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:38:29 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 
 	y_limit = (int)data->n_rows - 1;
 	x_limit = (int)data->n_col - 1;
-	if (map_cpy[py][px] == '1' || map_cpy[py][px] == 'x')
+	if (map_cpy[py][px] == '1' || map_cpy[py][px] == '.')
 		return ;
 	if (py <= 0 || px <= 0 || py >= y_limit || px >= x_limit)
 	{
@@ -65,7 +65,7 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 		err_free_exit("flood_fill", data, E_MAP_OPEN);
 	}
 	else
-		map_cpy[py][px] = 'x';
+		map_cpy[py][px] = '.';
 	flood_fill(py - 1, px, map_cpy, data);
 	flood_fill(py, px + 1, map_cpy, data);
 	flood_fill(py + 1, px, map_cpy, data);
