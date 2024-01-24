@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 12:47:18 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:25:13 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 /*
 	THINGS TO DO TO FINISH:
-	1) Handle the whitespaces inside the map:
+	1) Handle the whitespaces inside the map:	------------------------> MARIA
 		- color the floor differently?
 		- use a different wall, maybe half transparent?
-	2) Handle doors and mouse
+	2) Handle doors
+	3) Handle mouse
 	3) Add animation to the door
 	4) Check for the leaks
 	5) Clean everyhting
