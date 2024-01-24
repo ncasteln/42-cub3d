@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 08:15:29 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 08:18:20 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ typedef struct s_cub3d
 	size_t			n_rows;
 	size_t			n_col;
 	t_player		*p;
-	t_move			*mv;
 	char			*line;
 	int				fd;
 }	t_cub3d;

@@ -6,11 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/19 17:59:10 by ncasteln         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/22 15:16:41 by mrubina          ###   ########.fr       */
->>>>>>> merge
+/*   Updated: 2024/01/24 08:17:38 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +61,19 @@ int	main(int argc, char **argv)
 	// substitute with ftbzero???
 	init_cub3d(&data);
 	parse(argc, argv, &data);
-<<<<<<< HEAD
 
-=======
 	print_map(data.map, data.n_col);
-	 printf("%i \n", (int) 5.7);
+	printf("%i \n", (int) 5.7);
 	// printf("%x \n", data.assets->c);
 	// printf("%x \n", data.assets->f);
->>>>>>> merge
+
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
 	init_move(data.p);
 	correction(&data);
 	load_textures(&data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
-	
+
 	raycasting(&data); // necessary ????
 	mlx_loop_hook(data.mlx, refresh, &data);
 	mlx_key_hook(data.mlx, key_hook, &data);
