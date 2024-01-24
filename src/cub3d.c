@@ -6,64 +6,44 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 08:17:38 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:47:18 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	init_cub3d(t_cub3d *data)
-{
-	data->assets = ft_calloc(1, sizeof(t_assets));
-	if (!data->assets)
-		err_free_exit("init_cub3d", data, errno);
-	data->assets->no = NULL;
-	data->assets->ea = NULL;
-	data->assets->so = NULL;
-	data->assets->we = NULL;
-	data->assets->d = NULL;
-	data->assets->f = 0;
-	data->assets->c = 0;
-	data->map = NULL;
-	data->minimap = NULL;
-	data->p = NULL;
-	data->n_rows = 0;
-	data->n_col = 0;
-	data->line = NULL;
-	data->fd = -1;
-}
+/*
+	THINGS TO DO TO FINISH:
+	1) Handle the whitespaces inside the map:
+		- color the floor differently?
+		- use a different wall, maybe half transparent?
+	2) Handle doors and mouse
+	3) Add animation to the door
+	4) Check for the leaks
+	5) Clean everyhting
+		- remove traingin and its functions
+		- Remove unuseful stuff
+		- Norm
+	6) Understand the mate's code
 
-void init_move(t_player *p)
-{
-	p->pos.x = p->x;
-	p->pos.y = p->y;
-	if (p->dir == 'N' || p->dir == 'S')
-		p->dirv.x = 0;
-	else if (p->dir == 'W' || p->dir == 'E')
-		p->dirv.y = 0;
-	if (p->dir == 'N')
-		p->dirv.y = -1;
-	else if (p->dir == 'S')
-		p->dirv.y = 1;
-	else if (p->dir == 'W')
-		p->dirv.x = -1;
-	else if (p->dir == 'E')
-		p->dirv.x = 1;
-	p->plane.x = 0.66 * p->dirv.x;
-	p->plane.y = 0.66 * p->dirv.y;
-	rotateV(&p->plane.x, &p->plane.y, M_PI / 2);
-}
+	DOUBTS:
+	- should compile with math lib ?
+
+	QUESTION:
+	- t_player which is the diff between x, y and pos.x, pos.y ?
+	- The pixel are written top-down left-right, right?
+	- What is line_start and _end in putline() ?
+*/
 
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;
 
-	// substitute with ftbzero???
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 
-	print_map(data.map, data.n_col);
-	printf("%i \n", (int) 5.7);
+	// print_map(data.map, data.n_col);
+	// printf("%i \n", (int) 5.7);
 	// printf("%x \n", data.assets->c);
 	// printf("%x \n", data.assets->f);
 
@@ -74,11 +54,13 @@ int	main(int argc, char **argv)
 	load_textures(&data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 
-	raycasting(&data); // necessary ????
+	raycasting(&data); // ----- Necessary? if removed nothing changes
 	mlx_loop_hook(data.mlx, refresh, &data);
 	mlx_key_hook(data.mlx, key_hook, &data);
-	//mlx_mouse_hook(mv.mlx, mouse_hook, &mv);
+
+	// mlx_mouse_hook(data.mlx, mouse_hook, &data);
+
 	mlx_loop(data.mlx);
-	mlx_terminate(data.mlx);
+	mlx_terminate(data.mlx); // ----- Necessary ?????
 	return (0);
 }

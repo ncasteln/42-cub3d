@@ -6,13 +6,40 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 08:18:20 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:34:07 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPEDEF_H
 # define TYPEDEF_H
 
+// ------------------------------------------------------------------ CONSTANTS
+# define WIN_W 1600
+# define WIN_H 1200
+# define NORTH_SOUTH 1
+# define WEST_EAST 0
+# define X 0
+# define Y 1
+
+// ------------------------------------------------------------------- TEXTURES
+# define NO 0
+# define WE 1
+# define SO 2
+# define EA 3
+
+# define RED 0x990000FF
+# define GREEN 0x00FF00FF
+# define BLUE 0x0000FF77
+# define ORANGE 0xDD7700FF
+# define WHITE 0xFFFFFFFF
+# define WALLC WHITE
+
+# define FORWARD	100
+# define BACK		200
+# define RIGHT		300
+# define LEFT		400
+
+// --------------------------------------------------------------------- ERRORS
 enum err
 {
 	E_ARGC = 107,
@@ -30,6 +57,7 @@ enum err
 	E_MAP_OPEN
 };
 
+// -------------------------------------------------------------------- STRUCTS
 typedef struct s_assets
 {
 	char		*no;
@@ -53,10 +81,12 @@ typedef struct s_ivector
 	int y;
 }	t_ivect;
 
-// t_dvect			pos; // character position
-// 	t_dvect			dir; // look direction
-// 	t_dvect			plane; //camera plane
-// 	t_ivect		map;	//square coordinates - left upper side of the sqare
+/*
+	@param pos - position of the player
+	@param dir - look direction of player
+	@param plane - camera plane
+	@param dirv - direction vector
+*/
 typedef struct s_player
 {
 	int		x;
@@ -67,33 +97,6 @@ typedef struct s_player
 	t_dvect	plane;
 }	t_player;
 
-//constants
-
-# define WIN_W 1600
-# define WIN_H 1200
-#define NORTH_SOUTH 1
-#define WEST_EAST 0
-#define X 0
-#define Y 1
-
-//textures array indices
-#define NO 0
-#define WE 1
-#define SO 2
-#define EA 3
-
-
-# define RED 0x990000FF
-# define GREEN 0x00FF00FF
-# define BLUE 0x0000FF77
-# define ORANGE 0xDD7700FF
-# define WHITE 0xFFFFFFFF
-# define WALLC WHITE
-
-# define FORWARD 100
-# define BACK 200
-# define RIGHT 300
-# define LEFT 400
 
 //structures
 

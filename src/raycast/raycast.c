@@ -6,15 +6,11 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/24 08:18:11 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:34:11 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*
-functions for raycasting algorithm
- */
 
 /*
 **********************
@@ -49,23 +45,23 @@ to normalization process in math.
  */
 
 /*
-calculates the distances to the first x/y interesction - that is
-the length of the ray from its start (player position)
-till the first intersection with x/y integer coordinate net
-rc->ray_len.x  - distance to to the first x intersection
-rc->ray_len.y  - distance to to the first y intersection
-(they are stored as one vector but it's not an actual vector in space)
+	calculates the distances to the first x/y interesction - that is
+	the length of the ray from its start (player position)
+	till the first intersection with x/y integer coordinate net
+	rc->ray_len.x  - distance to to the first x intersection
+	rc->ray_len.y  - distance to to the first y intersection
+	(they are stored as one vector but it's not an actual vector in space)
 
-|         |/
-|        /| - intersection with x
-|       / |
-|      /  |
-|     /   |
-|----/----|----- intersection with y
-|   /     |
-|  /      |
-ray start
-calculation based on triangle proportion
+	|         |/
+	|        /| - intersection with x
+	|       / |
+	|      /  |
+	|     /   |
+	|----/----|----- intersection with y
+	|   /     |
+	|  /      |
+	ray start
+	calculation based on triangle proportion
  */
 static void	first_intersec(t_raycast *rc, t_player *p)
 {
@@ -80,22 +76,26 @@ static void	first_intersec(t_raycast *rc, t_player *p)
 }
 
 /*
-calculates the following ray parameters:
-|     | / (ray)
-|     |/
-|     /
-|----/|----- y
-|   / |
-|  /  |
-|-/---|----- y+1
-|/    |
-x     x+1
 
-1. Camera space FP(float point) coordinate (cam_x)
-2. Ray direction vector (raydir_x, raydir_y)
-3. Ray length between two adjacent integer x/y (ray_delta)
-4. Map space integer coordinates
-5. First intersec parameters
+
+	Calculates the following ray parameters:
+	|     | / (ray)
+	|     |/
+	|     /
+	|----/|----- y
+	|   / |
+	|  /  |
+	|-/---|----- y+1
+	|/    |
+	x     x+1
+
+	1. Camera space FP(float point) coordinate (cam_x). The screen drawing will
+	be between -1 (left) to +1 (right).
+	2. Initial ray direction vector (raydir_x, raydir_y)
+	3. Ray length between two adjacent integer x/y (ray_delta). fabs() get the
+	absolute value of a number.
+	4. Map space integer coordinates
+	5. First intersec parameters
  */
 static void	ray_init(int pixel_x, t_raycast *rc, t_player *p)
 {
@@ -114,8 +114,10 @@ static void	ray_init(int pixel_x, t_raycast *rc, t_player *p)
 }
 
 /*
-propagates the ray until it hits a wall
- */
+	Propagates the ray until it hits a wall and returns. The position in which
+	the wall is hit, is calculated in the next step in get_hit_pos() using the
+	rc->wall_dir set in this function.
+*/
 static void	find_hit(t_raycast *rc, char **map)
 {
 	rc->hit = 0;
@@ -139,13 +141,38 @@ static void	find_hit(t_raycast *rc, char **map)
 }
 
 /*
-Selects a texture
-if a ray with positive y (ray direction vector) hits a horizontal wall
-it means that the wall faces North and we use the  "North texture"
-\    /
- \  /
-__\/_________
-similarly for other cases
+	calculates where the wall was hit
+	distance to the wall and
+	the wall horizontal coordinate (wall_x)
+	which is x (on the map) for North/South facing walls and
+	y for West/East facing walls
+	then we make wall_x relative to the start
+	of the correspondent wall square/tile
+
+	floor() rounds a number down to the nearest integer.
+*/
+static void	get_hit_pos(t_cub3d *data, t_raycast *rc)
+{
+	if (rc->wall_dir == WEST_EAST)
+	{
+		rc->wall_dist = rc->ray_len.x - rc->ray_delta.x;
+		rc->wall_x = data->p->pos.y + rc->wall_dist * rc->raydir.y;
+	}
+	else
+	{
+		rc->wall_dist = rc->ray_len.y - rc->ray_delta.y;
+		rc->wall_x = data->p->pos.x + rc->wall_dist * rc->raydir.x;
+	}
+	rc->wall_x -= floor(rc->wall_x);
+}
+
+/*
+	If a ray with positive y (ray direction vector) hits a horizontal wall
+	it means that the wall faces North and we use the  "North texture"
+	\    /
+	 \  /
+	__\/_________
+	similarly for other cases
  */
 mlx_texture_t	*select_texture(t_cub3d *data, t_dvect *raydir, int wall_dir)
 {
@@ -161,8 +188,9 @@ mlx_texture_t	*select_texture(t_cub3d *data, t_dvect *raydir, int wall_dir)
 }
 
 /*
-calculates some parameters of the vertical line that we are going to draw
- */
+	Calculates some parameters of the vertical line that we are going to draw.
+
+*/
 static void	set_draw(t_raycast *rc)
 {
 	rc->line_h = (int)(WIN_H / rc->wall_dist);
@@ -175,8 +203,10 @@ static void	set_draw(t_raycast *rc)
 }
 
 /*
-draws a vertical line pixel by pixel according to the texture
-//we move along the texture height with this step
+	Draws a vertical line pixel by pixel according to the texture.
+
+	We iterate the texture pixels, so that its color is read and put into
+	the screen.
 */
 static void	putline(t_cub3d *data, int x, mlx_texture_t *tex, t_raycast *rc)
 {
@@ -207,42 +237,15 @@ static void	putline(t_cub3d *data, int x, mlx_texture_t *tex, t_raycast *rc)
 }
 
 /*
-calculates where the wall was hit
-distance to the wall and
-the wall horizontal coordinate (wall_x)
-which is x (on the map) for North/South facing walls and
-y for West/East facing walls
-then we make wall_x relative to the start
-of the correspondent wall square/tile
- */
-static void	get_hit_pos(t_cub3d *data, t_raycast *rc)
-{
-	if (rc->wall_dir == WEST_EAST)
-	{
-		rc->wall_dist = rc->ray_len.x - rc->ray_delta.x;
-		rc->wall_x = data->p->pos.y + rc->wall_dist * rc->raydir.y;
-	}
-	else
-	{
-		rc->wall_dist = rc->ray_len.y - rc->ray_delta.y;
-		rc->wall_x = data->p->pos.x + rc->wall_dist * rc->raydir.x;
-	}
-	rc->wall_x -= floor(rc->wall_x);
-}
+	For each x of the game screen (horizontal pixel) we take a ray that should
+	be projected onto the screen. For that point we find where the ray hits the
+	wall and calculate the distance to this wall and its height on the screen
+	this allows us to draw the wall.
 
-/*
-For each x of the game screen (horizontal pixel) we take a ray
-that should be projected onto the screen for that point
-we find where the ray hits the wall and
-calculte the distance to this wall and
-its height on the screen
-this allows us to draw the wall
-
-texture notes:
-after selecting a texure
-we calculate the coordinates in the texture corresponding to the wall coordinate
-(as if we stretch or shrink the texture to fit the wall tile)
-for the walls facing east and north we mirror the texture
+	About textures: after selecting a texure we calculate the coordinates in
+	the texture corresponding to the wall coordinate (as if we stretch or
+	shrink the texture to fit the wall tile) for the walls facing east and
+	north we mirror the texture.
  */
 void	raycasting(t_cub3d *data)
 {

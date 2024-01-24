@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/24 08:14:06 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/24 09:49:39 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ UTILS = err_free_exit.c \
 	print_assets.c \
 	free_utils.c \
 	is_blank_line.c \
+	init_structs.c \
 
 RAYCAST = raycast.c \
 	hooks.c \

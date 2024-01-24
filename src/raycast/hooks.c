@@ -6,23 +6,19 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/24 08:20:19 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:39:25 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3d.h"
 
-void	win_close(mlx_t* mlx)
-{
-	mlx_terminate(mlx);
-	exit(0);
-}
-
 void	key_hook(mlx_key_data_t keydata, void *data)
 {
-	if (keydata.key == MLX_KEY_ESCAPE)
-		win_close(((t_cub3d *)data)->mlx);
+	if (keydata.key == MLX_KEY_ESCAPE) {
+		mlx_terminate(((t_cub3d *)data)->mlx);
+		err_free_exit(NULL, data, 0);
+	}
 	if (keydata.key == MLX_KEY_A)
 		move((t_cub3d *)data, 0.2, LEFT);
 	if (keydata.key == MLX_KEY_D)
@@ -36,32 +32,35 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 	if (keydata.key == MLX_KEY_LEFT)
 		rotateP(((t_cub3d *)data)->p, -0.2);
 	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
-	//mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img1, 0, 0);
 }
 
 void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param)
 {
-	if (keydata.key == MLX_MOUSE_BUTTON_LEFT)
-		mlx_put_pixel(((t_cub3d *)param)->img, x, y, 0xFF0000FF);
+	// t_cub3d	*data;
+
+	// data = (t_cub3d *)param;
+	// mlx_get_mouse_pos(data->mlx, data->mouseX, data->mouseY);
+	// ft_printf("MOUSE [%d, %d]\n", data->mouseX, data->mouseY);
 }
 
-void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color)
-{
-	int x;
-	int y;
+// trainign function
+// void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color)
+// {
+// 	int x;
+// 	int y;
 
-	x = xStart;
-	while (x < xStart + side)
-	{
-		y = yStart;
-		while (y < yStart + side)
-		{
-			mlx_put_pixel(data->img1, x, y, color);
-			y++;
-		}
-		x++;
-	}
-}
+// 	x = xStart;
+// 	while (x < xStart + side)
+// 	{
+// 		y = yStart;
+// 		while (y < yStart + side)
+// 		{
+// 			mlx_put_pixel(data->img1, x, y, color);
+// 			y++;
+// 		}
+// 		x++;
+// 	}
+// }
 
 void refresh(void *data)
 {

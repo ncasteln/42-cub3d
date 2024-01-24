@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/24 08:17:01 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:06:18 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ uint32_t readcol(uint8_t *p)
 	return (getcol(r, g, b, a));
 }
 
-//takes separate rgba values and returns color
+//	takes separate rgba values and returns color
 uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 {
 	return ((r << 24) + (g << 16) + (b << 8) + a);
 }
 
+
+//	sign() adds or substracts 1 to the ray vector x or y.
 int sign(double x)
 {
 	if (x > 0)
@@ -79,7 +81,7 @@ void load_textures(t_cub3d *data)
 	data->tex[WE] = mlx_load_png(data->assets->we);
 	data->tex[SO] = mlx_load_png(data->assets->so);
 	data->tex[EA] = mlx_load_png(data->assets->ea);
-	data->tex[4] = mlx_load_png("src/textures/lava.png");
+	data->tex[4] = mlx_load_png("assets/hole_1.png"); //  ?????
 }
 
 // t_ftile *revert_buff(t_dvect *buff, int size)

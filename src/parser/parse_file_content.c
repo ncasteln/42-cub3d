@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2024/01/19 15:22:34 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:43:15 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	map_line(char *line, int is_line_parsed, t_cub3d *data)
 
 /*
 	@param is_line_parsed: means, that the line is already in part parsed. It
-	is required to parse map with assets written on the same line (see 
+	is required to parse map with assets written on the same line (see
 	./tests/valid/ass_02.cub and ass_12.cub).
 	Note: assets on same line are valid, but if the id of the asset and its
 	path are on different lines, they are considered invalid (see
