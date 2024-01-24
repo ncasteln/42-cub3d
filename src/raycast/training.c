@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/17 00:37:43 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/15 20:26:42 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,36 +54,18 @@ void draw_line(t_cub3d *data, int a, int b)
 /*
 calculates line start and end and sets color
  */
-// static void set_draw(t_move *mv)
+// static void set_draw(t_rc *rc)
 // {
-// 	mv->line_h = (int)(WIN_H / rc->wall_dist);
-// 		mv->draw_start = WIN_H / 2 - mv->line_h / 2;
-// 		if (mv->draw_start < 0)
-// 			mv->draw_start = 0;
-// 		mv->draw_end = WIN_H / 2 + mv->line_h / 2;
-// 		if (mv->draw_end >= WIN_H)
-// 			mv->draw_end = WIN_H;
-// 		mv->w_color = WALLC;
-// 		if (mv->side == 0)
-// 			mv->w_color = dim(WALLC, 10);
+// 	rc->line_h = (int)(WIN_H / rc->wall_dist);
+// 		rc->draw_start = WIN_H / 2 - rc->line_h / 2;
+// 		if (rc->draw_start < 0)
+// 			rc->draw_start = 0;
+// 		rc->draw_end = WIN_H / 2 + rc->line_h / 2;
+// 		if (rc->draw_end >= WIN_H)
+// 			rc->draw_end = WIN_H;
+// 		rc->w_color = WALLC;
+// 		if (rc->side == 0)
+// 			rc->w_color = dim(WALLC, 10);
 // 		else
-// 			mv->w_color = WALLC;
+// 			rc->w_color = WALLC;
 // }
-
-uint32_t dim(uint32_t color, uint32_t shift)
-{
-	uint32_t b;
-	uint32_t g;
-	uint32_t r;
-
-	b = (color << 16 >> 24);
-	g = (color << 8 >> 24);
-	r = (color >> 24);
-	if (b >= shift)
-		b = b - shift;
-	if (g >= shift)
-		g = g - shift;
-	if (r >= shift)
-		r = r - shift;
-	return ((r << 24) + (g << 16) + (b << 8) + 0xFF);
-}

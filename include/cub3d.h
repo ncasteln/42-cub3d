@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/19 16:21:19 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 08:15:04 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	raycasting(t_cub3d *data);
 void vert_line(t_cub3d *data, int x, int draw_start, int draw_end);
 void	refresh(void *param);
 void	clearScreen(t_cub3d *data);
-void	rotateP(t_move *data, double angle);
+void rotateP(t_player *p, double angle);
 uint32_t dim(uint32_t color, uint32_t shift);
 //void move(t_cub3d *data, double move);
 void move(t_cub3d *data, double move, int dir);
@@ -89,7 +89,10 @@ int sign(double x);
 void move_s(t_cub3d *data, double move, int dir);
 t_dvect *set_vect(t_dvect *v, double x, double y);
 void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color);
-uint32_t getpixcol(uint8_t *p);
+uint32_t readcol(uint8_t *p);
 uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
 void load_textures(t_cub3d *data);
+void correction(t_cub3d *data);
+mlx_texture_t	*select_texture(t_cub3d *data, t_dvect *raydir, int wall_dir);
+//t_dvect *revert_buff(t_dvect *buff, int size);
 #endif

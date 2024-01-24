@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/19 16:27:37 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 08:15:29 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,47 @@ typedef struct s_assets
 	char		*d;
 }	t_assets;
 
+typedef struct s_dvector
+{
+	double x;
+	double y;
+}	t_dvect;
+
+typedef struct s_ivector
+{
+	int x;
+	int y;
+}	t_ivect;
+
+// t_dvect			pos; // character position
+// 	t_dvect			dir; // look direction
+// 	t_dvect			plane; //camera plane
+// 	t_ivect		map;	//square coordinates - left upper side of the sqare
 typedef struct s_player
 {
 	int		x;
 	int		y;
 	char	dir;
+	t_dvect	pos;
+	t_dvect	dirv;
+	t_dvect	plane;
 }	t_player;
 
 //constants
+
 # define WIN_W 1600
 # define WIN_H 1200
-#define TEX_W 64
-#define TEX_H 64
-#define VERTICAL 0
-#define HORIZONTAL 1
+#define NORTH_SOUTH 1
+#define WEST_EAST 0
+#define X 0
+#define Y 1
+
+//textures array indices
+#define NO 0
+#define WE 1
+#define SO 2
+#define EA 3
+
 
 # define RED 0x990000FF
 # define GREEN 0x00FF00FF
@@ -69,43 +96,22 @@ typedef struct s_player
 # define LEFT 400
 
 //structures
-typedef struct s_dvector
-{
-	double x;
-	double y;
-}	t_dvect;
-
-typedef struct s_ivector
-{
-	int x;
-	int y;
-}	t_ivect;
-
-//variables related to movement
-typedef struct	s_move {
-
-	t_dvect			pos; // character position
-	t_dvect			dir; // look direction
-	t_dvect			plane; //camera plane
-	t_ivect		map;	//square coordinates - left upper side of the sqare
-	mlx_texture_t *tex[4];
-}	t_move;
-
 
 typedef struct s_cub3d
 {
 	mlx_t*			mlx;
 	mlx_image_t*	img;
 	mlx_image_t*	img1;
-	t_assets	*assets;
-	char		**map;
-	mlx_image_t	*minimap;
-	size_t		n_rows;
-	size_t		n_col;
-	t_player	*p;
-	t_move	*mv;
-	char		*line;
-	int			fd;
+	mlx_texture_t	*tex[5];
+	t_assets		*assets;
+	char			**map;
+	mlx_image_t		*minimap;
+	size_t			n_rows;
+	size_t			n_col;
+	t_player		*p;
+	t_move			*mv;
+	char			*line;
+	int				fd;
 }	t_cub3d;
 
 /* variables related to raycasting calculation
@@ -117,16 +123,26 @@ distance from the player to the wall
 typedef struct s_raycast
 {
 	t_dvect	raydir;
-	t_dvect	side_dist;
-	t_dvect	delta_dist;
+	t_dvect	ray_len;
+	t_dvect	ray_delta;
 	double	wall_dist;
 	double	wall_x;
 	int		hit; //0 if the ray didn't hit a wall
-	int		side;
+	int		wall_dir;//wall direction NORTH_SOUTH or WEST_EAST
 	int		line_h; //visible wall height for pixel_x
 	int		tex_x;
 	int		line_start;
 	int		line_end;
+	int		b_size;
+	t_ivect	ray;
 }	t_raycast;
+
+typedef struct s_ftile
+{
+	double dist;
+	double delta;
+	int bottom;
+	int h;
+}	t_ftile;
 
 #endif
