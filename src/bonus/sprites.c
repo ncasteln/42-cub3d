@@ -6,48 +6,75 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 17:22:20 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:36:54 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	create_sprite(t_cub3d *data, int y, int x)
+static void	set_sprite(int n, int y, int x, t_cub3d *data)
 {
-	t_sprite	*sprite;
-	t_list		*node;
-
-	sprite = ft_calloc(1, sizeof(t_sprite));
-	if (!sprite)
-		err_free_exit("create_sprite", data, errno);
-	sprite->c = data->map[y][x];
-	sprite->y = y;
-	sprite->x = x;
-	sprite->dist = -1;
-	node = ft_lstnew(sprite);
-	if (!node)
-		err_free_exit("create_sprite", data, errno);
-	ft_lstadd_back(&data->sprite, node);
+	data->sprite[n].c = data->map[y][x];
+	data->sprite[n].y = y;
+	data->sprite[n].dist = rand();
+	data->sprite[n].x = x;
+	// data->sprite[n].dist = -1;
 }
 
-static void	create_sprite_list(t_cub3d *data)
+static void	create_sprite_list(t_cub3d *data, int total)
 {
 	int	y;
 	int	x;
+	int	n;
 
+	data->sprite = ft_calloc(total, sizeof(t_sprite));
+	if (!data->sprite)
+		err_free_exit("create_sprite", data, errno);
 	y = 0;
+	n = 0;
 	while (data->map[y])
 	{
 		x = 0;
 		while (data->map[y][x])
 		{
-			if (data->map[y][x] == ' '
-				|| data->map[y][x] == '$'
-				|| data->map[y][x] == 'D')
-				create_sprite(data, y, x);
+			if (data->map[y][x] == ' ' || data->map[y][x] == '$' || data->map[y][x] == 'D')
+			{
+				set_sprite(n, y, x, data);
+				n++;
+			}
 			x++;
 		}
 		y++;
+	}
+}
+
+void	swap_ptr(void *p1, void *p2)
+{
+	void	*temp;
+
+	temp = p1;
+	p1 = p2;
+	p2 = temp;
+}
+
+void	sort_sprite_by_distance(t_sprite *sprite, int total)
+{
+	int	i;
+	int	j;
+	double	curr;
+
+	i = 1;
+	while (i < total)
+	{
+		curr = sprite[i].dist;
+		j = i - 1;
+		while (j >= 0 && sprite[j].dist > curr)
+		{
+			sprite[j + 1].dist = sprite[j].dist;
+			j -= 1;
+		}
+		sprite[j + 1].dist = curr;
+		i++;
 	}
 }
 
@@ -58,6 +85,7 @@ static void	create_sprite_list(t_cub3d *data)
 
 	) Create sprite list
 	) Calculate the dist of each sprite
+	) Sort by distance
 	) Projection of the sprite (2x2 matrix)
 	) Calculate the size on the screen
 	) Draws
@@ -66,8 +94,19 @@ void	sprites(t_cub3d *data)
 {
 	// uint32_t	buff[WIN_H][WIN_W];
 	// double		ZBuff[WIN_W];
+	int	total;
 
-	create_sprite_list(data);
+	total = data->n_d + data->n_h + data->n_s;
+	create_sprite_list(data, total);
+	sort_sprite_by_distance(data->sprite, total);
+
+	// int i = 0;
+	// while (i < total)
+	// {
+	// 	printf("[%f] \n", data->sprite2[i].dist);
+	// 	i++;
+	// }
+
 	// set_sprite_pos(&sprite, data);
 
 	// i = 0;

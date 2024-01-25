@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:49:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/25 16:49:56 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:36:08 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_cub3d(t_cub3d *data)
 	data->fd = -1;
 
 	// added
-	data->sprite = NULL;
+	data->sprite = NULL; // remove
 	data->n_d = 0;
 	data->n_s = 0;
 	data->n_h = 0;
