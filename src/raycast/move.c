@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/24 12:17:06 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:22:58 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,26 +163,24 @@ void minimove(t_cub3d *data, t_dvect delta)
 }
 
 /*
-player moves forward - along the look direction
+we have the magnitude of the increment vector
+we need to calculate the increment vector in order to add it
+to player position vector
+we create the increment vector with the same direction as player direction
+then we rotate it according to the movement direction
  */
 void move(t_cub3d *data, double incr, int dir)
 {
 	t_dvect incr_vector;
-	t_dvect dir_vector;
 
-	set_vect(&dir_vector, data->p->dirv.x, data->p->dirv.y);
+	get_vector(&incr_vector, &data->p->dirv, incr);
 	if (dir == RIGHT)
-		rotateV(&(dir_vector.x), &(dir_vector.y), M_PI / 2);
+		rotate_vector(&incr_vector, M_PI / 2);
 	else if (dir == LEFT)
-		rotateV(&(dir_vector.x), &(dir_vector.y), -M_PI / 2);
-	get_vector(&incr_vector, &dir_vector, incr);
+		rotate_vector(&incr_vector, -M_PI / 2);
 	if (dir == BACK)
-	{
-		incr_vector.x *= -1;
-		incr_vector.y *= -1;
-	}
-	printf("delta: %f, %f \n", incr_vector.x, incr_vector.y);
-	//add_delta(data, &incr_vector.x, &incr_vector.y);
+		rotate_vector(&incr_vector, M_PI);
+	//printf("delta: %f, %f \n", incr_vector.x, incr_vector.y);
 	if (check_space(data, incr_vector.x, incr_vector.y) == true)
 	{
 		data->p->pos.x += incr_vector.x;
@@ -192,26 +190,25 @@ void move(t_cub3d *data, double incr, int dir)
 	}
 	else
 		minimove(data, incr_vector);
-
 	//  printf("dir: %f, %f \n", data->mv->dir_x, data->p->dirv.y);
-	printf("stop: %f, %f \n", data->p->pos.x, data->p->pos.y);
+	//printf("stop: %f, %f \n", data->p->pos.x, data->p->pos.y);
 }
 
 //rotates any vector by a given angle (radians)
-void rotateV(double *x, double *y, double angle)
+void rotate_vector(t_dvect *v, double angle)
 {
 	double temp_x;
 
-	temp_x = *x;
-	*x = *x * cosf(angle) - *y * sinf(angle);
-	*y = temp_x * sinf(angle) + *y * cosf(angle);
+	temp_x = v->x;
+	v->x = v->x * cosf(angle) - v->y * sinf(angle);
+	v->y = temp_x * sinf(angle) + v->y * cosf(angle);
 }
 
 //rotates direction vector and plane vector
-void rotateP(t_player *p, double angle)
+void rotate_player(t_player *p, double angle)
 {
-	rotateV(&p->dirv.x, &p->dirv.y, angle);
-	rotateV(&p->plane.x, &p->plane.y, angle);
+	rotate_vector(&p->dirv, angle);
+	rotate_vector(&p->plane, angle);
 }
 
 void correction(t_cub3d *data)

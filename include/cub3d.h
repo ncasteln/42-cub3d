@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 15:57:40 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:18:12 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ void	raycasting(t_cub3d *data);
 void vert_line(t_cub3d *data, int x, int draw_start, int draw_end);
 void	refresh(void *param);
 void	clearScreen(t_cub3d *data);
-void rotateP(t_player *p, double angle);
+void rotate_player(t_player *p, double angle);
 uint32_t dim(uint32_t color, uint32_t shift);
 //void move(t_cub3d *data, double move);
 void move(t_cub3d *data, double move, int dir);
-void rotateV(double *x, double *y, double angle);
+void rotate_vector(t_dvect *v, double angle);
 int check_space(t_cub3d *data, double delta_x, double delta_y);
 int sign(double x);
 void move_s(t_cub3d *data, double move, int dir);
