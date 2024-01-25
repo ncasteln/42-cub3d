@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 17:19:07 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:22:20 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ static void	create_sprite_list(t_cub3d *data)
 	add eventually other BONUS sprites (included doors) in case the bonus
 	version of the program is compiled.
 
-	0) Calculate the dist of each sprite
-	1) Projection of the sprite (2x2 matrix)
-	2) Calculate the size on the screen
-	3) Draws
+	) Create sprite list
+	) Calculate the dist of each sprite
+	) Projection of the sprite (2x2 matrix)
+	) Calculate the size on the screen
+	) Draws
 */
 void	sprites(t_cub3d *data)
 {
