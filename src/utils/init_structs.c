@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:49:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 16:27:11 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:49:56 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ void init_move(t_player *p)
 		p->dirv.x = 1;
 	p->plane.x = 0.66 * p->dirv.x;
 	p->plane.y = 0.66 * p->dirv.y;
-	rotateV(&p->plane.x, &p->plane.y, M_PI / 2);
+	rotate_vector(&p->dirv, -M_PI / 2); // --- right ?
 }
