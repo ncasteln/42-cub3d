@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/26 08:55:14 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:10:39 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void	create_sprite_list(t_cub3d *data, int total)
 static void	bubble(t_sprite *sprite, int n)
 {
 	t_sprite	temp;
-	int			newn;
 	int			swapped;
 	int			i;
 

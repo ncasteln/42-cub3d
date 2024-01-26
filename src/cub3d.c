@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/26 08:57:42 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:52:47 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@
 	6) Understand the mate's code
 
 	DOUBTS:
-	- should compile with math lib ?
+	- should compile with math lib?
+	- bonus_vali/sprites_01.cub is not enclosed by 1, but by $, I think it should
+	be fine like that, and allow only maps which are enclosed by 1
 
 	QUESTION:
-	- t_player which is the diff between x, y and pos.x, pos.y ?
-	- The pixel are written top-down left-right, right? YES
-	- What is line_start and _end in putline() ? VERTICAL LINE
 
 	NOTES:
 	- Doors and other sprites can be placed anywhere, but sure to let the user
-	change the texture?
+	change the texture in the prsing? Think when done
 	- Error map_06 something works not properly
-	- Modfy fllod_fill() for bonus sprites
 */
 
 int	main(int argc, char **argv)
@@ -61,7 +59,7 @@ int	main(int argc, char **argv)
 	// mlx_mouse_hook(data.mlx, mouse_hook, &data);
 
 	mlx_loop(data.mlx);
-	mlx_terminate(data.mlx); // ----- Necessary ?????
+	mlx_terminate(data.mlx);
 	free_data(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/26 09:00:32 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:23:28 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ mlx_texture_t	*select_texture(t_cub3d *data, t_dvect *raydir, int wall_dir)
 
 /*
 	Calculates some parameters of the vertical line that we are going to draw.
-
+	line_start, _end and _h refers to the vertical one.
 */
 static void	set_draw(t_raycast *rc)
 {

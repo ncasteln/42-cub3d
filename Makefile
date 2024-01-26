@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/24 16:38:42 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/01/26 09:46:11 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,6 @@ RAYCAST = raycast.c \
 
 BONUS = draw_minimap.c \
 	sprites.c \
-	bonus_utils.c
 
 SRC = cub3d.c \
 	$(PARSER) \
