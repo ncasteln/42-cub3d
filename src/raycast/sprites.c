@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/25 17:36:54 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/26 08:55:14 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static void	set_sprite(int n, int y, int x, t_cub3d *data)
 {
 	data->sprite[n].c = data->map[y][x];
 	data->sprite[n].y = y;
-	data->sprite[n].dist = rand();
 	data->sprite[n].x = x;
-	// data->sprite[n].dist = -1;
+	data->sprite[n].dist = -1;
+	// data->sprite[n].dist = rand(); // remove, addedto test the bubblesort
 }
 
 static void	create_sprite_list(t_cub3d *data, int total)
@@ -48,33 +48,29 @@ static void	create_sprite_list(t_cub3d *data, int total)
 	}
 }
 
-void	swap_ptr(void *p1, void *p2)
+static void	bubble(t_sprite *sprite, int n)
 {
-	void	*temp;
+	t_sprite	temp;
+	int			newn;
+	int			swapped;
+	int			i;
 
-	temp = p1;
-	p1 = p2;
-	p2 = temp;
-}
-
-void	sort_sprite_by_distance(t_sprite *sprite, int total)
-{
-	int	i;
-	int	j;
-	double	curr;
-
-	i = 1;
-	while (i < total)
+	swapped = 1;
+	while (swapped)
 	{
-		curr = sprite[i].dist;
-		j = i - 1;
-		while (j >= 0 && sprite[j].dist > curr)
+		swapped = 0;
+		i = 1;
+		while (i <= n - 1)
 		{
-			sprite[j + 1].dist = sprite[j].dist;
-			j -= 1;
+			if (sprite[i - 1].dist > sprite[i].dist)
+			{
+				temp = sprite[i - 1];
+				sprite[i - 1] = sprite[i];
+				sprite[i] = temp;
+				swapped = 1;
+			}
+			i++;
 		}
-		sprite[j + 1].dist = curr;
-		i++;
 	}
 }
 
@@ -98,14 +94,7 @@ void	sprites(t_cub3d *data)
 
 	total = data->n_d + data->n_h + data->n_s;
 	create_sprite_list(data, total);
-	sort_sprite_by_distance(data->sprite, total);
-
-	// int i = 0;
-	// while (i < total)
-	// {
-	// 	printf("[%f] \n", data->sprite2[i].dist);
-	// 	i++;
-	// }
+	bubble(data->sprite, total);
 
 	// set_sprite_pos(&sprite, data);
 

@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/24 12:34:11 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:00:32 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ static void	first_intersec(t_raycast *rc, t_player *p)
 }
 
 /*
-
-
 	Calculates the following ray parameters:
 	|     | / (ray)
 	|     |/
@@ -89,13 +87,12 @@ static void	first_intersec(t_raycast *rc, t_player *p)
 	|/    |
 	x     x+1
 
-	1. Camera space FP(float point) coordinate (cam_x). The screen drawing will
-	be between -1 (left) to +1 (right).
-	2. Initial ray direction vector (raydir_x, raydir_y)
-	3. Ray length between two adjacent integer x/y (ray_delta). fabs() get the
-	absolute value of a number.
-	4. Map space integer coordinates
-	5. First intersec parameters
+	@param cam_x - Camera space FP(float point) coordinate (cam_x). The screen
+	drawing will be between -1 (left) to +1 (right).
+	@param raydir - Initial ray direction vector (raydir_x, raydir_y)
+	@param ray_delta - Ray length between two adjacent integer x/y. fabs() get
+	the absolute value of a number.
+	@param p->x and ->y - Map space integer coordinates
  */
 static void	ray_init(int pixel_x, t_raycast *rc, t_player *p)
 {
@@ -237,6 +234,8 @@ static void	putline(t_cub3d *data, int x, mlx_texture_t *tex, t_raycast *rc)
 }
 
 /*
+
+
 	For each x of the game screen (horizontal pixel) we take a ray that should
 	be projected onto the screen. For that point we find where the ray hits the
 	wall and calculate the distance to this wall and its height on the screen
