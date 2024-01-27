@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 16:27:03 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/27 14:18:20 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define TYPEDEF_H
 
 // ------------------------------------------------------------------ CONSTANTS
-# define WIN_W 1600
-# define WIN_H 1200
+# define WIN_W 800
+# define WIN_H 600
 # define NORTH_SOUTH 1
 # define WEST_EAST 0
 # define X 0
@@ -35,6 +35,7 @@
 # define BLUE		0x0000FF77
 # define ORANGE		0xDD7700FF
 # define WHITE		0xFFFFFFFF
+# define BLACK		0x000000FF
 # define WALLC WHITE
 
 # define FORWARD	100
@@ -108,6 +109,7 @@ typedef struct	s_sprite
 	double	y;
 	double	dist;
 	char	c;		// D S or H
+	int		h;
 }	t_sprite;
 
 typedef struct s_cub3d
@@ -143,6 +145,8 @@ typedef struct s_raycast
 	t_dvect	ray_len;
 	t_dvect	ray_delta;
 	double	wall_dist;
+	double	door_dist;
+	int		door_dir;
 	double	wall_x;
 	int		hit; //0 if the ray didn't hit a wall
 	int		wall_dir;//wall direction NORTH_SOUTH or WEST_EAST
@@ -151,6 +155,8 @@ typedef struct s_raycast
 	int		line_start;
 	int		line_end;
 	int		b_size;
+	char	d;
+	
 	t_ivect	ray;
 }	t_raycast;
 

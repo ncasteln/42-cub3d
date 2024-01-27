@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/24 16:40:54 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/27 14:14:03 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,21 @@ void load_textures(t_cub3d *data)
 	data->tex[WE] = mlx_load_png(data->assets->we);
 	data->tex[SO] = mlx_load_png(data->assets->so);
 	data->tex[EA] = mlx_load_png(data->assets->ea);
-	data->tex[H] = mlx_load_png("assets/hole_1.png"); // check if needed at the end  ?????
+	data->tex[H] = mlx_load_png("assets/Door1.png"); // check if needed at the end  ?????
 	if (BONUS && data->n_d)
 		data->tex[D] = mlx_load_png(data->assets->d); // check if needed at the end  ?????
 	if (BONUS && data->n_s)
 		data->tex[S] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
+}
+
+// double vect_dist_sq(t_dvect v1, t_dvect v2)
+// {
+// 	return (pow((v2.x - v1.x), 2) + pow((v2.y - v1.y), 2));
+// }
+
+double sprite_dist_sq(t_sprite s, t_dvect p)
+{
+	return (pow((s.x - p.x), 2) + pow((s.y - p.y), 2));
 }
 
 // t_ftile *revert_buff(t_dvect *buff, int size)
