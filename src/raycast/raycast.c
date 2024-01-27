@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/27 23:29:50 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/27 23:34:51 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ static void	first_intersec(t_raycast *rc, t_player *p)
 }
 
 /*
-
-
 	Calculates the following ray parameters:
 	|     | / (ray)
 	|     |/
@@ -89,13 +87,12 @@ static void	first_intersec(t_raycast *rc, t_player *p)
 	|/    |
 	x     x+1
 
-	1. Camera space FP(float point) coordinate (cam_x). The screen drawing will
-	be between -1 (left) to +1 (right).
-	2. Initial ray direction vector (raydir_x, raydir_y)
-	3. Ray length between two adjacent integer x/y (ray_delta). fabs() get the
-	absolute value of a number.
-	4. Map space integer coordinates
-	5. First intersec parameters
+	@param cam_x - Camera space FP(float point) coordinate (cam_x). The screen
+	drawing will be between -1 (left) to +1 (right).
+	@param raydir - Initial ray direction vector (raydir_x, raydir_y)
+	@param ray_delta - Ray length between two adjacent integer x/y. fabs() get
+	the absolute value of a number.
+	@param p->x and ->y - Map space integer coordinates
  */
 static void	ray_init(int pixel_x, t_raycast *rc, t_player *p)
 {
@@ -215,7 +212,7 @@ int	select_texture(t_cub3d *data, t_raycast *rc)
 
 /*
 	Calculates some parameters of the vertical line that we are going to draw.
-
+	line_start, _end and _h refers to the vertical one.
 */
 static void	set_draw(t_raycast *rc, int isdoor)
 {
@@ -276,6 +273,8 @@ static void	putline(t_cub3d *data, int x, int tex_ind, t_raycast *rc)
 }
 
 /*
+
+
 	For each x of the game screen (horizontal pixel) we take a ray that should
 	be projected onto the screen. For that point we find where the ray hits the
 	wall and calculate the distance to this wall and its height on the screen

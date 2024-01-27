@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:18:22 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 15:25:33 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:46:42 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@
 void	check_behind_doors(t_cub3d *data, char **map_cpy);
 void	minimap(t_cub3d *data);
 void	sprites(t_cub3d *data);
-void	count_sprites(t_cub3d *data);
 
 #endif

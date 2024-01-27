@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/27 14:14:03 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/27 23:37:16 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ t_dvect *set_vect(t_dvect *v, double x, double y)
 	return (v);
 }
 
-//loads 4 texures from files
-//change to add mlx files
+/*
+	Loads the textures for the library. 5 mandatory, 2 optional.
+	@param [H] - represents the whitespaces of the map (we called them holes).
+*/
 void load_textures(t_cub3d *data)
 {
 	data->tex[NO] = mlx_load_png(data->assets->no);
@@ -86,6 +88,37 @@ void load_textures(t_cub3d *data)
 		data->tex[D] = mlx_load_png(data->assets->d); // check if needed at the end  ?????
 	if (BONUS && data->n_s)
 		data->tex[S] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
+}
+
+/*
+	The sprites are counted both in mandatory and BONUS version, because the
+	empty spaces are part of the mandatory. The empty spaces are handled as
+	they are sprites.
+*/
+void	count_sprites(t_cub3d *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == ' ')
+				data->n_h += 1;
+			if (BONUS)
+			{
+				if (data->map[i][j] == '$')
+					data->n_s += 1;
+				if (data->map[i][j] == 'D')
+					data->n_d += 1;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 // double vect_dist_sq(t_dvect v1, t_dvect v2)

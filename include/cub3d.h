@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/27 23:27:25 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/27 23:38:29 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	err_free_exit(char *s, t_cub3d *data, int err_n);
 void	free_data(t_cub3d *data);
 void	free_dptr(char **p);
 int		is_blank_line(char *s);
+void	count_sprites(t_cub3d *data);
 
 // ---------------------------------------------------------------- PRINT UTILS
 void	print_map(char **p, int	row_len);

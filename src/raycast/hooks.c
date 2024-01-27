@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/25 15:17:59 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/26 09:33:05 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
 }
 
-void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param)
-{
-	// t_cub3d	*data;
+// void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param)
+// {
+// 	// t_cub3d	*data;
 
-	// data = (t_cub3d *)param;
-	// mlx_get_mouse_pos(data->mlx, data->mouseX, data->mouseY);
-	// ft_printf("MOUSE [%d, %d]\n", data->mouseX, data->mouseY);
-}
+// 	// data = (t_cub3d *)param;
+// 	// mlx_get_mouse_pos(data->mlx, data->mouseX, data->mouseY);
+// 	// ft_printf("MOUSE [%d, %d]\n", data->mouseX, data->mouseY);
+// }
 
 // trainign function
 // void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color)

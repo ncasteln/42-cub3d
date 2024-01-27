@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/25 15:22:58 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/26 09:34:09 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void get_second_dim(t_dvect *vector, t_dvect *dir, int dim)
 // 	y = (int)test.y;
 // 	if (data->map[y][x] != '1' && data->map[y][x] != ' ')
 // 	{
-// 		printf("no wall\n");
+// // 		printf("no wall\n");
 // 		data->p->pos.x += *delta_x;
 // 		data->p->pos.y += *delta_y;
 // 		data->p->x = (int) data->p->pos.x;
@@ -64,22 +64,22 @@ static void get_second_dim(t_dvect *vector, t_dvect *dir, int dim)
 // 	}
 // 	else
 // 	{
-// 		printf("wall\n");
+// // 		printf("wall\n");
 // 		// *delta_x = data->p->pos.x + *delta_x - x;
 // 		// *delta_y = data->p->pos.y + *delta_y - y;
 
-// // printf("de: %f, %f \n", *delta_x, *delta_y);
+// // // printf("de: %f, %f \n", *delta_x, *delta_y);
 // // 		if (fabs(*delta_x) < fabs(*delta_y))
 // // 			data->p->pos.x += *delta_x;
 // // 		else
 // // 			data->p->pos.y += *delta_y;
-// 		printf("wall: %i, %i \n", x, y);
+// // 		printf("wall: %i, %i \n", x, y);
 // 		data->p->pos.x = x - 0.1 * sign(*delta_x);
 // 		data->p->pos.y = y - 0.1 * sign(*delta_y);
-// 		printf("new_pos: %f, %f \n", data->p->pos.x, data->p->pos.y);
+// // 		printf("new_pos: %f, %f \n", data->p->pos.x, data->p->pos.y);
 // 		data->p->x = (int) data->p->pos.x;
 // 		data->p->y = (int) data->p->pos.y;
-// 		printf("de: %f, %f \n", *delta_x, *delta_y);
+// // 		printf("de: %f, %f \n", *delta_x, *delta_y);
 // 	}
 // }
 
@@ -101,10 +101,10 @@ static void next_to_wall(t_cub3d *data, t_dvect *new_pos, int dim, t_dvect delta
 {
 	double tan;
 
-	printf("x or y: %i\n", dim);
+	// printf("x or y: %i\n", dim);
 
 	tan = delta.y / delta.x;
-	printf("ntw: %f, %f \n", data->p->pos.x, data->p->pos.y);
+	// printf("ntw: %f, %f \n", data->p->pos.x, data->p->pos.y);
 	if (dim == X)
 	{
 		if (delta.x > 0)
@@ -112,7 +112,7 @@ static void next_to_wall(t_cub3d *data, t_dvect *new_pos, int dim, t_dvect delta
 		else
 			new_pos->x = floor(new_pos->x) + 0.01;
 		new_pos->y += tan * (new_pos->x - data->p->pos.x);
-		printf("ntw new: %f, %f \n", new_pos->x, new_pos->y);
+		// printf("ntw new: %f, %f \n", new_pos->x, new_pos->y);
 	}
 	else if (dim == Y)
 	{
@@ -180,7 +180,7 @@ void move(t_cub3d *data, double incr, int dir)
 		rotate_vector(&incr_vector, -M_PI / 2);
 	if (dir == BACK)
 		rotate_vector(&incr_vector, M_PI);
-	//printf("delta: %f, %f \n", incr_vector.x, incr_vector.y);
+	// //printf("delta: %f, %f \n", incr_vector.x, incr_vector.y);
 	if (check_space(data, incr_vector.x, incr_vector.y) == true)
 	{
 		data->p->pos.x += incr_vector.x;
@@ -190,8 +190,6 @@ void move(t_cub3d *data, double incr, int dir)
 	}
 	else
 		minimove(data, incr_vector);
-	//  printf("dir: %f, %f \n", data->mv->dir_x, data->p->dirv.y);
-	//printf("stop: %f, %f \n", data->p->pos.x, data->p->pos.y);
 }
 
 //rotates any vector by a given angle (radians)
@@ -221,14 +219,14 @@ void correction(t_cub3d *data)
 	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
 		{
 			delta.y += -0.01;
-			printf("pos: %f, %f \n", wtest.x, wtest.y);
-			printf("c%c \n", data->map[(int)wtest.y][(int)wtest.x]);
+			// printf("pos: %f, %f \n", wtest.x, wtest.y);
+			// printf("c%c \n", data->map[(int)wtest.y][(int)wtest.x]);
 
 		}
 	set_vect(&wtest, data->p->pos.x, data->p->pos.y - 0.1);
 	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
 		{
-			printf("-%f \n", data->p->pos.y - 0.1);
+			// printf("-%f \n", data->p->pos.y - 0.1);
 			delta.y += 0.01;}
 	set_vect(&wtest, data->p->pos.x + 0.1, data->p->pos.y);
 	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
@@ -237,7 +235,7 @@ void correction(t_cub3d *data)
 	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
 		delta.x += 0.01;
 	data->p->pos.x += delta.x;
-	printf("d%f \n", delta.y);
+	// printf("d%f \n", delta.y);
 	data->p->pos.y += delta.y;
-	printf("%f \n", data->p->pos.y);
+	// printf("%f \n", data->p->pos.y);
 }
