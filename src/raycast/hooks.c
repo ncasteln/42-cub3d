@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/26 09:33:05 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:07:58 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 	if (keydata.key == MLX_KEY_W)
 		move((t_cub3d *)data, 0.2, FORWARD);
 	if (keydata.key == MLX_KEY_RIGHT)
-		rotate_player(((t_cub3d *)data)->p, 0.2);
+		rotate_player(((t_cub3d *)data)->p, 0.05);
 	if (keydata.key == MLX_KEY_LEFT)
-		rotate_player(((t_cub3d *)data)->p, -0.2);
+		rotate_player(((t_cub3d *)data)->p, -0.05);
 	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
 }
 
@@ -68,6 +68,7 @@ void refresh(void *data)
 	if (BONUS)
 	{
 		minimap(data);
+		put_sprites(data);
 		// refresh sprites?
 	}
 }

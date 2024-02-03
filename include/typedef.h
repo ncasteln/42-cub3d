@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/01/27 23:38:09 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/03 18:29:47 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define TYPEDEF_H
 
 // ------------------------------------------------------------------ CONSTANTS
-# define WIN_W 800
-# define WIN_H 600
+# define WIN_W 1600
+# define WIN_H 1200
 # define NORTH_SOUTH 1
 # define WEST_EAST 0
 # define X 0
@@ -109,7 +109,9 @@ typedef struct	s_sprite
 	double	y;
 	double	dist;
 	char	c;		// D S or H
-	int		h;
+	int		tex_i;
+	t_dvect door_start; //filled only for the door
+	t_dvect door_end;	//filled only for the door
 }	t_sprite;
 
 typedef struct s_cub3d
@@ -126,6 +128,8 @@ typedef struct s_cub3d
 	t_player		*p;
 	char			*line;
 	int				fd;
+	int total;
+	double dist_arr[WIN_W];
 
 	t_sprite		*sprite;
 	int				n_h;	// number of holes
@@ -156,9 +160,30 @@ typedef struct s_raycast
 	int		line_end;
 	int		b_size;
 	char	d;
-	
+
 	t_ivect	ray;
 }	t_raycast;
+
+
+typedef struct s_spritecast
+{
+	t_dvect transform; //transformed coordinates
+	int	left_x; //draw start
+	int	right_x;
+	int up_right; //draw end
+	int up_left;
+	int	lo_left; //draw start
+	int lo_right; //draw end
+	t_ivect	start; //draw start
+	t_ivect end; //draw end
+	int h; //sprite height for current distance
+	int w; //sprite width for current distance
+	int uncut_x; //x where the sprite start is located
+	t_dvect transform2;
+	int w2;
+	int h2;
+	int isdoor;
+}	t_spritecast;
 
 typedef struct s_ftile
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/26 09:52:47 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:00:46 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,20 @@ int	main(int argc, char **argv)
 
 	init_cub3d(&data);
 	parse(argc, argv, &data);
-
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
+	//sprite array allocation herer
+	data.total = data.n_d + data.n_h + data.n_s;
+	data.sprite = ft_calloc(data.total, sizeof(t_sprite));
+	if (!data.sprite)
+		err_free_exit("create_sprite", &data, errno);
 	init_move(data.p);
 	correction(&data);
 	load_textures(&data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 
 	raycasting(&data); // ----- Necessary? if removed nothing changes
-	sprites(&data);
+	//sprites(&data);
 	mlx_loop_hook(data.mlx, refresh, &data);
 	mlx_key_hook(data.mlx, key_hook, &data);
 

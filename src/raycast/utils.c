@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/27 23:37:16 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/03 18:44:57 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,10 @@ void load_textures(t_cub3d *data)
 	data->tex[WE] = mlx_load_png(data->assets->we);
 	data->tex[SO] = mlx_load_png(data->assets->so);
 	data->tex[EA] = mlx_load_png(data->assets->ea);
-	data->tex[H] = mlx_load_png("assets/Door1.png"); // check if needed at the end  ?????
+	data->tex[H] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
 	if (BONUS && data->n_d)
-		data->tex[D] = mlx_load_png(data->assets->d); // check if needed at the end  ?????
+		//data->tex[D] = mlx_load_png(data->assets->d); // check if needed at the end  ?????
+		data->tex[D] = mlx_load_png("assets/Tile_17.png"); // check if needed at the end  ?????
 	if (BONUS && data->n_s)
 		data->tex[S] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
 }

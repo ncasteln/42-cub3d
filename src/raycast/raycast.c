@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/27 23:34:51 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/31 15:31:46 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,9 +264,9 @@ static void	putline(t_cub3d *data, int x, int tex_ind, t_raycast *rc)
 			ind = (tex_y * tex->width + rc->tex_x) * tex->bytes_per_pixel;
 			mlx_put_pixel(data->img, x, y, readcol(&tex->pixels[ind]));
 		}
-		else if (y < rc->line_start && tex_ind != H)
+		else if (y < rc->line_start && tex_ind != D)
 			mlx_put_pixel(data->img, x, y, data->assets->c);
-		else if (y > rc->line_end && tex_ind != H)
+		else if (y > rc->line_end && tex_ind != D)
 			mlx_put_pixel(data->img, x, y, data->assets->f);
 		y++;
 	}
@@ -291,7 +291,7 @@ void	raycasting(t_cub3d *data)
 	mlx_texture_t	*tex;
 	int			tex_ind;
 	t_raycast		rc;
-	double dist_arr[WIN_W];
+	int i;
 
 	pixel_x = 0;
 	while (pixel_x < WIN_W)
@@ -299,7 +299,7 @@ void	raycasting(t_cub3d *data)
 		ray_init(pixel_x, &rc, data->p);
 		find_hit(&rc, data->map);
 		get_hit_pos(data, &rc);
-		dist_arr[pixel_x] = rc.wall_dist;
+		data->dist_arr[pixel_x] = rc.wall_dist;
 		tex_ind = select_texture(data, &rc);
 		tex = data->tex[tex_ind];
 		rc.tex_x = (int)(rc.wall_x * (double)tex->width);
@@ -308,11 +308,17 @@ void	raycasting(t_cub3d *data)
 			rc.tex_x = tex->width - rc.tex_x - 1;
 		set_draw(&rc, 0);
 		putline(data, pixel_x, tex_ind, &rc);
-		// if (rc.d == 'D')
-		// {
-		// 	set_draw(&rc, 1);
-		// 	putline(data, pixel_x, H, &rc);
-		// }
+		if (rc.d == 'D')
+		{
+			i = 0;
+			while (i < data->n_d + data->n_h + data->n_s)
+			{
+
+				i++;
+			}
+			set_draw(&rc, 1);
+			putline(data, pixel_x, D, &rc);
+		}
 			//put_door(data, rc);
 		pixel_x++;
 	}

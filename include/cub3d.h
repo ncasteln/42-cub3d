@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/27 23:38:29 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/01/31 12:41:56 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ int select_texture(t_cub3d *data, t_raycast *rc);
 
 // ----------------------------------------------------------------- SPRITES CASTING
 double sprite_dist_sq(t_sprite s, t_dvect p);
-void put_sprites(t_cub3d *data, double dist_arr[WIN_W]);
+//void put_sprites(t_cub3d *data, double dist_arr[WIN_W]);
+void put_sprites(t_cub3d *data);
+//void sprites(t_cub3d *data, int total);
 //t_dvect *revert_buff(t_dvect *buff, int size);
 
 

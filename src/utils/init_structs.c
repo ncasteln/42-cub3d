@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:49:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/26 09:11:10 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/28 00:11:22 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ void init_move(t_player *p)
 		p->dirv.x = 1;
 	p->plane.x = 0.66 * p->dirv.x;
 	p->plane.y = 0.66 * p->dirv.y;
-	rotate_vector(&p->dirv, -M_PI / 2); // --- right ?
+	rotate_vector(&p->plane, M_PI / 2);
 }
