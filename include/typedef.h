@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/07 18:33:22 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/07 18:54:09 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define BLUE		0x0000FF77
 # define ORANGE		0xDD7700FF
 # define WHITE		0xFFFFFFFF
+# define BLACK		0x000000FF
 # define WALLC WHITE
 
 # define FORWARD	100
@@ -108,6 +109,9 @@ typedef struct	s_sprite
 	double	y;
 	double	dist;
 	char	c;		// D S or H
+	int		tex_i;
+	t_dvect door_start; //filled only for the door
+	t_dvect door_end;	//filled only for the door
 }	t_sprite;
 
 typedef struct s_cub3d
@@ -124,6 +128,8 @@ typedef struct s_cub3d
 	t_player		*p;
 	char			*line;
 	int				fd;
+	int total;
+	double dist_arr[WIN_W];
 
 	t_sprite		*sprite;
 	int				n_h;	// number of holes
@@ -143,6 +149,8 @@ typedef struct s_raycast
 	t_dvect	ray_len;
 	t_dvect	ray_delta;
 	double	wall_dist;
+	double	door_dist;
+	int		door_dir;
 	double	wall_x;
 	int		hit; //0 if the ray didn't hit a wall
 	int		wall_dir;//wall direction NORTH_SOUTH or WEST_EAST
@@ -151,8 +159,31 @@ typedef struct s_raycast
 	int		line_start;
 	int		line_end;
 	int		b_size;
+	char	d;
+
 	t_ivect	ray;
 }	t_raycast;
+
+
+typedef struct s_spritecast
+{
+	t_dvect transform; //transformed coordinates
+	int	left_x; //draw start
+	int	right_x;
+	int up_right; //draw end
+	int up_left;
+	int	lo_left; //draw start
+	int lo_right; //draw end
+	t_ivect	start; //draw start
+	t_ivect end; //draw end
+	int h; //sprite height for current distance
+	int w; //sprite width for current distance
+	int uncut_x; //x where the sprite start is located
+	t_dvect transform2;
+	int w2;
+	int h2;
+	int isdoor;
+}	t_spritecast;
 
 typedef struct s_ftile
 {
