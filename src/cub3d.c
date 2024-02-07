@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/26 09:52:47 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:53:41 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	main(int argc, char **argv)
 
 	init_cub3d(&data);
 	parse(argc, argv, &data);
+
+	print_map(data.map, data.n_col);
 
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
