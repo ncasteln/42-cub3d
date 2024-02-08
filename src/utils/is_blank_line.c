@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   is_blank_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/18 14:36:52 by ncasteln         ###   ########.fr       */
+/*   Created: 2024/01/19 10:27:27 by ncasteln          #+#    #+#             */
+/*   Updated: 2024/01/19 10:27:58 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*get_err_msg(int err_n)
+int	is_blank_line(char *s)
 {
-	if (err_n == CE_ARGC)
-		return ("invalid argc\n");
-	return ("unknow error\n");
-}
+	int	i;
 
-void	error(int err_n)
-{
-	char	*err_msg;
-
-	err_msg = get_err_msg(err_n);
-	ft_putendl_fd("Error", 2);
-	ft_putstr_fd(err_msg, 2);
-	exit(err_n);
+	i = 0;
+	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+		i++;
+	if (s[i] == '\n')
+		return (1);
+	return (0);
 }

@@ -6,37 +6,39 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2023/12/18 14:34:19 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:42:26 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*
-	Parses:
-	0) .cub extension
+static int	is_valid_extension(const char *s, const char *ext)
+{
+	int	i;
 
-	1) Map content
-		- Surrounded by walls
-		- No empty lines
-		- Always the last
-		- Char allowed: 0 1 N E S W (only one letter)
-		- Decide if handle spaces or not
+	if (!s || !ext)
+		return (0);
+	i = ft_strlen(s) - 1;
+	while (i >= 0)
+	{
+		if (s[i] == '.')
+		{
+			if (!(ft_strncmp(s + i, ext, ft_strlen(ext))))
+				return (1);
+		}
+		i--;
+	}
+	return (0);
+}
 
-	2) Textures - NO   SO   WE   EA   F   C
-		- Random number of empty lines between
-		- Allowed:
-			- NO WE SO EA + path
-			- F C + rgb color
-		- Any order
-
-	"Error\n" + custom message
-*/
-
-int	parse(int argc, char **argv)
+void	parse(int argc, char **argv, t_cub3d *data)
 {
 	if (argc != 2)
-		return (error(CE_ARGC), 1);
-
-	return (0);
+		err_free_exit("parse", data, E_ARGC);
+	if (!is_valid_extension(argv[1], ".cub"))
+		err_free_exit("parse", data, E_INV_EXT);
+	parse_file_content(argv[1], data);
+	parse_player(data);
+	path_validation(data);
+	count_sprites(data);
 }
