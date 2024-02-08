@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/08 17:02:03 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 18:08:35 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,48 +39,31 @@ void set_door(int n, int y, int x, t_cub3d *data)
 }
 
 
-
-static void	set_sprite(int n, int y, int x, t_cub3d *data)
+void	set_sprite(int n, int y, int x, t_cub3d *data)
 {
 	data->sprite[n].c = data->map[y][x];
 	data->sprite[n].y = y;
 	data->sprite[n].x = x;
-	//data->sprite[n].dist = -1;
-	data->sprite[n].dist = sprite_dist_sq(data->sprite[n], data->p->pos);
+	data->sprite[n].dist = -1;
 	if (data->sprite[n].c == 'D')
 		set_door(n, y, x, data);
-	if (data->sprite[n].c == 'D')
-		// printf("int xy %d %d \n", x, y);
-	if (data->sprite[n].c == 'D')
-	{
-		
-			// printf("st %f %f \n", data->sprite[n].door_start.x, data->sprite[n].door_start.y);
-			// printf("end %d %f \n", data->sprite[n].door_end.x, data->sprite[n].door_end.y);
-
-	}
 	// data->sprite[n].dist = rand(); // remove, addedto test the bubblesort
 }
 
-void	create_sprite_list(t_cub3d *data)
+//sets sprites distance
+static void	set_dist(t_cub3d *data)
 {
-	int	y;
-	int	x;
 	int	n;
-
-	y = 0;
 	n = 0;
-	while (data->map[y])
+	while (n < data->n_total_sprites)
 	{
-		x = 0;
-		while (data->map[y][x])
-		{
-				data->sprite[n].dist = sprite_dist_sq(data->sprite[n], data->p->pos);
-				n++;
-		}
+		data->sprite[n].dist = sprite_dist_sq(data->sprite[n], data->p->pos);
+		n++;
 	}
 }
 
-static void	set_dist(t_cub3d *data)
+//creates sprites at the start
+void	create_sprite_list(t_cub3d *data)
 {
 	int	y;
 	int	x;
@@ -353,7 +336,8 @@ void	put_sprites(t_cub3d *data)
 	t_spritecast	sc;
 	int				i;
 
-	create_sprite_list(data);
+	//create_sprite_list(data);
+	set_dist(data);
 	bubble(data->sprite, data->n_total_sprites);
 	i = 0;
 	//sprites(data, total);
@@ -369,11 +353,13 @@ void	put_sprites(t_cub3d *data)
 		transform(data->p, &sc, &data->sprite[i]);
 		if (data->sprite[i].c != 'D')
 		{
+			//printf("check %d \n", data->sprite[i].tex_i);
 			set_draw(&sc);
 			draw(data, &sc, data->tex[data->sprite[i].tex_i]);
 		}
 		else if (data->sprite[i].c == 'D' && data->sprite[i].isopen == CLOSED)
 		{
+			// printf("t %d \n", data->n_total_sprites);
 			//sc.isdoor = 1;
 			//printf("%d \n", data->sprite[i].isopen);
 			set_draw_door(&sc);

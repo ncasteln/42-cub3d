@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/08 17:01:42 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 17:34:16 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ double sprite_dist_sq(t_sprite s, t_dvect p);
 void put_sprites(t_cub3d *data);
 void set_door(int n, int y, int x, t_cub3d *data);
 void	create_sprite_list(t_cub3d *data);
+void	set_sprite(int n, int y, int x, t_cub3d *data);
 //void sprites(t_cub3d *data, int total);
 //t_dvect *revert_buff(t_dvect *buff, int size);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/08 12:03:58 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:08:29 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void load_textures(t_cub3d *data)
 	data->tex[H] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
 	if (BONUS && data->n_d)
 		//data->tex[D] = mlx_load_png(data->assets->d); // check if needed at the end  ?????
-		data->tex[D] = mlx_load_png("assets/Tile_17.png"); // check if needed at the end  ?????
+		data->tex[D] = mlx_load_png("assets/Door1.png"); // check if needed at the end  ?????
 	if (BONUS && data->n_s)
 		data->tex[S] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
 }
