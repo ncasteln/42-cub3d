@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/03 18:44:57 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 12:03:58 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	count_sprites(t_cub3d *data)
 		j = 0;
 		while (data->map[i][j])
 		{
-			if (data->map[i][j] == ' ')
+			if (data->map[i][j] == 'H')
 				data->n_h += 1;
 			if (BONUS)
 			{

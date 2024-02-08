@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/08 16:46:51 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 17:01:51 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void refresh(void *data)
 	if (BONUS)
 	{
 		minimap(data);
-		put_sprites(data);
+		if (((t_cub3d *)data)->n_total_sprites)
+			put_sprites(data);
 		// refresh sprites?
 	}
 }

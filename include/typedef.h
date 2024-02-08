@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/08 01:09:40 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 17:00:54 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,11 @@ typedef struct s_cub3d
 	t_player		*p;
 	char			*line;
 	int				fd;
-	int total;
 	double dist_arr[WIN_W];
 	int dir_arr[WIN_W];
 
 	t_sprite		*sprite;
+	int				n_total_sprites;
 	int				n_h;	// number of holes
 	int				n_d;	// number of doors
 	int				n_s;	// number of sprites

@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/07 23:48:28 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 17:02:46 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ void	raycasting(t_cub3d *data)
 {
 	int				pixel_x;
 	mlx_texture_t	*tex;
-	int			tex_ind;
+	int				tex_ind;
 	t_raycast		rc;
 	int i;
 
