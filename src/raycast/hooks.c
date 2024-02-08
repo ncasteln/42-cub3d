@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/08 12:13:35 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:25:47 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void refresh(void *data)
 	if (BONUS)
 	{
 		minimap(data);
-		put_sprites(data);
+		if (((t_cub3d *)data)->n_total_sprites)
+			put_sprites(data);
 		// refresh sprites?
 	}
 }

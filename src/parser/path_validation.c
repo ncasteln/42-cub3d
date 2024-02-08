@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/02/08 12:04:28 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:40:57 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 	{
 		if (map_cpy[py][px] == ' ') // add
 			map_cpy[py][px] = 'H';
-		else if (map_cpy[py][px] == 'D') // add
-			map_cpy[py][px] = 'D';
+		// else if (map_cpy[py][px] == 'D') // add
+		// 	map_cpy[py][px] = 'D';
 		else
 			map_cpy[py][px] = '.';
 	}
@@ -98,7 +98,26 @@ static char	**cpy_map(t_cub3d *data)
 	return (map_cpy);
 }
 
-static void	refill_walkables(t_cub3d *data, char **map) // move and make generic
+static void	count_holes(t_cub3d *data, char **map) // move and make generic
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'H')
+				data->n_h += 1;
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	refill_walkables_and_doors(t_cub3d *data, char **map) // move and make generic
 {
 	int i;
 	int j;
@@ -111,6 +130,8 @@ static void	refill_walkables(t_cub3d *data, char **map) // move and make generic
 		{
 			if (map[i][j] == '.')
 				map[i][j] = '0';
+			if (data->map[i][j] == 'D')
+				map[i][j] = 'D';
 			j++;
 		}
 		i++;
@@ -140,6 +161,7 @@ void	path_validation(t_cub3d *data)
 	data->map = map_rect;
 	map_cpy = cpy_map(data);
 	flood_fill(data->p->y, data->p->x, map_cpy, data);
+	refill_walkables_and_doors(data, map_cpy);
 	free_dptr(data->map);
 	data->map = map_cpy;
 }

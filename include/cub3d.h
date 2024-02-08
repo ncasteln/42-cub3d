@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/08 12:03:02 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:51:46 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 #include "MLX42.h"
 
 #include "typedef.h"
-#include "cub3d_bonus.h"
 
 #ifndef BONUS
 # define BONUS 0
 #endif
+# define MINIMAP_PIXEL 10
 
 // -------------------------------------------------------------------- PARSING
 void	parse(int argc, char **argv, t_cub3d *data);
@@ -99,13 +99,15 @@ void correction(t_cub3d *data);
 // mlx_texture_t	*select_texture(t_cub3d *data, t_dvect *raydir, int wall_dir);
 int select_texture(t_cub3d *data, t_raycast *rc);
 
-// ----------------------------------------------------------------- SPRITES CASTING
+// ------------------------------------------------------------ SPRITES CASTING
 double sprite_dist_sq(t_sprite s, t_dvect p);
 //void put_sprites(t_cub3d *data, double dist_arr[WIN_W]);
 void put_sprites(t_cub3d *data);
 //void sprites(t_cub3d *data, int total);
 //t_dvect *revert_buff(t_dvect *buff, int size);
 
-
+// ---------------------------------------------------------------------- BONUS
+// void	check_behind_doors(t_cub3d *data, char **map_cpy); // mnot needed
+void	minimap(t_cub3d *data);
 
 #endif

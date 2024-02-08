@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:17:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/08 12:13:33 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:42:37 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	draw_player(t_cub3d *data)
 		x = 0;
 		while (x < 5)
 		{
-			int drawAtX = (data->p->pos.x) * MAP_PIXEL + x;
-			int drawAtY = (data->p->pos.y) * MAP_PIXEL + y;
+			int drawAtX = (data->p->pos.x) * MINIMAP_PIXEL + x;
+			int drawAtY = (data->p->pos.y) * MINIMAP_PIXEL + y;
 			if (data->p->x <= drawAtX && data->p->y <= drawAtY)
 				mlx_put_pixel(data->minimap, drawAtX, drawAtY, 0x000000FF);
 			x++;
@@ -33,7 +33,7 @@ static void	draw_player(t_cub3d *data)
 }
 
 /*
-	@param startX = (cellX + 2) * MAP_PIXEL, +2 is an offset to give the
+	@param startX = (cellX + 2) * MINIMAP_PIXEL, +2 is an offset to give the
 	minimap a margin from the edge of the window.
 */
 static void	draw_tile(t_cub3d *data, char c, int cellY, int cellX)
@@ -43,13 +43,13 @@ static void	draw_tile(t_cub3d *data, char c, int cellY, int cellX)
 	int	endX;
 	int	endY;
 
-	startX = cellX * MAP_PIXEL;
-	startY = cellY * MAP_PIXEL;
-	endX = startX + MAP_PIXEL;
-	endY = startY + MAP_PIXEL;
+	startX = cellX * MINIMAP_PIXEL;
+	startY = cellY * MINIMAP_PIXEL;
+	endX = startX + MINIMAP_PIXEL;
+	endY = startY + MINIMAP_PIXEL;
 	while (startY < endY)
 	{
-		startX = (cellX) * MAP_PIXEL;
+		startX = (cellX) * MINIMAP_PIXEL;
 		while (startX < endX)
 		{
 			if (c == '1')
@@ -91,7 +91,7 @@ void	minimap(t_cub3d *data)
 	// fix another size if too big
 	if (data->minimap)
 		mlx_delete_image(data->mlx, data->minimap);
-	data->minimap = mlx_new_image(data->mlx, data->n_col * MAP_PIXEL, data->n_rows * MAP_PIXEL);
+	data->minimap = mlx_new_image(data->mlx, data->n_col * MINIMAP_PIXEL, data->n_rows * MINIMAP_PIXEL);
 	draw_minimap(data);
 	draw_player(data);
 	mlx_image_to_window(data->mlx, data->minimap, 20, 20);

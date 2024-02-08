@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/01/27 23:38:52 by mrubina          ###   ########.fr        #
+#    Updated: 2024/02/08 12:51:29 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ VPATH = ./src/ \
 	./src/parser/ \
 	./src/utils/ \
 	./src/raycast/ \
-	./src/bonus/ \
+	./src/minimap/ \
 
 PARSER = parse.c \
 	parse_file_content.c \
@@ -57,15 +57,15 @@ RAYCAST = raycast.c \
 	utils.c \
 	move.c \
 	spritecast.c \
-
-BONUS = draw_minimap.c \
 	sprites.c \
+
+MINIMAP = draw_minimap.c \
 
 SRC = cub3d.c \
 	$(PARSER) \
 	$(UTILS) \
 	$(RAYCAST) \
-	$(BONUS)
+	$(MINIMAP)
 
 OBJS_DIR = ./objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRC:.c=.o))
