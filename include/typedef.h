@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/08 17:00:54 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:30:09 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ typedef struct	s_sprite
 	char	c;		// D S or H
 	int		tex_i;
 	int		dir;
-	t_dvect door_start; //filled only for the door
-	t_dvect door_end;	//filled only for the door
+	t_dvect door_left_edge; //filled only for the door
+	t_dvect door_right_edge;	//filled only for the door
 	int isopen;
 }	t_sprite;
 

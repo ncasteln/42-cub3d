@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/08 17:53:26 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 23:07:10 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ void open_door(t_cub3d *data)
 	//printf("%d \n", data->total);
 	while (i < data->n_total_sprites)
 	{
-		if (data->sprite[i].c == 'D')
+		if (data->sprite[i].c == 'D' && sprite_dist_sq(data->sprite[i], data->p->pos) <= 5)
 		{
-			printf("door pos %f %f \n", data->sprite[i].x, data->sprite[i].y);
-			printf("player pos %f %f \n", data->p->pos.x, data->p->pos.y);
-			printf("diff %f \n", sprite_dist_sq(data->sprite[i], data->p->pos));
-			if (sprite_dist_sq(data->sprite[i], data->p->pos) <= 5)
+			// printf("door pos %f %f \n", data->sprite[i].x, data->sprite[i].y);
+			// printf("player pos %f %f \n", data->p->pos.x, data->p->pos.y);
+			// printf("diff %f \n", sprite_dist_sq(data->sprite[i], data->p->pos));
+			if (data->sprite[i].isopen == OPEN)
+				data->sprite[i].isopen = CLOSED;
+			else
 				data->sprite[i].isopen = OPEN;
 			//printf("after %d \n", data->sprite[i].isopen);
 			
@@ -52,7 +54,7 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 		rotate_player(((t_cub3d *)data)->p, 0.05);
 	if (keydata.key == MLX_KEY_LEFT)
 		rotate_player(((t_cub3d *)data)->p, -0.05);
-	if (keydata.key == MLX_KEY_SPACE)
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS && BONUS)
 		open_door((t_cub3d *)data);
 	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
 }
