@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/26 09:42:26 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 11:39:51 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,4 @@ void	parse(int argc, char **argv, t_cub3d *data)
 	parse_file_content(argv[1], data);
 	parse_player(data);
 	path_validation(data);
-	count_sprites(data);
 }

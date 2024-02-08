@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/07 18:54:09 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:08:01 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,10 @@ typedef struct s_cub3d
 	t_player		*p;
 	char			*line;
 	int				fd;
-	int total;
 	double dist_arr[WIN_W];
 
 	t_sprite		*sprite;
+	int				n_total_sprites;
 	int				n_h;	// number of holes
 	int				n_d;	// number of doors
 	int				n_s;	// number of sprites

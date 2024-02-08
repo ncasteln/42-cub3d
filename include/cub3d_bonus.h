@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:18:22 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/30 22:55:44 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 11:40:31 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #define MAP_PIXEL 10
 
-void	check_behind_doors(t_cub3d *data, char **map_cpy);
+void	check_behind_doors(t_cub3d *data, char **map_cpy); // mnot needed
 void	minimap(t_cub3d *data);
 //void	sprites(t_cub3d *data);
 

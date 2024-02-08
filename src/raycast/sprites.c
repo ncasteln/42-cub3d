@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/07 18:54:43 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:08:40 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	create_sprite_list(t_cub3d *data)
 		x = 0;
 		while (data->map[y][x])
 		{
-			if (data->map[y][x] == ' ' || data->map[y][x] == '$' || data->map[y][x] == 'D')
+			if (data->map[y][x] == 'H' || data->map[y][x] == '$' || data->map[y][x] == 'D')
 			{
 				set_sprite(n, y, x, data);
 				n++;
@@ -317,13 +317,13 @@ void	put_sprites(t_cub3d *data)
 	int				i;
 
 	create_sprite_list(data);
-	bubble(data->sprite, data->total);
+	bubble(data->sprite, data->n_total_sprites);
 	i = 0;
 	//sprites(data, total);
-	while (i < data->total)
+	while (i < data->n_total_sprites)
 	{
 		//printf("c %d %f \n", i, data->sprite[i].dist);
-		if (data->sprite[i].c == ' ')
+		if (data->sprite[i].c == 'H') // modifed by nico
 			data->sprite[i].tex_i = H;
 		else if (data->sprite[i].c == 'D')
 			data->sprite[i].tex_i = D;

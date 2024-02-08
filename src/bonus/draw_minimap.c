@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_minimap_bonus.c                               :+:      :+:    :+:   */
+/*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:17:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 09:54:07 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:13:33 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@ static void	draw_tile(t_cub3d *data, char c, int cellY, int cellX)
 		while (startX < endX)
 		{
 			if (c == '1')
-				mlx_put_pixel(data->minimap, startX, startY, 0xF5F0F050);
+				mlx_put_pixel(data->minimap, startX, startY, BLUE);
 			else if (c == ' ')
-				mlx_put_pixel(data->minimap, startX, startY, 0x2ab56750);
-			else if (c == 'D')
+				mlx_put_pixel(data->minimap, startX, startY, BLACK);
+			else if (c == 'H')
 				mlx_put_pixel(data->minimap, startX, startY, RED);
+			else if (c == 'D')
+				mlx_put_pixel(data->minimap, startX, startY, ORANGE);
 			else
-				mlx_put_pixel(data->minimap, startX, startY, 0x74ba5650);
+				mlx_put_pixel(data->minimap, startX, startY, WHITE);
 			startX++;
 		}
 		startY++;

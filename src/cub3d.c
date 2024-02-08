@@ -6,14 +6,17 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/08 11:01:59 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:13:37 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /*
-	THINGS TO DO TO FINISH:
+	SMALL TO DO:
+	- Remove the file and function about flood_fill for doors
+
+	STEPS TO DO TO FINISH:
 	1) Handle sprite (whitespaces, doors, others)
 	2) Add animation to the door
 	3) Handle mouse
@@ -45,11 +48,17 @@ int	main(int argc, char **argv)
 	parse(argc, argv, &data);
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
+	
 	//sprite array allocation herer
-	data.total = data.n_d + data.n_h + data.n_s;
-	data.sprite = ft_calloc(data.total, sizeof(t_sprite));
-	if (!data.sprite)
-		err_free_exit("create_sprite", &data, errno);
+	count_sprites(&data);
+	data.n_total_sprites = data.n_d + data.n_h + data.n_s;
+	if (data.n_total_sprites)
+	{
+		data.sprite = ft_calloc(data.n_total_sprites, sizeof(t_sprite));
+		if (!data.sprite)
+			err_free_exit("create_sprite", &data, errno);
+	}
+	
 	init_move(data.p);
 	correction(&data);
 	load_textures(&data);

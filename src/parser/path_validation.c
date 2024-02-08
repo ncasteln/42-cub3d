@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/02/08 11:16:45 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:04:28 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 
 	y_limit = (int)data->n_rows - 1;
 	x_limit = (int)data->n_col - 1;
-	if (map_cpy[py][px] == '1' || map_cpy[py][px] == '.')
+	if (map_cpy[py][px] == '1' || map_cpy[py][px] == '.' || map_cpy[py][px] == 'H') // add
 		return ;
 	if (py <= 0 || px <= 0 || py >= y_limit || px >= x_limit)
 	{
@@ -65,7 +65,14 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 		err_free_exit("flood_fill", data, E_MAP_OPEN);
 	}
 	else
-		map_cpy[py][px] = '.';
+	{
+		if (map_cpy[py][px] == ' ') // add
+			map_cpy[py][px] = 'H';
+		else if (map_cpy[py][px] == 'D') // add
+			map_cpy[py][px] = 'D';
+		else
+			map_cpy[py][px] = '.';
+	}
 	flood_fill(py - 1, px, map_cpy, data);
 	flood_fill(py, px + 1, map_cpy, data);
 	flood_fill(py + 1, px, map_cpy, data);
@@ -91,6 +98,25 @@ static char	**cpy_map(t_cub3d *data)
 	return (map_cpy);
 }
 
+static void	refill_walkables(t_cub3d *data, char **map) // move and make generic
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '.')
+				map[i][j] = '0';
+			j++;
+		}
+		i++;
+	}
+}
+
 /*
 	The map in which the player can walk has to be enclosed by walls (1). It is
 	still possible that in this portion of map, there are empty spaces.
@@ -99,6 +125,9 @@ static char	**cpy_map(t_cub3d *data)
 	2) Fit the map into a rectangle, to give a common limit.
 	3) Use flood_fill to understand if the player meets the limits, which means
 	that the map is not enclosed.
+	4) The empty spaces in the map are considered valid, but not walkable. To 
+	differentiate them from the outside spaces, they are filled with 'H' to 
+	sign them as 'holes'.
 */
 void	path_validation(t_cub3d *data)
 {
@@ -110,13 +139,7 @@ void	path_validation(t_cub3d *data)
 	free_dptr(data->map);
 	data->map = map_rect;
 	map_cpy = cpy_map(data);
-
-	print_map(map_cpy, data->n_col);
-
 	flood_fill(data->p->y, data->p->x, map_cpy, data);
-	free_dptr(map_cpy);
-	map_cpy = cpy_map(data);
-	if (BONUS)
-		check_behind_doors(data, map_cpy);
-	free_dptr(map_cpy);
+	free_dptr(data->map);
+	data->map = map_cpy;
 }
