@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/03 18:29:47 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 01:09:40 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define WEST_EAST 0
 # define X 0
 # define Y 1
+# define OPEN 0
+# define CLOSED 1
 
 // ------------------------------------------------------------------- TEXTURES
 # define NO 0
@@ -110,8 +112,10 @@ typedef struct	s_sprite
 	double	dist;
 	char	c;		// D S or H
 	int		tex_i;
+	int		dir;
 	t_dvect door_start; //filled only for the door
 	t_dvect door_end;	//filled only for the door
+	int isopen;
 }	t_sprite;
 
 typedef struct s_cub3d
@@ -130,6 +134,7 @@ typedef struct s_cub3d
 	int				fd;
 	int total;
 	double dist_arr[WIN_W];
+	int dir_arr[WIN_W];
 
 	t_sprite		*sprite;
 	int				n_h;	// number of holes

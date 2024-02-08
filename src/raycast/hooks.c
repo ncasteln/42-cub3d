@@ -6,12 +6,30 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/03 16:07:58 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:46:51 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3d.h"
+
+void open_door(t_cub3d *data)
+{
+	int i;
+	i = 0;
+	//printf("%d \n", data->total);
+	while (i < data->total)
+	{
+		if (data->sprite[i].c == 'D')
+		{
+			printf("before %d \n", data->sprite[i].isopen);
+			data->sprite[i].isopen = OPEN;
+			printf("after %d \n", data->sprite[i].isopen);
+			
+		}
+		i++;
+	}
+}
 
 void	key_hook(mlx_key_data_t keydata, void *data)
 {
@@ -31,8 +49,12 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 		rotate_player(((t_cub3d *)data)->p, 0.05);
 	if (keydata.key == MLX_KEY_LEFT)
 		rotate_player(((t_cub3d *)data)->p, -0.05);
+	// if (keydata.key == MLX_KEY_SPACE)
+	// 	open_door((t_cub3d *)data);
 	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
 }
+
+
 
 // void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param)
 // {

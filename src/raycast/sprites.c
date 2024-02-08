@@ -6,13 +6,13 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/03 18:41:41 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/08 01:56:48 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void set_door(int n, int y, int x, t_cub3d *data)
+void set_door(int n, int y, int x, t_cub3d *data)
 {
 	 //printf("int xy %d %d \n", x, y);
 	if (data->map[y][x - 1] == '1' && data->map[y][x + 1] == '1')
@@ -23,6 +23,7 @@ static void set_door(int n, int y, int x, t_cub3d *data)
 		data->sprite[n].door_end.x = x + 0.999; //6.99
 		data->sprite[n].door_start.y = y + 0.5;  //2.5
 		data->sprite[n].door_end.y = y + 0.5;
+		data->sprite[n].dir = NORTH_SOUTH;
 	}
 	else if (data->map[y - 1][x] == '1' && data->map[y + 1][x] == '1')
 	{
@@ -30,7 +31,9 @@ static void set_door(int n, int y, int x, t_cub3d *data)
 		data->sprite[n].door_end.y = y + 0.999;
 		data->sprite[n].door_start.x = x + 0.5;
 		data->sprite[n].door_end.x = x + 0.5;
+		data->sprite[n].dir = WEST_EAST;
 	}
+	data->sprite[n].isopen = CLOSED;
 	// printf("st %f %f \n", data->sprite[n].door_start.x, data->sprite[n].door_start.y);
 	// printf("end %f %f \n", data->sprite[n].door_end.x, data->sprite[n].door_end.y);
 }
@@ -49,16 +52,35 @@ static void	set_sprite(int n, int y, int x, t_cub3d *data)
 	if (data->sprite[n].c == 'D')
 		// printf("int xy %d %d \n", x, y);
 	if (data->sprite[n].c == 'D')
-		{
-
+	{
+		
 			// printf("st %f %f \n", data->sprite[n].door_start.x, data->sprite[n].door_start.y);
 			// printf("end %d %f \n", data->sprite[n].door_end.x, data->sprite[n].door_end.y);
 
-		}
+	}
 	// data->sprite[n].dist = rand(); // remove, addedto test the bubblesort
 }
 
-static void	create_sprite_list(t_cub3d *data)
+void	create_sprite_list(t_cub3d *data)
+{
+	int	y;
+	int	x;
+	int	n;
+
+	y = 0;
+	n = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+				data->sprite[n].dist = sprite_dist_sq(data->sprite[n], data->p->pos);
+				n++;
+		}
+	}
+}
+
+static void	set_dist(t_cub3d *data)
 {
 	int	y;
 	int	x;
@@ -120,7 +142,10 @@ static void	bubble(t_sprite *sprite, int n)
 	) Draws
 */
 
-
+/*
+calculates transform coordinates of a vextor in space
+multiplying it with the inverse transform matrix
+ */
 void	transform_vector(t_dvect *new, t_dvect *old, t_player *p)
 {
 	double	det;
@@ -132,15 +157,14 @@ void	transform_vector(t_dvect *new, t_dvect *old, t_player *p)
 
 /*
 calculates transform coordinates of a sprite
-calctulating the distance from the player to the sprite
-and multiplying it with the inverse transform matrix
+using the distance from the player to the sprite
+for a door two points are used
  */
 void	transform(t_player *p, t_spritecast *sc, t_sprite *sprite)
 {
 	t_dvect	vdist;
-	//double	det;
 
-	set_vect(&vdist, sprite->x - p->pos.x, sprite->y - p->pos.y);
+	//set_vect(&vdist, sprite->x - p->pos.x, sprite->y - p->pos.y);
 	//printf("c %d %f \n", i, data->sprite[i].dist);
 	if (sprite->c == 'D')
 	{
@@ -207,32 +231,37 @@ void	set_draw_door(t_spritecast *sc)
 		sc->transform2.y = dtemp;
 	}
 	screen_x2 = (int)((WIN_W / 2) * (1 + sc->transform2.x / sc->transform2.y));
+	//printf("scr %d\n", abs(screen_x1 - screen_x2));
 	sc->h = abs((int)(WIN_H / sc->transform.y));
 	sc->h2 = abs((int)(WIN_H / sc->transform2.y));
 	sc->up_left = -sc->h / 2 + WIN_H / 2;
-	sc->up_right = -sc->h2 / 2 + WIN_H / 2;
 	sc->lo_left = sc->h / 2 + WIN_H / 2;
+	sc->up_right = -sc->h2 / 2 + WIN_H / 2;
 	sc->lo_right = sc->h2 / 2 + WIN_H / 2;
 	//printf("t y %f \n", sc->transform.y);
-	sc->w = abs((int)(WIN_H / sc->transform.y));
+	if (sc->transform.y != 0)
+		sc->w = abs((int)(WIN_H / sc->transform.y));
 	//printf("t y %i \n", sc->w);
 	sc->uncut_x = screen_x1; //seems to be right!!!!
 	sc->left_x = sc->uncut_x;
 	//printf("start %d %d \n", sc->start.x, sc->start.y);
-	sc->w2 = abs((int)(WIN_H / sc->transform2.y));
+	if (sc->transform2.y != 0)
+		sc->w2 = abs((int)(WIN_H / sc->transform2.y));
 	sc->right_x = screen_x2; //?
-	if (sc->left_x < 0)
-	{
-		sc->up_left += (sc->up_right - sc->up_left) * (0 - sc->left_x)/ sc->w;
-		sc->lo_left += (sc->lo_right - sc->lo_left) * (0 - sc->left_x)/ sc->w;
-		sc->left_x = 0;
-	}
-	if (sc->right_x >= WIN_W)
-	{
-		sc->up_right += (sc->up_right - sc->up_left) * (WIN_W - 1 - sc->left_x)/ sc->w;
-		sc->lo_right += (sc->lo_right - sc->lo_left) * (WIN_W - 1 - sc->left_x)/ sc->w;
-		sc->right_x = WIN_W - 1;
-	}
+	// if (sc->left_x < 0)
+	// {
+	// 	// sc->up_left += (sc->up_right - sc->up_left) * (0 - sc->left_x)/ sc->w;
+	// 	// sc->lo_left += (sc->lo_right - sc->lo_left) * (0 - sc->left_x)/ sc->w;
+	// 	sc->left_x = 0;
+	// }
+	// if (sc->right_x >= WIN_W)
+	// {
+	// 	// sc->up_right = sc->up_left + (sc->up_right - sc->up_left) * (WIN_W - 1)/ sc->w2;
+	// 	// sc->lo_right = sc->lo_left + (sc->lo_right - sc->lo_left) * (WIN_W - 1)/ sc->w2;
+	// 	// sc->up_right += (sc->up_right - sc->up_left) * (WIN_W - 1 - sc->left_x)/ sc->w2;
+	// 	// sc->lo_right += (sc->lo_right - sc->lo_left) * (WIN_W - 1 - sc->left_x)/ sc->w2;
+	// 	sc->right_x = WIN_W - 1;
+	// }
 	sc->w = sc->right_x - sc->left_x;
 	//printf("tan %d %d \n", sc->up_right - sc->up_left, sc->w);
 
@@ -266,7 +295,7 @@ void	draw(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex)
 	}
 }
 
-void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex)
+void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int dir)
 {
 	int		x;
 	t_ivect	texpos;
@@ -276,13 +305,19 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex)
 	int	end_y;
 
 	x = sc->left_x;
+	//if (s)
 	while (x < sc->right_x)
 	{
+		//printf(" %d %d \n", data->dir_arr[x], dir);
 		texpos.x = (int)((x - (sc->uncut_x)) * tex->width) / sc->w;
 		if (sc->transform.y > 0 && x > 0 && x < WIN_W
-			&& sc->transform.y < data->dist_arr[x])
+			&& ((sc->transform.y < data->dist_arr[x] && data->dir_arr[x] == dir) || data->dir_arr[x] != dir))
 		{
+			//if (x < sc->left_x + 20)
+			// if (data->dist_arr[x] > 3)
+			 	//printf(" %d", dir);
 			//printf("w %i \n", sc->w);
+			//start_y = sc->up_left;
 			start_y = sc->up_left + (sc->up_right - sc->up_left) * (x - sc->left_x)/ sc->w;
 			//printf("r %d %d \n", ((sc->up_right - sc->up_left) * (x - sc->left_x)), sc->w);
 			// printf("starty %i \n", start_y);
@@ -290,6 +325,7 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex)
 			if (start_y < 0)
 				start_y = 0;
 			end_y = sc->lo_left + (sc->lo_right - sc->lo_left) * (x - sc->left_x)/ sc->w;
+			//end_y = sc->lo_left;
 			if (end_y >= WIN_H)
 				end_y = WIN_H - 1;
 			//printf("bordes %d %d \n", start_y, end_y);
@@ -309,6 +345,7 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex)
 		}
 		x++;
 	}
+	//printf(" \n");
 }
 
 void	put_sprites(t_cub3d *data)
@@ -335,29 +372,32 @@ void	put_sprites(t_cub3d *data)
 			set_draw(&sc);
 			draw(data, &sc, data->tex[data->sprite[i].tex_i]);
 		}
-		else
+		else if (data->sprite[i].c == 'D' && data->sprite[i].isopen == CLOSED)
 		{
-			sc.isdoor = 1;
+			//sc.isdoor = 1;
+			//printf("%d \n", data->sprite[i].isopen);
 			set_draw_door(&sc);
+
 		// printf("st %f %f \n", sc.transform.x, sc.transform.y);
 		// printf("st %f %f \n", sc.transform2.x, sc.transform2.y);
 			// printf("end %f %f \n", data->sprite[i].door_left_x, data->sprite[i].door_end.y);
-			draw_door(data, &sc, data->tex[data->sprite[i].tex_i]);
-		int x = sc.left_x;
-		while (x < sc.left_x + 20)
-		{
-			mlx_put_pixel(data->img, x, sc.up_left, GREEN);
-			x++;
-		}
+			draw_door(data, &sc, data->tex[data->sprite[i].tex_i], data->sprite[i].dir);
+		// int x = sc.left_x;
+		// while (x < sc.left_x + 20)
+		// {
+		// 	mlx_put_pixel(data->img, x, sc.up_left, GREEN);
+		// 	x++;
+			
+		// }
 
-		x = sc.right_x - 20;
-		while (x <= sc.right_x)
-		{
-			mlx_put_pixel(data->img, x, sc.up_right, GREEN);
-			x++;
-		}
-			sc.isdoor = 0;
-		}
+		// x = sc.right_x - 20;
+		// while (x <= sc.right_x)
+		// {
+		// 	mlx_put_pixel(data->img, x, sc.up_right, GREEN);
+		// 	x++;
+		// }
+		// 	sc.isdoor = 0;
+		 }
 		i++;
 	}
 }

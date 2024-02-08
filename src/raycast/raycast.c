@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/31 15:31:46 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/07 23:48:28 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ void	raycasting(t_cub3d *data)
 		find_hit(&rc, data->map);
 		get_hit_pos(data, &rc);
 		data->dist_arr[pixel_x] = rc.wall_dist;
+		data->dir_arr[pixel_x] = rc.wall_dir;
 		tex_ind = select_texture(data, &rc);
 		tex = data->tex[tex_ind];
 		rc.tex_x = (int)(rc.wall_x * (double)tex->width);
