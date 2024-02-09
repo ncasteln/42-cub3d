@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/02/08 12:40:57 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/09 08:07:34 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static void	count_holes(t_cub3d *data, char **map) // move and make generic
 	}
 }
 
-static void	refill_walkables_and_doors(t_cub3d *data, char **map) // move and make generic
+static void	refill_items(t_cub3d *data, char **map)
 {
 	int i;
 	int j;
@@ -128,10 +128,8 @@ static void	refill_walkables_and_doors(t_cub3d *data, char **map) // move and ma
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == '.')
-				map[i][j] = '0';
-			if (data->map[i][j] == 'D')
-				map[i][j] = 'D';
+			if (data->map[i][j] != ' ')
+				map[i][j] = data->map[i][j];
 			j++;
 		}
 		i++;
@@ -146,8 +144,8 @@ static void	refill_walkables_and_doors(t_cub3d *data, char **map) // move and ma
 	2) Fit the map into a rectangle, to give a common limit.
 	3) Use flood_fill to understand if the player meets the limits, which means
 	that the map is not enclosed.
-	4) The empty spaces in the map are considered valid, but not walkable. To 
-	differentiate them from the outside spaces, they are filled with 'H' to 
+	4) The empty spaces in the map are considered valid, but not walkable. To
+	differentiate them from the outside spaces, they are filled with 'H' to
 	sign them as 'holes'.
 */
 void	path_validation(t_cub3d *data)
@@ -161,7 +159,7 @@ void	path_validation(t_cub3d *data)
 	data->map = map_rect;
 	map_cpy = cpy_map(data);
 	flood_fill(data->p->y, data->p->x, map_cpy, data);
-	refill_walkables_and_doors(data, map_cpy);
+	refill_items(data, map_cpy);
 	free_dptr(data->map);
 	data->map = map_cpy;
 }

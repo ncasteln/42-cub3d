@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/08 18:10:32 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/09 08:08:39 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	printf("total %d \n", data.n_total_sprites);
 	printf("sprites %d \n", data.n_s);
 	printf("holes %d \n", data.n_h);
+
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
 	create_sprite_list(&data);
