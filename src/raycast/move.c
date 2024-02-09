@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/09 08:37:42 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/09 08:58:33 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ int check_space(t_cub3d *data, double delta_x, double delta_y)
 	y = (int)(data->p->pos.y + delta_y);
 	if (data->map[y][x] != '1' && data->map[y][x] != 'H')
 		return (true);
-	else
-		return (false);
+	// if (BONUS && data->map[y][x] != 'D' && data->map[y][x] != '$')
+	// 	return (true);
+	return (false);
 }
 
 static void next_to_wall(t_cub3d *data, t_dvect *new_pos, int dim, t_dvect delta)
