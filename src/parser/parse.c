@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/09 08:08:34 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/09 08:48:19 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,4 @@ void	parse(int argc, char **argv, t_cub3d *data)
 	parse_file_content(argv[1], data);
 	parse_player(data);
 	path_validation(data);
-	count_sprites(data);
-	data->n_total_sprites = data->n_d + data->n_h + data->n_s;
-	if (data->n_total_sprites)
-	{
-		data->sprite = ft_calloc(data->n_total_sprites, sizeof(t_sprite));
-		if (!data->sprite)
-			err_free_exit("create_sprite", data, errno);
-	}
 }

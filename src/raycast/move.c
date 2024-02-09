@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/01/26 09:34:09 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/09 08:37:42 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int check_space(t_cub3d *data, double delta_x, double delta_y)
 
 	x = (int)(data->p->pos.x + delta_x);
 	y = (int)(data->p->pos.y + delta_y);
-	if (data->map[y][x] != '1' && data->map[y][x] != ' ')
+	if (data->map[y][x] != '1' && data->map[y][x] != 'H')
 		return (true);
 	else
 		return (false);

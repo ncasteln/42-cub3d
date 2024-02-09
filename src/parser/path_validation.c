@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/02/09 08:07:34 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/09 08:47:17 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,25 +96,6 @@ static char	**cpy_map(t_cub3d *data)
 		i++;
 	}
 	return (map_cpy);
-}
-
-static void	count_holes(t_cub3d *data, char **map) // move and make generic
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'H')
-				data->n_h += 1;
-			j++;
-		}
-		i++;
-	}
 }
 
 static void	refill_items(t_cub3d *data, char **map)

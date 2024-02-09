@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/08 17:34:16 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/09 08:46:45 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ void correction(t_cub3d *data);
 int select_texture(t_cub3d *data, t_raycast *rc);
 
 // ------------------------------------------------------------ SPRITES CASTING
+void	sprites(t_cub3d *data);
+void	bubble(t_sprite *sprite, int n);
+void	set_dist(t_cub3d *data);
 double sprite_dist_sq(t_sprite s, t_dvect p);
 //void put_sprites(t_cub3d *data, double dist_arr[WIN_W]);
 void put_sprites(t_cub3d *data);
