@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spritecast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/09 08:44:45 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/12 00:54:46 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,21 +156,37 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int i)
 	int	end_y;
 	double diff;
 
+	// printf("p %p \n", sc);
+	// printf("p %p \n", tex);
+	// printf("dx %f \n", data->p->dirv.x);
+	// printf("dy %f \n", data->p->dirv.y);
+
 //  || (data->dir_arr[x] != dir)
+	
 	x = sc->left_x;
-	while (x < sc->right_x)
+	if (data->sprite[i].isopen == OPENING)
 	{
+		x += (mlx_get_time() - data->sprite[i].open_time) * sc->w;
+		if (x >= sc->right_x)
+			data->sprite[i].isopen = OPEN;
+	}
+	if (data->sprite[i].isopen == CLOSING)
+	{
+		x += sc->right_x - (mlx_get_time() - data->sprite[i].open_time) * sc->w;
+		if (x <= sc->left_x)
+			{
+				x = sc->left_x;
+				data->sprite[i].isopen = CLOSED;}
+	}
+	while (x < sc->right_x && x < WIN_W)
+	{
+
 		//printf("w %d \n", sc->w);
 		diff = fabs(data->sprite[i].dist - pow(data->dist_arr[x], 2));
 		texpos.x = (int)((x - (sc->uncut_x)) * tex->width) / sc->w;
 		if (sc->transform.y > 0 && x > 0 && x < WIN_W
 			&& ((sc->transform.y < data->dist_arr[x]) || (data->dir_arr[x] != data->sprite[i].dir && diff < 5)))
 		{
-			//diff = fabs(data->sprite[i].dist - pow(data->dist_arr[x], 2));
-			// if (diff < 5)
-			// {printf("i %i \n", i);
-			// printf("i %f \n", data->sprite[i].dist);
-			// printf("diff %f \n", diff);}
 			start_y = sc->up_left + (sc->up_right - sc->up_left) * (x - sc->left_x)/ sc->w;
 			if (start_y < 0)
 				start_y = 0;
@@ -180,14 +196,23 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int i)
 			y = start_y;
 			while (y < end_y)
 			{
+				//printf("while start 1 p\n");
 				sc->h = end_y - start_y;
-				texpos.y = ((y - WIN_H / 2 + sc->h / 2) * tex->height) / sc->h;
+				texpos.y = ((y - WIN_H / 2 + sc->h / 2) * tex->height * 800) / (sc->h * 800);
+				// printf("y %i \n", y);
+				// printf("tex y %i \n", texpos.y);
+				// printf("h %i \n", sc->h);
+				// printf("h %i \n", tex->width);
 				ind = (texpos.y * tex->width + texpos.x) * tex->bytes_per_pixel;
+				// printf("i %d \n", ind);
 				mlx_put_pixel(data->img, x, y, readcol(&tex->pixels[ind]));
 				y++;
+				//printf("while end 1 \n");
 			}
+			//printf("draw end 1 p\n");
 		}
 		x++;
+		
 	}
 }
 
@@ -213,10 +238,13 @@ void	put_sprites(t_cub3d *data)
 			set_draw(&sc);
 			draw(data, &sc, data->tex[data->sprite[i].tex_i]);
 		}
-		else if (data->sprite[i].c == 'D' && data->sprite[i].isopen == CLOSED)
+		else if (data->sprite[i].c == 'D' && data->sprite[i].isopen != OPEN)
 		{
 			set_draw_door(&sc);
-			draw_door(data, &sc, data->tex[data->sprite[i].tex_i], i);
+		// 	printf("r %d \n", sc.right_x);
+		// printf("l %d \n", sc.left_x);
+			if (sc.left_x > -1.5 * WIN_W && sc.right_x < 2.5 * WIN_W)
+				draw_door(data, &sc, data->tex[data->sprite[i].tex_i], i);
 		}
 		i++;
 	}

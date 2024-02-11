@@ -3,37 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/09 08:43:10 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/12 00:18:44 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3d.h"
 
-void open_door(t_cub3d *data)
+
+static int facing_door(t_cub3d *data, int i)
+{
+	double delta;
+
+	if (data->sprite[i].dir == NORTH_SOUTH)
+	{
+		delta = data->sprite[i].y - data->p->pos.y;
+		return (sign(data->p->dirv.y) == sign(delta)
+			&& fabs(data->p->dirv.x) < 0.77);
+	}
+	else
+	{
+		delta = data->sprite[i].x - data->p->pos.x;
+		return (fabs(data->p->dirv.y) < 0.77
+			&& sign(data->p->dirv.x) == sign(delta));
+	}
+}
+
+static void open_door(t_cub3d *data)
 {
 	int i;
 	i = 0;
-	//printf("%d \n", data->total);
 	while (i < data->n_total_sprites)
 	{
-		if (data->sprite[i].c == 'D' && sprite_dist_sq(data->sprite[i], data->p->pos) <= 5)
+		if (data->sprite[i].c == 'D'
+		&& sprite_dist_sq(data->sprite[i], data->p->pos) <= 5
+		&& facing_door(data, i))
 		{
-			// printf("door pos %f %f \n", data->sprite[i].x, data->sprite[i].y);
-			// printf("player pos %f %f \n", data->p->pos.x, data->p->pos.y);
-			// printf("diff %f \n", sprite_dist_sq(data->sprite[i], data->p->pos));
-			if (data->sprite[i].isopen == OPEN)
+			if (data->sprite[i].isopen == OPEN
+			&& ((data->sprite[i].x != data->p->x)
+			|| (data->sprite[i].y != data->p->y)))
 			{
-				if ((data->sprite[i].x != data->p->x) && (data->sprite[i].y != data->p->y))
-					data->sprite[i].isopen = CLOSED;
+				data->sprite[i].isopen = CLOSING;
+				data->sprite[i].open_time = mlx_get_time();
 			}
-			else
-				data->sprite[i].isopen = OPEN;
-			//printf("after %d \n", data->sprite[i].isopen);
-
+			else if (data->sprite[i].isopen == CLOSED)
+			{
+				data->sprite[i].isopen = OPENING;
+				data->sprite[i].open_time = mlx_get_time();
+			}
 		}
 		i++;
 	}
@@ -92,8 +112,20 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 // 	}
 // }
 
+
+// void refresh(void *data)
+// {
+// 	raycasting(((t_cub3d *)data));
+// 	if (BONUS)
+// 		minimap(data);
+// 	if (((t_cub3d *)data)->n_total_sprites) // moved outside the if(BONUS) because otherwise barrels are not rendered
+// 		put_sprites(data);
+// }
+
 void refresh(void *data)
 {
+	double time_dif;
+
 	raycasting(((t_cub3d *)data));
 	if (BONUS)
 		minimap(data);

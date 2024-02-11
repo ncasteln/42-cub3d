@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/08 20:30:09 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/11 18:09:39 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define Y 1
 # define OPEN 0
 # define CLOSED 1
+# define OPENING 2
+# define CLOSING 3
 
 // ------------------------------------------------------------------- TEXTURES
 # define NO 0
@@ -116,6 +118,7 @@ typedef struct	s_sprite
 	t_dvect door_left_edge; //filled only for the door
 	t_dvect door_right_edge;	//filled only for the door
 	int isopen;
+	double	open_time;
 }	t_sprite;
 
 typedef struct s_cub3d

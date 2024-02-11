@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/09 08:58:33 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/11 18:08:53 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,8 @@ void rotate_player(t_player *p, double angle)
 {
 	rotate_vector(&p->dirv, angle);
 	rotate_vector(&p->plane, angle);
+	// printf("x %f \n", p->dirv.x);
+	// printf("y %f \n", p->dirv.y);
 }
 
 void correction(t_cub3d *data)
