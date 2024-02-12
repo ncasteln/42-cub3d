@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/12 00:54:46 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/13 00:55:18 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	transform(t_player *p, t_spritecast *sc, t_sprite *sprite)
 }
 
 /*
-calculates start and end points for drawing
+calculates start and end points for drawing,
 height and width of the sprite
 uncut x is needed to correctly determine the texture position
 because sc->start.x is cut as it is used for drawing and
@@ -82,17 +82,25 @@ void	set_draw(t_spritecast *sc)
 		sc->end.x = WIN_W - 1;
 }
 
+/*
+calculates
+1. x on the screen where the door starts (left edge)
+2. x on the screen where the door ends (right edge)
+3. y range of the screen for those edges
+4. width
+ */
 void	set_draw_door(t_spritecast *sc)
 {
-	int	screen_x1;
-	int	screen_x2;
-	int temp;
 	double dtemp;
-	screen_x1 = (int)((WIN_W / 2) * (1 + sc->transform.x / sc->transform.y));
-	temp = (int)((WIN_W / 2) * (1 + sc->transform2.x / sc->transform2.y));
-	if (temp < screen_x1)
+
+	sc->left_x = (int)((WIN_W / 2) * (1 + sc->transform.x / sc->transform.y));
+	sc->right_x = (int)((WIN_W / 2) * (1 + sc->transform2.x / sc->transform2.y));
+	sc->uncut_x = sc->left_x;
+	if (sc->right_x < sc->left_x)
 	{
-		screen_x1 = temp;
+		sc->uncut_x = sc->right_x;
+		sc->right_x = sc->left_x;
+		sc->left_x = sc->uncut_x;
 		dtemp = sc->transform.x;
 		sc->transform.x = sc->transform2.x;
 		sc->transform2.x = dtemp;
@@ -100,21 +108,18 @@ void	set_draw_door(t_spritecast *sc)
 		sc->transform.y = sc->transform2.y;
 		sc->transform2.y = dtemp;
 	}
-	screen_x2 = (int)((WIN_W / 2) * (1 + sc->transform2.x / sc->transform2.y));
 	sc->h = abs((int)(WIN_H / sc->transform.y));
 	sc->h2 = abs((int)(WIN_H / sc->transform2.y));
 	sc->up_left = -sc->h / 2 + WIN_H / 2;
 	sc->lo_left = sc->h / 2 + WIN_H / 2;
 	sc->up_right = -sc->h2 / 2 + WIN_H / 2;
 	sc->lo_right = sc->h2 / 2 + WIN_H / 2;
-	if (sc->transform.y != 0)
-		sc->w = abs((int)(WIN_H / sc->transform.y));
-	sc->uncut_x = screen_x1; //seems to be right!!!!
-	sc->left_x = sc->uncut_x;
-	if (sc->transform2.y != 0)
-		sc->w2 = abs((int)(WIN_H / sc->transform2.y));
-	sc->right_x = screen_x2; //?
 	sc->w = sc->right_x - sc->left_x;
+	// printf("lx %d \n", sc->left_x);
+	// printf("rx %d \n", sc->right_x);
+	// printf("t1 %f \n", sc->transform.y);
+	// printf("t2 %f \n", sc->transform2.y);
+	// printf("dy %f \n", data->p->dirv.y);
 
 }
 
@@ -184,7 +189,7 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int i)
 		//printf("w %d \n", sc->w);
 		diff = fabs(data->sprite[i].dist - pow(data->dist_arr[x], 2));
 		texpos.x = (int)((x - (sc->uncut_x)) * tex->width) / sc->w;
-		if (sc->transform.y > 0 && x > 0 && x < WIN_W
+		if (sc->transform.y > 0 && sc->transform2.y > 0 && x > 0 && x < WIN_W
 			&& ((sc->transform.y < data->dist_arr[x]) || (data->dir_arr[x] != data->sprite[i].dir && diff < 5)))
 		{
 			start_y = sc->up_left + (sc->up_right - sc->up_left) * (x - sc->left_x)/ sc->w;
@@ -199,12 +204,14 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int i)
 				//printf("while start 1 p\n");
 				sc->h = end_y - start_y;
 				texpos.y = ((y - WIN_H / 2 + sc->h / 2) * tex->height * 800) / (sc->h * 800);
+				texpos.y = (int)texpos.y & (tex->height - 1);
 				// printf("y %i \n", y);
 				// printf("tex y %i \n", texpos.y);
 				// printf("h %i \n", sc->h);
 				// printf("h %i \n", tex->width);
 				ind = (texpos.y * tex->width + texpos.x) * tex->bytes_per_pixel;
-				// printf("i %d \n", ind);
+				//printf("tex y %i \n", sc->h);
+				//printf("i %d \n", ind);
 				mlx_put_pixel(data->img, x, y, readcol(&tex->pixels[ind]));
 				y++;
 				//printf("while end 1 \n");
@@ -241,8 +248,6 @@ void	put_sprites(t_cub3d *data)
 		else if (data->sprite[i].c == 'D' && data->sprite[i].isopen != OPEN)
 		{
 			set_draw_door(&sc);
-		// 	printf("r %d \n", sc.right_x);
-		// printf("l %d \n", sc.left_x);
 			if (sc.left_x > -1.5 * WIN_W && sc.right_x < 2.5 * WIN_W)
 				draw_door(data, &sc, data->tex[data->sprite[i].tex_i], i);
 		}

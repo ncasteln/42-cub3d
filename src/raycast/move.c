@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/11 18:08:53 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/12 17:26:24 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,8 @@ void rotate_player(t_player *p, double angle)
 	// printf("y %f \n", p->dirv.y);
 }
 
+
+
 void correction(t_cub3d *data)
 {
 	t_dvect wtest;
@@ -220,25 +222,22 @@ void correction(t_cub3d *data)
 	set_vect(&wtest, data->p->pos.x, data->p->pos.y + 0.1);
 	set_vect(&delta, 0.0, 0.0);
 	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
-		{
-			delta.y += -0.01;
-			// printf("pos: %f, %f \n", wtest.x, wtest.y);
-			// printf("c%c \n", data->map[(int)wtest.y][(int)wtest.x]);
-
-		}
+		delta.y += -0.01;
 	set_vect(&wtest, data->p->pos.x, data->p->pos.y - 0.1);
 	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
-		{
-			// printf("-%f \n", data->p->pos.y - 0.1);
-			delta.y += 0.01;}
+		delta.y += 0.01;
 	set_vect(&wtest, data->p->pos.x + 0.1, data->p->pos.y);
 	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
 		delta.x += -0.01;
 	set_vect(&wtest, data->p->pos.x - 0.1, data->p->pos.y);
 	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
 		delta.x += 0.01;
+	set_vect(&wtest, data->p->pos.x - 0.1, data->p->pos.y - 0.1);
+	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
+	{
+		delta.x += 0.01;
+		delta.y += 0.01;
+	}
 	data->p->pos.x += delta.x;
-	// printf("d%f \n", delta.y);
 	data->p->pos.y += delta.y;
-	// printf("%f \n", data->p->pos.y);
 }
