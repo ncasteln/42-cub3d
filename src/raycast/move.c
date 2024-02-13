@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/12 17:26:24 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/13 02:53:52 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,40 @@ static void get_second_dim(t_dvect *vector, t_dvect *dir, int dim)
 // 	}
 // }
 
+//returns true if the door is open
+//at first we should find the door
+int door_open(t_cub3d *data, int x, int y)
+{
+	int i;
+
+	i = 0;
+	while (i < data->n_total_sprites)
+	{
+		if (data->sprite[i].c == 'D' && (int)(data->sprite[i].x) == x
+			&& (int)(data->sprite[i].y) == y && data->sprite[i].isopen == OPEN)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+
 //checks if the movement is possible and the player doesn't go through walls
 int check_space(t_cub3d *data, double delta_x, double delta_y)
 {
 	int x;
 	int y;
+	int isfree;
 
 	x = (int)(data->p->pos.x + delta_x);
 	y = (int)(data->p->pos.y + delta_y);
-	if (data->map[y][x] != '1' && data->map[y][x] != 'H')
-		return (true);
-	// if (BONUS && data->map[y][x] != 'D' && data->map[y][x] != '$')
-	// 	return (true);
-	return (false);
+	isfree = data->map[y][x] == '0' || data->map[y][x] == 'N';
+	if (BONUS)
+		isfree = isfree || (data->map[y][x] == 'D' && door_open(data, x, y));
+	return (isfree);
 }
+
+
 
 static void next_to_wall(t_cub3d *data, t_dvect *new_pos, int dim, t_dvect delta)
 {

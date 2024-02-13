@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/12 00:18:44 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/13 02:44:38 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 		rotate_player(((t_cub3d *)data)->p, -0.05);
 	if (BONUS && keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 		open_door((t_cub3d *)data);
-	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0);
+	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0); //error handling to be added
 }
 
 

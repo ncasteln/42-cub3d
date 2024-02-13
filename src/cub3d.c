@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/13 00:46:40 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/13 02:51:48 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	main(int argc, char **argv)
 	// printf("total %d \n", data.n_total_sprites);
 	// printf("sprites %d \n", data.n_s);
 	// printf("holes %d \n", data.n_h);
-	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
-	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
+	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0); //error handling to be added
+	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);//error handling to be added
 	init_move(data.p);
 	// printf("x %f \n", data.p->pos.x);
 	// printf("x %f \n", data.p->pos.y);
@@ -52,9 +52,7 @@ int	main(int argc, char **argv)
 	// printf("x %f \n", data.p->pos.x);
 	// printf("x %f \n", data.p->pos.y);
 	load_textures(&data);
-	mlx_image_to_window(data.mlx, data.img, 0, 0);
-
-	// raycasting(&data); // ----- Necessary? if removed nothing changes
+	mlx_image_to_window(data.mlx, data.img, 0, 0);//error handling to be added
 	//sprites(&data);
 	mlx_loop_hook(data.mlx, refresh, &data);
 	mlx_key_hook(data.mlx, key_hook, &data);
@@ -63,6 +61,8 @@ int	main(int argc, char **argv)
 
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
+	mlx_delete_image(data.mlx, data.img);
+	//delete textures
 	free_data(&data);
 	return (0);
 }
