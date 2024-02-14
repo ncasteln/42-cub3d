@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/13 02:53:52 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/14 03:04:49 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,23 +102,111 @@ int door_open(t_cub3d *data, int x, int y)
 
 
 //checks if the movement is possible and the player doesn't go through walls
-int check_space(t_cub3d *data, double delta_x, double delta_y)
+// int check_space(t_cub3d *data, double delta_x, double delta_y)
+// {
+// 	int x;
+// 	int y;
+// 	int isfree;
+
+// 	x = (int)(data->p->pos.x + delta_x);
+// 	y = (int)(data->p->pos.y + delta_y);
+// 	isfree = data->map[y][x] == '0' || data->map[y][x] == 'N';
+// 	if (BONUS)
+// 		isfree = isfree || (data->map[y][x] == 'D' && door_open(data, x, y));
+// 	return (isfree);
+// }
+
+//checks if a square on the map is free
+int check_square(t_cub3d *data, int x, int y)
 {
-	int x;
-	int y;
 	int isfree;
 
-	x = (int)(data->p->pos.x + delta_x);
-	y = (int)(data->p->pos.y + delta_y);
 	isfree = data->map[y][x] == '0' || data->map[y][x] == 'N';
 	if (BONUS)
 		isfree = isfree || (data->map[y][x] == 'D' && door_open(data, x, y));
 	return (isfree);
 }
 
+// printf("inc: %f, %f \n", temp.x, temp.y);
+//printf("move to: %f, %f \n", data->p->pos.x, data->p->pos.y);
+// changes increment vector if an obstacle is encountered
+void refine(t_cub3d *data, t_dvect *incr)
+{
+	t_ivect new_pos;
+	t_dvect delta;
+	t_dvect temp;
+	int isfree;
+
+//find last square
+new_pos.x = (int)(data->p->pos.x + incr->x);
+new_pos.y = (int)(data->p->pos.y + incr->y);
+	if (incr->x > 0)
+		delta.x = ceil(data->p->pos.x) - data->p->pos.x - 0.01;
+	else
+		delta.x = floor(data->p->pos.x) - data->p->pos.x + 0.01;
+	if (incr->y > 0)
+		delta.y = ceil(data->p->pos.y) - data->p->pos.y - 0.01;
+	else
+		delta.y = floor(data->p->pos.y) - data->p->pos.y + 0.01;
+//find middle squares
+if (new_pos.x == data->p->x && new_pos.y == data->p->y)
+{}//we are in the same square we don't change anything
+else if (new_pos.x != data->p->x && new_pos.y != data->p->y) //diagonal movement
+{
+	if (delta.x < delta.y) // it intersects the x shifted square
+	{
+		if (!check_square(data, new_pos.x, data->p->y)) //we need to stop near the square
+		{
+			set_vect(&temp, delta.x, 0);
+			get_second_dim(&temp, incr, Y);
+		}
+		else if (!check_square(data, new_pos.x, new_pos.y))//we need to stop near the square
+		{
+			set_vect(&temp, 0, delta.y);
+			get_second_dim(&temp, incr, X);
+		}
+		set_vect(incr, temp.x, temp.y);
+	}
+	else if (delta.y <= delta.x)
+	{
+		if (!check_square(data, data->p->x, new_pos.y)) //we need to stop near the square
+		{
+			set_vect(&temp, 0, delta.y);
+			get_second_dim(&temp, incr, X);
+		}
+		else if (!check_square(data, new_pos.x, new_pos.y))//we need to stop near the square
+		{
+			set_vect(&temp, delta.x, 0);
+			get_second_dim(&temp, incr, Y);
+		}
+		set_vect(incr, temp.x, temp.y);
+	}
+}
+else if (!check_square(data, new_pos.x, new_pos.y))//we move to adjacent square 
+{
+	if (new_pos.x == data->p->x) //y is changing
+	{
+		set_vect(&temp, 0, delta.y);
+		get_second_dim(&temp, incr, X);
+		
+	}
+	else
+	{
+		set_vect(&temp, delta.x, 0);
+		get_second_dim(&temp, incr, Y);
+	}
+	set_vect(incr, temp.x, temp.y);
+}
+//if all space is free return true
+//if not find the first intersection
+//determine the closest position where the player can stand
+// put player there
+
+}
 
 
-static void next_to_wall(t_cub3d *data, t_dvect *new_pos, int dim, t_dvect delta)
+
+/* static void next_to_wall(t_cub3d *data, t_dvect *new_pos, int dim, t_dvect delta)
 {
 	double tan;
 
@@ -144,7 +232,7 @@ static void next_to_wall(t_cub3d *data, t_dvect *new_pos, int dim, t_dvect delta
 		if (tan != 0)
 			new_pos->x += (new_pos->y - data->p->pos.y)/ tan;
 	}
-}
+} */
 
 /*
 if the player is about to collide with the wall
@@ -158,30 +246,57 @@ both coordinates should correspond to the moving direction
 4)we place the player to the new position
 
  */
-void minimove(t_cub3d *data, t_dvect delta)
-{
-	t_dvect new_pos;
+// void minimove(t_cub3d *data, t_dvect delta)
+// {
+// 	t_dvect new_pos;
 
-	set_vect(&new_pos, data->p->pos.x, data->p->pos.y);
-	if (fabs(delta.x) < fabs(delta.y))
-	{
-		if (!check_space(data, delta.x, 0)) //intersection while x
-			next_to_wall(data, &new_pos, X, delta);
-		else if (!check_space(data, 0, delta.y))
-			next_to_wall(data, &new_pos, Y, delta);
-		//else
-	}
-	else
-	{
-		if (!check_space(data, 0, delta.y))
-			next_to_wall(data, &new_pos, Y, delta);
-		else if (!check_space(data, delta.x, 0)) //intersection while x
-			next_to_wall(data, &new_pos, X, delta);
-		//else
-	}
-		data->p->pos.x = new_pos.x;
-		data->p->pos.y = new_pos.y;
-}
+// 	set_vect(&new_pos, data->p->pos.x, data->p->pos.y);
+// 	if (fabs(delta.x) < fabs(delta.y))
+// 	{
+// 		if (!check_space(data, delta.x, 0)) //intersection while x
+// 			next_to_wall(data, &new_pos, X, delta);
+// 		else if (!check_space(data, 0, delta.y))
+// 			next_to_wall(data, &new_pos, Y, delta);
+// 		//else
+// 	}
+// 	else
+// 	{
+// 		if (!check_space(data, 0, delta.y))
+// 			next_to_wall(data, &new_pos, Y, delta);
+// 		else if (!check_space(data, delta.x, 0)) //intersection while x
+// 			next_to_wall(data, &new_pos, X, delta);
+// 		//else
+// 	}
+// 		data->p->pos.x = new_pos.x;
+// 		data->p->pos.y = new_pos.y;
+// }
+// void minimove(t_cub3d *data, t_dvect delta)
+// {
+// 	t_dvect new_pos;
+
+// 	set_vect(&new_pos, data->p->pos.x, data->p->pos.y);
+// 	if (fabs(delta.x) < fabs(delta.y))
+// 	{
+// 		if (!check_space(data, delta.x, 0)) //intersection while x
+// 			next_to_wall(data, &new_pos, X, delta);
+// 		else if (!check_space(data, 0, delta.y))
+// 			next_to_wall(data, &new_pos, Y, delta);
+// 		//else
+// 	}
+// 	else
+// 	{
+// 		if (!check_space(data, 0, delta.y))
+// 			next_to_wall(data, &new_pos, Y, delta);
+// 		else if (!check_space(data, delta.x, 0)) //intersection while x
+// 			next_to_wall(data, &new_pos, X, delta);
+// 		//else
+// 	}
+// 		data->p->pos.x = new_pos.x;
+// 		data->p->pos.y = new_pos.y;
+// }
+
+// printf("delta: %f, %f \n", incr_vector.x, incr_vector.y);
+// 	printf("move to: %f, %f \n", data->p->pos.x, data->p->pos.y);
 
 /*
 we have the magnitude of the increment vector
@@ -201,16 +316,11 @@ void move(t_cub3d *data, double incr, int dir)
 		rotate_vector(&incr_vector, -M_PI / 2);
 	if (dir == BACK)
 		rotate_vector(&incr_vector, M_PI);
-	// //printf("delta: %f, %f \n", incr_vector.x, incr_vector.y);
-	if (check_space(data, incr_vector.x, incr_vector.y) == true)
-	{
-		data->p->pos.x += incr_vector.x;
-		data->p->pos.y += incr_vector.y;
-		data->p->x = (int) data->p->pos.x;
-		data->p->y = (int) data->p->pos.y;
-	}
-	else
-		minimove(data, incr_vector);
+	refine(data, &incr_vector);
+	data->p->pos.x += incr_vector.x;
+	data->p->pos.y += incr_vector.y;
+	data->p->x = (int) data->p->pos.x;
+	data->p->y = (int) data->p->pos.y;
 }
 
 //rotates any vector by a given angle (radians)
@@ -233,7 +343,7 @@ void rotate_player(t_player *p, double angle)
 }
 
 
-
+//edit to consider other obstacles!!!
 void correction(t_cub3d *data)
 {
 	t_dvect wtest;

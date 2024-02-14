@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/13 02:44:38 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/13 21:37:50 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 	if (keydata.key == MLX_KEY_W)
 		move((t_cub3d *)data, 0.2, FORWARD);
 	if (keydata.key == MLX_KEY_RIGHT)
-		rotate_player(((t_cub3d *)data)->p, 0.05);
+		rotate_player(((t_cub3d *)data)->p, 0.1);
 	if (keydata.key == MLX_KEY_LEFT)
-		rotate_player(((t_cub3d *)data)->p, -0.05);
+		rotate_player(((t_cub3d *)data)->p, -0.1);
 	if (BONUS && keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 		open_door((t_cub3d *)data);
 	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0); //error handling to be added
