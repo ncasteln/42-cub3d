@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/13 02:51:48 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/14 16:19:38 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	5) Clean everyhting
 		- remove traingin and its functions
 		- Remove unuseful stuff
-		- Remove function about floodfill of doors
+		- Remove function about floodfill of doors (check_behind_doors)
 		- Norm
 	6) Understand the mate's code
 

@@ -6,11 +6,11 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/08 12:51:29 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/14 16:20:21 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 
 CFLAGS = -Wall -Wextra #-Werror
 
@@ -44,6 +44,7 @@ PARSER = parse.c \
 	parse_assets_utils.c \
 	check_behind_doors.c \
 	rectangolize.c \
+	check_valid_doors.c \
 
 UTILS = err_free_exit.c \
 	print_map.c \
@@ -129,10 +130,10 @@ destroy: fclean
 re: fclean all
 
 # ------------------------------------------------------------------ TEST RULES
-test:
+test: fclean all
 	@./tests/tester
 
-test_bonus:
+test_bonus: fclean bonus
 	@./tests/tester_bonus
 
 # ----------------------------------------------------------------------- UTILS

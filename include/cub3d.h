@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/09 08:46:45 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:19:03 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*is_valid_asset_id(char *line);
 int		is_texture(char *line);
 int		is_duplicate_asset(char *id, t_cub3d *data);
 int		is_missing_asset(t_assets *assets);
+void	check_valid_doors(t_cub3d *data);
 
 // ---------------------------------------------------------- MAP PARSING UTILS
 void	jump_whitespaces(char **line);

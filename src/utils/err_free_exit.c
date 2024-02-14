@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/24 12:48:59 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:30:37 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static char	*get_err_msg(int err_n)
 		return ("no player set");
 	if (err_n == E_MAP_OPEN)
 		return ("map is not enclosed");
+	if (err_n == E_INV_DOOR)
+		return ("door not between walls");
 	return ("unknow error");
 }
 
