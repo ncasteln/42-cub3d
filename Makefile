@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/14 16:20:21 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/15 11:28:29 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,19 @@ ifeq ($(filter test_bonus,$(MAKECMDGOALS)),test_bonus)
 	IS_BONUS = -DBONUS=1
 endif
 
+# ------------------------------------------------------------------------- LEAKS
+# Git repo which traces mem leaks without conflicting with MLX. Explore the link
+# to know more about it and leave a star if you find useful!
+# 1) add $(LEAK_FINDER_INCLUDE) to the rule which makes objects
+# 2) add $(LEAK_FINDER) to the the rule which build the program
+# 3) add #include "malloc.h at the top of the main .h file
+# 4) add function print_leaks() where you want to monitor the memory
+# !!!) Remember to remove if don't needed!
+LEAK_FINDER = -L./leak_finder -lft_malloc
+LEAK_FINDER_INCLUDE = -I./leak_finder/includes
+GET_LEAK_FINDER = git clone https://github.com/iwillenshofer/leak_finder.git leak_finder
+GET_LEAK_FINDER_ALT = git clone git@github.com:iwillenshofer/leak_finder.git leak_finder
+
 # ----------------------------------------------------------------- BASIC RULES
 all: $(NAME)
 
@@ -87,7 +100,7 @@ bonus: $(NAME)
 
 $(NAME): $(LIB) $(MLX42) $(OBJS)
 	@echo "$(NC)Compiling $@ executable file..."
-	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LEAK_FINDER) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
 
 $(MLX42):
@@ -108,7 +121,7 @@ $(LIB):
 
 $(OBJS_DIR)%.o: %.c ./include/cub3d.h
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) -c $(CFLAGS) $< $(INCLUDE) -o $@ $(IS_BONUS)
+	@$(CC) -c $(CFLAGS) $< $(INCLUDE) $(LEAK_FINDER_INCLUDE) -o $@ $(IS_BONUS)
 
 clean:
 	@echo "$(NC)Removing [objs]..."

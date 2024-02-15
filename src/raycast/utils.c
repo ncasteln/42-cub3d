@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/12 00:53:46 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/15 11:04:07 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,9 @@ void load_textures(t_cub3d *data)
 	data->tex[WE] = mlx_load_png(data->assets->we);
 	data->tex[SO] = mlx_load_png(data->assets->so);
 	data->tex[EA] = mlx_load_png(data->assets->ea);
-	data->tex[H] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
+	data->tex[H] = mlx_load_png("assets/barrel.png");
 	if (BONUS && data->n_d)
-		//data->tex[D] = mlx_load_png(data->assets->d); // check if needed at the end  ?????
-		data->tex[D] = mlx_load_png("assets/Door1.png"); // check if needed at the end  ?????
-	if (BONUS && data->n_s)
-		data->tex[S] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
+		data->tex[D] = mlx_load_png("assets/Door1.png");
 }
 
 /*
@@ -109,13 +106,8 @@ void	count_sprites(t_cub3d *data)
 		{
 			if (data->map[i][j] == 'H')
 				data->n_h += 1;
-			if (BONUS)
-			{
-				if (data->map[i][j] == '$')
-					data->n_s += 1;
-				if (data->map[i][j] == 'D')
-					data->n_d += 1;
-			}
+			if (BONUS && data->map[i][j] == 'D')
+				data->n_d += 1;
 			j++;
 		}
 		i++;

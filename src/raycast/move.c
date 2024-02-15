@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/14 03:04:49 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/15 08:45:46 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,13 +182,13 @@ else if (new_pos.x != data->p->x && new_pos.y != data->p->y) //diagonal movement
 		set_vect(incr, temp.x, temp.y);
 	}
 }
-else if (!check_square(data, new_pos.x, new_pos.y))//we move to adjacent square 
+else if (!check_square(data, new_pos.x, new_pos.y))//we move to adjacent square
 {
 	if (new_pos.x == data->p->x) //y is changing
 	{
 		set_vect(&temp, 0, delta.y);
 		get_second_dim(&temp, incr, X);
-		
+
 	}
 	else
 	{

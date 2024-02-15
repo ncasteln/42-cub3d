@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 18:27:13 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 16:36:46 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 10:45:54 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,8 @@ static int	is_valid_map_char(char c)
 		return (1);
 	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
 		return (1);
-	if (BONUS)
-	{
-		if (c == 'D' || c == '$')
-			return (1);
-	}
+	if (BONUS && c == 'D')
+		return (1);
 	return (0);
 }
 

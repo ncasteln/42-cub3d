@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/08 17:02:46 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/15 10:47:51 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,8 +232,8 @@ static void	set_draw(t_raycast *rc, int isdoor)
 // {
 // 	set_draw(rc, 1);
 // 	putline(data, data->tex[2], rc);
-	
-// 	h = 
+
+// 	h =
 // }
 
 /*
@@ -312,7 +312,7 @@ void	raycasting(t_cub3d *data)
 		if (rc.d == 'D')
 		{
 			i = 0;
-			while (i < data->n_d + data->n_h + data->n_s)
+			while (i < data->n_d + data->n_h)
 			{
 
 				i++;

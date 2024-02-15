@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 12:46:50 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 08:30:15 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ static char	*extract_color(char **line, t_cub3d *data)
 		err_free_exit("extract_color", data, E_INV_ASSET);
 	}
 	hex = rgb_to_hex_string(color);
-	free(color);
-	return (hex);
+	return (free(color), hex);
 }
 
 char	*extract_asset_value(char **line, char *id, t_cub3d *data)

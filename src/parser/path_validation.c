@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/02/09 08:47:17 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 08:39:22 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 
 	y_limit = (int)data->n_rows - 1;
 	x_limit = (int)data->n_col - 1;
-	if (map_cpy[py][px] == '1' || map_cpy[py][px] == '.' || map_cpy[py][px] == 'H') // add
+	if (map_cpy[py][px] == '1'
+	|| map_cpy[py][px] == '.'
+	|| map_cpy[py][px] == 'H')
 		return ;
 	if (py <= 0 || px <= 0 || py >= y_limit || px >= x_limit)
 	{
@@ -66,10 +68,8 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 	}
 	else
 	{
-		if (map_cpy[py][px] == ' ') // add
+		if (map_cpy[py][px] == ' ')
 			map_cpy[py][px] = 'H';
-		// else if (map_cpy[py][px] == 'D') // add
-		// 	map_cpy[py][px] = 'D';
 		else
 			map_cpy[py][px] = '.';
 	}
@@ -100,8 +100,8 @@ static char	**cpy_map(t_cub3d *data)
 
 static void	refill_items(t_cub3d *data, char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])

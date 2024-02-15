@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/12 23:26:32 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/15 10:51:03 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	create_sprite_list(t_cub3d *data)
 		x = 0;
 		while (data->map[y][x])
 		{
-			if (data->map[y][x] == 'H' || data->map[y][x] == '$' || data->map[y][x] == 'D')
+			if (data->map[y][x] == 'H' || data->map[y][x] == 'D')
 			{
 				set_sprite(n, y, x, data);
 				n++;
@@ -119,9 +119,8 @@ void	bubble(t_sprite *sprite, int n)
 }
 
 /*
-	Holes and are considered SPRITES! So in an case the function runs, and it'll
-	add eventually other BONUS sprites (included doors) in case the bonus
-	version of the program is compiled.
+	Holes and Doors are considered SPRITES (Holes are handled in both
+	mandatory and bonus version, doors only in bonus)
 
 	) Create sprite list
 	) Calculate the dist of each sprite
@@ -134,7 +133,7 @@ void	bubble(t_sprite *sprite, int n)
 void	sprites(t_cub3d *data)
 {
 	count_sprites(data);
-	data->n_total_sprites = data->n_d + data->n_h + data->n_s;
+	data->n_total_sprites = data->n_d + data->n_h;
 	if (data->n_total_sprites)
 	{
 		data->sprite = ft_calloc(data->n_total_sprites, sizeof(t_sprite));

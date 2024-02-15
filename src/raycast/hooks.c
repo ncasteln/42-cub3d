@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/13 21:37:50 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/15 11:26:25 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
-
 
 static int facing_door(t_cub3d *data, int i)
 {
@@ -59,39 +57,34 @@ static void open_door(t_cub3d *data)
 	}
 }
 
-void	key_hook(mlx_key_data_t keydata, void *data)
+void	key_hook(mlx_key_data_t keydata, void *param)
 {
+	t_cub3d	*data;
+
+	data = (t_cub3d *)param;
 	if (keydata.key == MLX_KEY_ESCAPE) {
-		mlx_terminate(((t_cub3d *)data)->mlx);
+		mlx_terminate((data)->mlx);
 		err_free_exit(NULL, data, 0);
 	}
-	if (keydata.key == MLX_KEY_A)
-		move((t_cub3d *)data, 0.2, LEFT);
-	if (keydata.key == MLX_KEY_D)
-		move((t_cub3d *)data, 0.2, RIGHT);
-	if (keydata.key == MLX_KEY_S)
-		move((t_cub3d *)data, 0.2, BACK);
-	if (keydata.key == MLX_KEY_W)
-		move((t_cub3d *)data, 0.2, FORWARD);
-	if (keydata.key == MLX_KEY_RIGHT)
-		rotate_player(((t_cub3d *)data)->p, 0.1);
-	if (keydata.key == MLX_KEY_LEFT)
-		rotate_player(((t_cub3d *)data)->p, -0.1);
-	if (BONUS && keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
-		open_door((t_cub3d *)data);
-	mlx_image_to_window(((t_cub3d *)data)->mlx, ((t_cub3d *)data)->img, 0, 0); //error handling to be added
+	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
+	{
+		if (keydata.key == MLX_KEY_A)
+			move(data, 0.2, LEFT);
+		if (keydata.key == MLX_KEY_D)
+			move(data, 0.2, RIGHT);
+		if (keydata.key == MLX_KEY_S)
+			move(data, 0.2, BACK);
+		if (keydata.key == MLX_KEY_W)
+			move(data, 0.2, FORWARD);
+		if (keydata.key == MLX_KEY_RIGHT)
+			rotate_player((data)->p, 0.1);
+		if (keydata.key == MLX_KEY_LEFT)
+			rotate_player((data)->p, -0.1);
+		if (BONUS && keydata.key == MLX_KEY_SPACE)
+			open_door(data);
+	}
+	mlx_image_to_window((data)->mlx, (data)->img, 0, 0); //error handling to be added
 }
-
-
-
-// void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param)
-// {
-// 	// t_cub3d	*data;
-
-// 	// data = (t_cub3d *)param;
-// 	// mlx_get_mouse_pos(data->mlx, data->mouseX, data->mouseY);
-// 	// ft_printf("MOUSE [%d, %d]\n", data->mouseX, data->mouseY);
-// }
 
 // trainign function
 // void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color)
@@ -112,23 +105,15 @@ void	key_hook(mlx_key_data_t keydata, void *data)
 // 	}
 // }
 
-
-// void refresh(void *data)
-// {
-// 	raycasting(((t_cub3d *)data));
-// 	if (BONUS)
-// 		minimap(data);
-// 	if (((t_cub3d *)data)->n_total_sprites) // moved outside the if(BONUS) because otherwise barrels are not rendered
-// 		put_sprites(data);
-// }
-
-void refresh(void *data)
+void refresh(void *param)
 {
-	double time_dif;
+	double	time_dif;
+	t_cub3d	*data;
 
-	raycasting(((t_cub3d *)data));
+	data = (t_cub3d *)param;
+	raycasting((data));
 	if (BONUS)
 		minimap(data);
-	if (((t_cub3d *)data)->n_total_sprites) // moved outside the if(BONUS) because otherwise barrels are not rendered
+	if ((data)->n_total_sprites)
 		put_sprites(data);
 }

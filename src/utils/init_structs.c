@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:49:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/11 22:10:12 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/15 11:00:25 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	init_cub3d(t_cub3d *data)
 	data->assets->so = NULL;
 	data->assets->we = NULL;
 	data->assets->d = NULL;
-	data->assets->s = NULL;
 	data->assets->h = NULL;
 	data->assets->f = 0;
 	data->assets->c = 0;
@@ -35,9 +34,8 @@ void	init_cub3d(t_cub3d *data)
 	data->fd = -1;
 
 	// added
-	data->sprite = NULL; // remove
+	data->sprite = NULL; // remove ???
 	data->n_d = 0;
-	data->n_s = 0;
 	data->n_h = 0;
 }
 

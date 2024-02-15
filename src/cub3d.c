@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/14 16:19:38 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 11:24:38 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,12 @@
 	1) Handle sprite (whitespaces, doors, others)
 	2) Add animation to the door
 	3) Handle mouse
-	4) Check for the leaks
-	5) Clean everyhting
+	• Check for the leaks
+	• Clean everyhting
 		- remove traingin and its functions
 		- Remove unuseful stuff
 		- Remove function about floodfill of doors (check_behind_doors)
 		- Norm
-	6) Understand the mate's code
-
-	DOUBTS:
-	- should compile with math lib?
-
-	NOTES:
-	- Doors and other sprites can be placed anywhere, but sure to let the user
-	change the texture in the prsing? Think when done
 */
 
 int	main(int argc, char **argv)
@@ -40,11 +32,21 @@ int	main(int argc, char **argv)
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 	sprites(&data);
-	// printf("total %d \n", data.n_total_sprites);
-	// printf("sprites %d \n", data.n_s);
-	// printf("holes %d \n", data.n_h);
-	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0); //error handling to be added
-	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);//error handling to be added
+
+	////////////////////////////////////////////////////////////////////////////////
+
+	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
+	if (!data.mlx)
+		err_free_exit("main()", &data, E_MLX);
+	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
+	if (!data.img)
+	{
+		mlx_terminate(data.mlx);					// save one line: add one argument to err_free_exit to signal that mlx has to be terminted
+		err_free_exit("main()", &data, E_MLX);
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+
 	init_move(data.p);
 	// printf("x %f \n", data.p->pos.x);
 	// printf("x %f \n", data.p->pos.y);
@@ -52,17 +54,19 @@ int	main(int argc, char **argv)
 	// printf("x %f \n", data.p->pos.x);
 	// printf("x %f \n", data.p->pos.y);
 	load_textures(&data);
-	mlx_image_to_window(data.mlx, data.img, 0, 0);//error handling to be added
-	//sprites(&data);
+	if (mlx_image_to_window(data.mlx, data.img, 0, 0) == -1)
+	{
+		mlx_terminate(data.mlx);
+		err_free_exit("main()", &data, E_MLX);
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+
 	mlx_loop_hook(data.mlx, refresh, &data);
 	mlx_key_hook(data.mlx, key_hook, &data);
 
-	// mlx_mouse_hook(data.mlx, mouse_hook, &data);
-
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
-	mlx_delete_image(data.mlx, data.img);
-	//delete textures
 	free_data(&data);
 	return (0);
 }

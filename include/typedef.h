@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/14 16:30:15 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 11:00:29 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ enum err
 	E_DUP_PLAYER,
 	E_NO_PLAYER,
 	E_MAP_OPEN,
-	E_INV_DOOR
+	E_INV_DOOR,
+	E_MLX
 };
 
 // -------------------------------------------------------------------- STRUCTS
@@ -76,7 +77,6 @@ typedef struct s_assets
 	uint32_t	f;
 	uint32_t	c;
 	char		*d;		// door is actually a sprite
-	char		*s;		// $ sprite
 	char		*h;	// hole
 }	t_assets;
 
@@ -143,7 +143,6 @@ typedef struct s_cub3d
 	int				n_total_sprites;
 	int				n_h;	// number of holes
 	int				n_d;	// number of doors
-	int				n_s;	// number of sprites
 }	t_cub3d;
 
 /* variables related to raycasting calculation
