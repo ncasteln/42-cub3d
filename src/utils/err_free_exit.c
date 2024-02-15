@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 11:14:53 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 11:33:14 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	err_free_exit(char *s, t_cub3d *data, int err_n)
 	if (err_n)
 		error(s, err_n);
 	free_data(data);
-	system("leaks cub3D");	// remove
+	// system("leaks cub3D");	// remove
 	exit (err_n);
 }

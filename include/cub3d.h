@@ -6,13 +6,14 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 08:42:43 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:13:35 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+// #include "malloc.h" // remove
 #include "errno.h"
 #include <string.h>
 #include <fcntl.h>

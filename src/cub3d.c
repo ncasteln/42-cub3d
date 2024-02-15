@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 11:24:38 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:21:58 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 		- Remove function about floodfill of doors (check_behind_doors)
 		- Norm
 */
-
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;
@@ -34,14 +33,13 @@ int	main(int argc, char **argv)
 	sprites(&data);
 
 	////////////////////////////////////////////////////////////////////////////////
-
 	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
 	if (!data.mlx)
 		err_free_exit("main()", &data, E_MLX);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);
 	if (!data.img)
 	{
-		mlx_terminate(data.mlx);					// save one line: add one argument to err_free_exit to signal that mlx has to be terminted
+		mlx_terminate(data.mlx);				// save one line: add one argument to err_free_exit to signal that mlx has to be terminted
 		err_free_exit("main()", &data, E_MLX);
 	}
 

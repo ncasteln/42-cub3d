@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/15 11:28:29 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/15 12:20:23 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,40 +80,57 @@ ifeq ($(filter test_bonus,$(MAKECMDGOALS)),test_bonus)
 	IS_BONUS = -DBONUS=1
 endif
 
-# ------------------------------------------------------------------------- LEAKS
-# Git repo which traces mem leaks without conflicting with MLX. Explore the link
-# to know more about it and leave a star if you find useful!
-# 1) add $(LEAK_FINDER_INCLUDE) to the rule which makes objects
-# 2) add $(LEAK_FINDER) to the the rule which build the program
-# 3) add #include "malloc.h at the top of the main .h file
-# 4) add function print_leaks() where you want to monitor the memory
-# !!!) Remember to remove if don't needed!
+# ----------------------------------------------------------------------- LEAKS
+# Git repo which traces mem leaks without conflicting with MLX. Explore the
+# link to know more about it and leave a star if you find useful!
 LEAK_FINDER = -L./leak_finder -lft_malloc
 LEAK_FINDER_INCLUDE = -I./leak_finder/includes
-GET_LEAK_FINDER = git clone https://github.com/iwillenshofer/leak_finder.git leak_finder
-GET_LEAK_FINDER_ALT = git clone git@github.com:iwillenshofer/leak_finder.git leak_finder
+LEAK_FINDER_REPO = https://github.com/iwillenshofer/leak_finder.git
 
-# ----------------------------------------------------------------- BASIC RULES
+# ----------------------------------------------------------------------- RULES
 all: $(NAME)
 
 bonus: $(NAME)
 
+leaks: $(NAME)_leaks
+
 $(NAME): $(LIB) $(MLX42) $(OBJS)
-	@echo "$(NC)Compiling $@ executable file..."
+	@echo "$(NC)Compiling $(NAME) executable file..."
+	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LIB) -o $(NAME)
+	@echo "$(G)	[$@] successfully compiled!$(NC)"
+
+$(NAME)_leaks: $(LIB) $(MLX42) $(OBJS) $(LEAK_FINDER)
+	@echo "$(NC)Compiling $(NAME) executable file with leak checking..."
 	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LEAK_FINDER) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
 
 $(MLX42):
-	@echo "$(NC)Compiling [MLX42 library]..."
+	@echo "$(NC)Getting [MLX42 library]..."
 	@if [ -d ./lib/MLX42/ ]; then \
-		echo "$(G)[MLX42 library] exists!$(NC)"; \
+		echo "$(G)[MLX42 library] already exists!$(NC)"; \
 	else \
 		echo "	$(Y)Cloning [MLX42 library]$(NC)"; \
 		git clone https://github.com/codam-coding-college/MLX42.git ./lib/MLX42/; \
 		cd ./lib/MLX42/ && git checkout e84ea88; \
 	fi
+	@echo "$(NC)Compiling [MLX42 library]..."
 	@cd ./lib/MLX42/ && cmake -B build
 	@cmake --build ./lib/MLX42/build -j4
+
+$(LEAK_FINDER):
+	@echo "$(NC)Getting [leak_finder]...(visit $(G)$(LEAK_FINDER_REPO) $(NC)and leave a star!)"
+	@if [ -d ./leak_finder/ ]; then \
+		echo "$(G)[leak_finder] already exists!$(NC)"; \
+	else \
+		echo "	$(Y)Cloning [leak_finder library]$(NC)"; \
+		git clone $(LEAK_FINDER_REPO) leak_finder; \
+	fi
+	@echo "$(NC)Compiling [leak_finder]..."
+	@$(MAKE) -C ./leak_finder
+	@cp ./leak_finder/libft_malloc.so ./
+	@cp ./leak_finder/libft_malloc_x86_64_Darwin.so ./
+	@echo "$(Y)To use leak_finder: include 'malloc.h' in your headers and use \
+	the appropriate function print_leaks() when the program exits."
 
 $(LIB):
 	@echo "$(NC)Compiling [libraries]..."
@@ -123,6 +140,7 @@ $(OBJS_DIR)%.o: %.c ./include/cub3d.h
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) -c $(CFLAGS) $< $(INCLUDE) $(LEAK_FINDER_INCLUDE) -o $@ $(IS_BONUS)
 
+# ----------------------------------------------------------------- CLEAN RULES
 clean:
 	@echo "$(NC)Removing [objs]..."
 	@rm -rf $(OBJS_DIR)
@@ -131,16 +149,22 @@ clean:
 
 fclean: clean
 	@echo "$(NC)Removing [$(NAME)]..."
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(NAME)_leaks
 	@echo "$(NC)Removing [lib archives]..."
 	@$(MAKE) fclean -C ./lib/
 
-destroy: fclean
+clean_mlx:
 	@echo "$(NC)Removing [MLX42 library]..."
 	@rm -rfd ./lib/MLX42/ $(MLX42)
-	@echo "$(G)	[$(NAME) && MLX42] removed!$(NC)"
 
-re: fclean all
+clean_leak_finder:
+	@echo "$(NC)Removing [leak_finder]..."
+	@rm -rfd *.so
+	@rm -rfd ./leak_finder/
+
+destroy: fclean clean_mlx clean_leak_finder
+
+re: fclean clean_mlx clean_leak_finder all
 
 # ------------------------------------------------------------------ TEST RULES
 test: fclean all
@@ -150,7 +174,7 @@ test_bonus: fclean bonus
 	@./tests/tester_bonus
 
 # ----------------------------------------------------------------------- UTILS
-.PHONY: all bonus clean fclean re test
+.PHONY: all bonus clean fclean re test leaks clean_mlx clean_leak_finder destroy
 
 G = \033[0;32m
 Y = \033[0;33m
