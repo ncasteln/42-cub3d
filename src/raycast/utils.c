@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/15 11:04:07 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:32:07 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,13 @@ t_dvect *set_vect(t_dvect *v, double x, double y)
 */
 void load_textures(t_cub3d *data)
 {
+	int	i;
+	int	n_tex;
+
+	i = 0;
+	n_tex = 5;
+	if (BONUS)
+		n_tex = 6;
 	data->tex[NO] = mlx_load_png(data->assets->no);
 	data->tex[WE] = mlx_load_png(data->assets->we);
 	data->tex[SO] = mlx_load_png(data->assets->so);
@@ -86,6 +93,15 @@ void load_textures(t_cub3d *data)
 	data->tex[H] = mlx_load_png("assets/barrel.png");
 	if (BONUS && data->n_d)
 		data->tex[D] = mlx_load_png("assets/Door1.png");
+	while (i < n_tex)
+	{
+		if (!data->tex[i])
+		{
+			mlx_terminate(data->mlx);
+			err_free_exit("load_textures()", data, E_MLX);
+		}
+		i++;
+	}
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 12:13:35 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:28:22 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@
 #include "MLX42.h"
 
 #include "typedef.h"
-
-#ifndef BONUS
-# define BONUS 0
-#endif
-# define MINIMAP_PIXEL 10
 
 // -------------------------------------------------------------------- PARSING
 void	parse(int argc, char **argv, t_cub3d *data);

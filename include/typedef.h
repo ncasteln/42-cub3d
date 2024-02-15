@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/15 11:59:53 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:29:17 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@
 # define BACK		200
 # define RIGHT		300
 # define LEFT		400
+
+#ifndef BONUS
+# define BONUS 0
+#endif
+# define MINIMAP_PIXEL 10
 
 // --------------------------------------------------------------------- ERRORS
 enum err
@@ -127,7 +132,7 @@ typedef struct s_cub3d
 	mlx_t*			mlx;
 	mlx_image_t*	img;
 	mlx_image_t*	img1;
-	mlx_texture_t	*tex[7];	// modify to dynamic allocation to differentiate with bonus ???
+	mlx_texture_t	*tex[6];	// modify to dynamic allocation to differentiate with bonus ???
 	t_assets		*assets;
 	char			**map;
 	mlx_image_t		*minimap;
