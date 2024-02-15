@@ -6,13 +6,13 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/15 15:59:49 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/15 17:22:31 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -fsanitize=thread -Wall -Wextra #-Werror
 
 LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
 LIBFT = ./lib/libft/libft.a
@@ -153,6 +153,8 @@ fclean: clean
 	@echo "$(NC)Removing [lib archives]..."
 	@$(MAKE) fclean -C ./lib/
 
+re: fclean all
+
 clean_mlx:
 	@echo "$(NC)Removing [MLX42 library]..."
 	@rm -rfd ./lib/MLX42/ $(MLX42)
@@ -164,7 +166,6 @@ clean_leak_finder:
 
 destroy: fclean clean_mlx clean_leak_finder
 
-re: fclean clean_mlx clean_leak_finder all
 
 # ------------------------------------------------------------------ TEST RULES
 test: fclean all
