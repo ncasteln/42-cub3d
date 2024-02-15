@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:24:34 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 08:02:54 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:49:01 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	check_ns_we(t_cub3d *data, int y, int x)
 		if (x - 1 <= (int)data->n_col && data->map[y][x + 1] == '1')
 			return ;
 	}
-	err_free_exit("check_ns_we()", data, E_INV_DOOR);
+	err_free_exit("check_ns_we()", data, 0, E_INV_DOOR);
 }
 
 /*

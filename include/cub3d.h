@@ -6,14 +6,13 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 12:28:22 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:01:03 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-// #include "malloc.h" // remove
 #include "errno.h"
 #include <string.h>
 #include <fcntl.h>
@@ -60,11 +59,11 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data);
 // ---------------------------------------------------------------------- UTILS
 void	init_cub3d(t_cub3d *data);
 void	init_move(t_player *p);
-void	err_free_exit(char *s, t_cub3d *data, int err_n);
+void	err_free_exit(char *s, t_cub3d *data, int free_mlx, int err_n);
 void	free_data(t_cub3d *data);
 void	free_dptr(char **p);
 int		is_blank_line(char *s);
-void	count_sprites(t_cub3d *data); // bonus
+void	count_sprites(t_cub3d *data);
 
 // ---------------------------------------------------------------- PRINT UTILS
 void	print_map(char **p, int	row_len);

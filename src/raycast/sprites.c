@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 12:21:23 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:50:26 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	sprites(t_cub3d *data)
 	{
 		data->sprite = ft_calloc(data->n_total_sprites, sizeof(t_sprite));
 		if (!data->sprite)
-			err_free_exit("create_sprite", data, errno);
+			err_free_exit("create_sprite", data, 0, errno);
 	}
 	create_sprite_list(data);
 }

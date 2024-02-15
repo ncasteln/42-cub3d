@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/15 11:33:09 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:57:39 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	t_cub3d	*data;
 
 	data = (t_cub3d *)param;
-	if (keydata.key == MLX_KEY_ESCAPE) {
-		mlx_terminate((data)->mlx);
-		err_free_exit(NULL, data, 0);
-	}
+	if (keydata.key == MLX_KEY_ESCAPE)
+		err_free_exit(NULL, data, 1, EXIT_SUCCESS);
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 	{
 		if (keydata.key == MLX_KEY_A)
@@ -83,7 +81,8 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		if (BONUS && keydata.key == MLX_KEY_SPACE)
 			open_door(data);
 	}
-	mlx_image_to_window((data)->mlx, (data)->img, 0, 0); //error handling to be added
+	if (mlx_image_to_window((data)->mlx, (data)->img, 0, 0) == -1)
+		err_free_exit("key_hook()", data, 1, E_MLX);
 }
 
 // trainign function

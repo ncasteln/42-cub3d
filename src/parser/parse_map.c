@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 18:27:13 by nico              #+#    #+#             */
-/*   Updated: 2024/02/15 10:45:54 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:48:36 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	init_map(char *line, t_cub3d *data)
 {
 	data->map = ft_calloc(2, sizeof(char *));
 	if (!data->map)
-		err_free_exit("init_map", data, errno);
+		err_free_exit("init_map", data, 0, errno);
 	data->map[0] = ft_substr(line, 0, ft_strlen(line) - 1);
 	if (!data->map[0])
-		err_free_exit("init_map", data, errno);
+		err_free_exit("init_map", data, 0, errno);
 }
 
 static void	cpy_and_add_line(char *line, t_cub3d *data)
@@ -30,18 +30,18 @@ static void	cpy_and_add_line(char *line, t_cub3d *data)
 	tmp = data->map;
 	data->map = ft_calloc(data->n_rows + 1, sizeof(char *));
 	if (!data->map)
-		err_free_exit("cpy_and_add_line", data, errno);
+		err_free_exit("cpy_and_add_line", data, 0, errno);
 	i = 0;
 	while (tmp[i])
 	{
 		data->map[i] = ft_strdup(tmp[i]);
 		if (!data->map[i])
-			err_free_exit("cpy_and_add_line", data, errno);
+			err_free_exit("cpy_and_add_line", data, 0, errno);
 		i++;
 	}
 	data->map[i] = ft_substr(line, 0, ft_strlen(line) - 1);
 	if (!data->map[i])
-		err_free_exit("cpy_and_add_line", data, errno);
+		err_free_exit("cpy_and_add_line", data, 0, errno);
 	free_dptr(tmp);
 }
 
@@ -81,7 +81,7 @@ int	is_valid_map_line(char *s)
 void	store_map_line(char *line, t_cub3d *data)
 {
 	if (!is_valid_map_line(line))
-		err_free_exit("store_map_line", data, E_INV_CHAR);
+		err_free_exit("store_map_line", data, 0, E_INV_CHAR);
 	if (!data->map)
 		return (init_map(line, data));
 	data->n_rows = get_n_rows(data->map) + 1;

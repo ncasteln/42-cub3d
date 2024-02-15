@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/02/15 08:39:22 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:48:56 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static char	**cpy_map_without_empty_lines(int i, int j, t_cub3d *data)
 	data->n_rows = j - i + 1;
 	trimmed_map = ft_calloc(data->n_rows + 1, sizeof(char *));
 	if (!trimmed_map)
-		err_free_exit("trim_empty_lines", data, errno);
+		err_free_exit("trim_empty_lines", data, 0, errno);
 	k = 0;
 	while (i <= j)
 	{
 		trimmed_map[k] = ft_strdup(data->map[i]);
 		if (!trimmed_map[k])
-			err_free_exit("trim_empty_lines", data, errno);
+			err_free_exit("trim_empty_lines", data, 0, errno);
 		i++;
 		k++;
 	}
@@ -64,7 +64,7 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data)
 	if (py <= 0 || px <= 0 || py >= y_limit || px >= x_limit)
 	{
 		free_dptr(map_cpy);
-		err_free_exit("flood_fill", data, E_MAP_OPEN);
+		err_free_exit("flood_fill", data, 0, E_MAP_OPEN);
 	}
 	else
 	{
@@ -86,13 +86,13 @@ static char	**cpy_map(t_cub3d *data)
 
 	map_cpy = ft_calloc(data->n_rows + 1, sizeof(char *));
 	if (!map_cpy)
-		err_free_exit("cpy_map", data, errno);
+		err_free_exit("cpy_map", data, 0, errno);
 	i = 0;
 	while (i < data->n_rows)
 	{
 		map_cpy[i] = ft_strdup(data->map[i]);
 		if (!map_cpy[i])
-			err_free_exit("cpy_map", data, errno);
+			err_free_exit("cpy_map", data, 0, errno);
 		i++;
 	}
 	return (map_cpy);

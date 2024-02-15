@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/15 12:20:23 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/15 15:59:49 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -129,8 +129,8 @@ $(LEAK_FINDER):
 	@$(MAKE) -C ./leak_finder
 	@cp ./leak_finder/libft_malloc.so ./
 	@cp ./leak_finder/libft_malloc_x86_64_Darwin.so ./
-	@echo "$(Y)To use leak_finder: include 'malloc.h' in your headers and use \
-	the appropriate function print_leaks() when the program exits."
+	@echo "$(Y)To use leak_finder: include 'malloc.h' on the top of your header and use \
+	the appropriate function print_leaks() at the exit points.$(NC)"
 
 $(LIB):
 	@echo "$(NC)Compiling [libraries]..."

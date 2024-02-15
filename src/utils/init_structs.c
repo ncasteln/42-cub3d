@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:49:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 12:21:04 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:49:36 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	init_cub3d(t_cub3d *data)
 {
 	data->assets = ft_calloc(1, sizeof(t_assets));
 	if (!data->assets)
-		err_free_exit("init_cub3d", data, errno);
+		err_free_exit("init_cub3d", data, 0, errno);
 	data->assets->no = NULL;
 	data->assets->ea = NULL;
 	data->assets->so = NULL;
