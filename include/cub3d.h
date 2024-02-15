@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/14 16:19:03 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:39:06 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void load_textures(t_cub3d *data);
 void correction(t_cub3d *data);
 // mlx_texture_t	*select_texture(t_cub3d *data, t_dvect *raydir, int wall_dir);
 int select_texture(t_cub3d *data, t_raycast *rc);
+char read_map(t_cub3d *data, size_t y, size_t x);
 
 // ------------------------------------------------------------ SPRITES CASTING
 void	sprites(t_cub3d *data);

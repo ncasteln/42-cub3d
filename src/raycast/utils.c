@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/12 00:53:46 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/15 21:10:14 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,18 @@ int sign(double x)
 		return (-1);
 	else
 		return (0);
+}
+
+char read_map(t_cub3d *data, size_t y, size_t x)
+{
+	// printf("reading yx%zu %zu \n", y, x);
+	// printf("max %zu %zu \n", data->n_rows, data->n_col);
+	if (y >= data->n_rows || x >= data->n_col)
+	{
+		// printf("max %zu %zu \n", data->n_rows, data->n_col);
+		// printf("expecting segfault %zu %zu \n", y, x);
+	}
+	return(data->map[y][x]);
 }
 
 t_dvect *set_vect(t_dvect *v, double x, double y)

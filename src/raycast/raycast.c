@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/08 17:02:46 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/15 17:42:32 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static void	ray_init(int pixel_x, t_raycast *rc, t_player *p)
 	the wall is hit, is calculated in the next step in get_hit_pos() using the
 	rc->wall_dir set in this function.
 */
-static void	find_hit(t_raycast *rc, char **map)
+static void	find_hit(t_raycast *rc, char **map, t_cub3d *data)
 {
 	rc->hit = 0;
 	//rc->d = '0';
@@ -126,14 +126,17 @@ static void	find_hit(t_raycast *rc, char **map)
 			rc->ray_len.x += rc->ray_delta.x;
 			rc->ray.x += sign(rc->raydir.x);
 			rc->wall_dir = WEST_EAST;
+			//printf("we %d %d \n", rc->ray.x, rc->ray.y);
 		}
 		else
 		{
 			rc->ray_len.y += rc->ray_delta.y;
 			rc->ray.y += sign(rc->raydir.y);
 			rc->wall_dir = NORTH_SOUTH;
+			//printf("ns %d %d \n", rc->ray.x, rc->ray.y);
 		}
-		if (map[rc->ray.y][rc->ray.x] == '1')
+		//map[rc->ray.y][rc->ray.x] == '1
+		if (read_map(data, rc->ray.y, rc->ray.x) == '1')
 			rc->hit = 1;
 		// if (map[rc->ray.y][rc->ray.x] == 'D')
 		// {
@@ -297,7 +300,7 @@ void	raycasting(t_cub3d *data)
 	while (pixel_x < WIN_W)
 	{
 		ray_init(pixel_x, &rc, data->p);
-		find_hit(&rc, data->map);
+		find_hit(&rc, data->map, data);
 		get_hit_pos(data, &rc);
 		data->dist_arr[pixel_x] = rc.wall_dist;
 		data->dir_arr[pixel_x] = rc.wall_dir;
