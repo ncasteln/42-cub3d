@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/16 00:50:32 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/18 00:54:52 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,44 +111,54 @@ new_pos.y = (int)(data->p->pos.y + incr->y);
 	else
 		delta.y = 0;
 //printf("delta: %f, %f \n", delta.x, delta.y);
-//printf("cold - new x: %f, %f \n", round(data->p->pos.x + incr->x), floor(data->p->pos.x + incr->x));
-//printf("old - new x: %d, %d \n", (int)data->p->pos.x, (int)(data->p->pos.x + incr->x));
+// printf("cold - new x: %f, %f \n", data->p->pos.x, data->p->pos.x + incr->x);
+// printf("old - new x: %d, %d \n", (int)data->p->pos.x, (int)(data->p->pos.x + incr->x));
+// printf("old - new y: %d, %d \n", (int)data->p->pos.y, (int)(data->p->pos.y + incr->y));
 //find middle squares
 if (new_pos.x == data->p->x && new_pos.y == data->p->y)
 {
-	
 }//we are in the same square we don't change anything
 else if (new_pos.x != data->p->x && new_pos.y != data->p->y) //diagonal movement
 {
+	//printf("n\n");
+
 	if (fabs(delta.x) < fabs(delta.y)) // it intersects the x shifted square
 	{
 		if (!check_square(data, new_pos.x, data->p->y)) //we check the x shifted square
 		{
 			set_vect(&temp, delta.x, 0);
 			get_second_dim(&temp, incr, Y);
+			set_vect(incr, temp.x, temp.y);
 			// printf("x shifted square: %f, %f \n", temp.x, temp.y);
 		}
 		else if (!check_square(data, new_pos.x, new_pos.y))//we check the diaogonal square
 		{
 			set_vect(&temp, 0, delta.y);
 			get_second_dim(&temp, incr, X);
+			set_vect(incr, temp.x, temp.y);
 		}
-		set_vect(incr, temp.x, temp.y);
+		
 	}
 	else if (fabs(delta.y) <= fabs(delta.x))
 	{
+		
+	// 	printf("x: %d, %d \n", new_pos.x, data->p->x);
+	// printf("y: %d, %d \n", new_pos.y, data->p->y);
+		
 		if (!check_square(data, data->p->x, new_pos.y)) //we need to stop near the square
 		{
 			set_vect(&temp, 0, delta.y);
 			get_second_dim(&temp, incr, X);
+			set_vect(incr, temp.x, temp.y);
 			// printf("y shifted square: %f, %f \n", temp.x, temp.y);
 		}
 		else if (!check_square(data, new_pos.x, new_pos.y))//we need to stop near the square
 		{
 			set_vect(&temp, delta.x, 0);
 			get_second_dim(&temp, incr, Y);
+			set_vect(incr, temp.x, temp.y);
 		}
-		set_vect(incr, temp.x, temp.y);
+		//set_vect(incr, temp.x, temp.y);
 	}
 }
 else if (!check_square(data, new_pos.x, new_pos.y))//we move to adjacent square
@@ -163,7 +173,7 @@ else if (!check_square(data, new_pos.x, new_pos.y))//we move to adjacent square
 		
 		set_vect(&temp, delta.x, 0);
 		get_second_dim(&temp, incr, Y);
-		// printf("shift r: %f, %f \n", temp.x, temp.y);
+		//printf("shift r: %f, %f \n", temp.x, temp.y);
 	}
 	set_vect(incr, temp.x, temp.y);
 }
@@ -205,6 +215,8 @@ void move(t_cub3d *data, double incr, int dir)
 	data->p->pos.y += incr_vector.y;
 	data->p->x = (int) data->p->pos.x;
 	data->p->y = (int) data->p->pos.y;
+	// if ()
+	// 	correction(data);
 	// printf("new_pos: %f, %f \n", data->p->pos.x, data->p->pos.y);
 }
 

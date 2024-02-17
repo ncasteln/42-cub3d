@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/14 16:30:15 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/17 22:35:06 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct s_cub3d
 {
 	mlx_t*			mlx;
 	mlx_image_t*	img;
-	mlx_image_t*	img1;
+	// mlx_image_t*	img1;
 	mlx_texture_t	*tex[7];	// modify to dynamic allocation to differentiate with bonus ???
 	t_assets		*assets;
 	char			**map;

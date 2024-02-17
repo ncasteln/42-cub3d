@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/12 23:26:32 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/18 00:36:17 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void set_door(int n, int y, int x, t_cub3d *data)
 void	set_sprite(int n, int y, int x, t_cub3d *data)
 {
 	data->sprite[n].c = data->map[y][x];
-	data->sprite[n].y = y;
-	data->sprite[n].x = x;
+	data->sprite[n].y = y + 0.5;
+	data->sprite[n].x = x + 0.5;
 	data->sprite[n].dist = -1;
 	if (data->sprite[n].c == 'D')
 		set_door(n, y, x, data);

@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/15 17:42:32 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/17 18:39:17 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,10 +219,10 @@ int	select_texture(t_cub3d *data, t_raycast *rc)
 */
 static void	set_draw(t_raycast *rc, int isdoor)
 {
-	// if (isdoor == 1)
-	// 	rc->line_h = (int)(WIN_H / rc->door_dist);
-	// else
-		rc->line_h = (int)(WIN_H / rc->wall_dist);
+	if (rc->wall_dist < 0.0001)
+		rc->wall_dist = 0.1;
+	// printf("wd, %f", rc->wall_dist);
+	rc->line_h = (int)(WIN_H / rc->wall_dist);
 	rc->line_start = WIN_H / 2 - rc->line_h / 2;
 	if (rc->line_start < 0)
 		rc->line_start = 0;
@@ -260,7 +260,7 @@ static void	putline(t_cub3d *data, int x, int tex_ind, t_raycast *rc)
 	y = 0;
 	while (y >= 0 && y < WIN_H)
 	{
-		if (y >= rc->line_start && y <= rc->line_end)
+		if ((y >= rc->line_start && y <= rc->line_end) || rc->line_start > WIN_H)
 		{
 			tex_y = (int) tex_pos & (tex->height - 1);
 			tex_pos += step;
@@ -326,6 +326,7 @@ void	raycasting(t_cub3d *data)
 			//put_door(data, rc);
 		pixel_x++;
 	}
+	//printf("\n");
 	//printf("before");
 	//put_sprites(data, dist_arr);
 }
