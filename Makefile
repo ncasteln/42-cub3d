@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/15 17:22:31 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/19 00:41:04 by mrubina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,8 @@ RAYCAST = raycast.c \
 	move.c \
 	spritecast.c \
 	sprites.c \
+	vectors.c \
+	refine.c \
 
 MINIMAP = draw_minimap.c \
 

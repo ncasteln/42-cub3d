@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/18 18:30:07 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/19 00:47:49 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int check_space(t_cub3d *data, double delta_x, double delta_y);
 int sign(double x);
 void move_s(t_cub3d *data, double move, int dir);
 t_dvect *set_vect(t_dvect *v, double x, double y);
+void	get_vector(t_dvect *vector, t_dvect *dir, double magnitude);
+void	get_second_dim(t_dvect *vector, t_dvect *dir, int dim);
 // void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color);
 uint32_t readcol(uint8_t *p);
 uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
@@ -95,6 +97,8 @@ void correction(t_cub3d *data);
 // mlx_texture_t	*select_texture(t_cub3d *data, t_dvect *raydir, int wall_dir);
 int select_texture(t_cub3d *data, t_raycast *rc);
 char read_map(t_cub3d *data, size_t y, size_t x);
+void	refine(t_cub3d *data, t_dvect *incr);
+int	door_open(t_cub3d *data, int x, int y);
 
 // ------------------------------------------------------------ SPRITES CASTING
 void	sprites(t_cub3d *data);

@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/18 18:30:41 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/18 19:13:02 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ typedef struct s_cub3d
 {
 	mlx_t*			mlx;
 	mlx_image_t*	img;
-	// mlx_image_t*	img1;
 	mlx_texture_t	*tex[7];	// modify to dynamic allocation to differentiate with bonus ???
 	t_assets		*assets;
 	char			**map;

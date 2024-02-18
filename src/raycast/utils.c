@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/18 18:28:15 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/18 19:11:20 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void load_textures(t_cub3d *data)
 
 	i = 0;
 	n_tex = 5;
-	if (BONUS)
+	if (BONUS && data->n_d) //edited by mariia
 		n_tex = 6;
 	data->tex[NO] = mlx_load_png(data->assets->no);
 	data->tex[WE] = mlx_load_png(data->assets->we);
