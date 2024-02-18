@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/18 00:02:25 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/18 18:30:07 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@
 #include "MLX42.h"
 
 #include "typedef.h"
-
-#ifndef BONUS
-# define BONUS 0
-#endif
-# define MINIMAP_PIXEL 10
 
 // -------------------------------------------------------------------- PARSING
 void	parse(int argc, char **argv, t_cub3d *data);
@@ -64,11 +59,11 @@ void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data);
 // ---------------------------------------------------------------------- UTILS
 void	init_cub3d(t_cub3d *data);
 void	init_move(t_player *p);
-void	err_free_exit(char *s, t_cub3d *data, int err_n);
+void	err_free_exit(char *s, t_cub3d *data, int free_mlx, int err_n);
 void	free_data(t_cub3d *data);
 void	free_dptr(char **p);
 int		is_blank_line(char *s);
-void	count_sprites(t_cub3d *data); // bonus
+void	count_sprites(t_cub3d *data);
 
 // ---------------------------------------------------------------- PRINT UTILS
 void	print_map(char **p, int	row_len);

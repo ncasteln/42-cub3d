@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:49:00 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 12:45:23 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 11:21:44 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	free_assets(t_assets *assets)
 		free(assets->so);
 	if (assets->we)
 		free(assets->we);
+	if (BONUS && assets->d)
+		free(assets->d);
 	free(assets);
 }
 

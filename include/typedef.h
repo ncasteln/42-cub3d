@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/17 22:35:06 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/18 18:30:41 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@
 # define RIGHT		300
 # define LEFT		400
 
+#ifndef BONUS
+# define BONUS 0
+#endif
+# define MINIMAP_PIXEL 10
+
 // --------------------------------------------------------------------- ERRORS
 enum err
 {
@@ -63,7 +68,8 @@ enum err
 	E_DUP_PLAYER,
 	E_NO_PLAYER,
 	E_MAP_OPEN,
-	E_INV_DOOR
+	E_INV_DOOR,
+	E_MLX
 };
 
 // -------------------------------------------------------------------- STRUCTS
@@ -76,7 +82,6 @@ typedef struct s_assets
 	uint32_t	f;
 	uint32_t	c;
 	char		*d;		// door is actually a sprite
-	char		*s;		// $ sprite
 	char		*h;	// hole
 }	t_assets;
 
@@ -143,7 +148,6 @@ typedef struct s_cub3d
 	int				n_total_sprites;
 	int				n_h;	// number of holes
 	int				n_d;	// number of doors
-	int				n_s;	// number of sprites
 }	t_cub3d;
 
 /* variables related to raycasting calculation

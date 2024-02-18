@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:19:23 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/19 11:42:03 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:49:28 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ static char	**cpy_rectangolized_map(t_cub3d *data, size_t row_len, int n_rows)
 
 	map_cpy = ft_calloc(n_rows + 1, sizeof(char *));
 	if (!map_cpy)
-		err_free_exit("rectangolize", data, errno);
+		err_free_exit("rectangolize", data, 0, errno);
 	i = 0;
 	while (i < n_rows)
 	{
 		map_cpy[i] = ft_calloc(row_len + 1, sizeof(char));
 		if (!map_cpy[i])
-			err_free_exit("rectangolize", data, errno);
+			err_free_exit("rectangolize", data, 0, errno);
 		fill_row(map_cpy[i], data->map[i], row_len);
 		i++;
 	}

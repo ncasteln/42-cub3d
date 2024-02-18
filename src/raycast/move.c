@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/18 00:54:52 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/18 18:25:50 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ else if (new_pos.x != data->p->x && new_pos.y != data->p->y) //diagonal movement
 		//set_vect(incr, temp.x, temp.y);
 	}
 }
-else if (!check_square(data, new_pos.x, new_pos.y))//we move to adjacent square
+else if (!check_square(data, new_pos.x, new_pos.y))//we move to adjacent square 
 {
 	if (new_pos.x == data->p->x) //y is changing
 	{

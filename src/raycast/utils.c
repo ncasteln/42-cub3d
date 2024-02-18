@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/15 21:10:14 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/18 18:28:15 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,26 @@ t_dvect *set_vect(t_dvect *v, double x, double y)
 */
 void load_textures(t_cub3d *data)
 {
+	int	i;
+	int	n_tex;
+
+	i = 0;
+	n_tex = 5;
+	if (BONUS)
+		n_tex = 6;
 	data->tex[NO] = mlx_load_png(data->assets->no);
 	data->tex[WE] = mlx_load_png(data->assets->we);
 	data->tex[SO] = mlx_load_png(data->assets->so);
 	data->tex[EA] = mlx_load_png(data->assets->ea);
-	data->tex[H] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
+	data->tex[H] = mlx_load_png("assets/barrel.png");
 	if (BONUS && data->n_d)
-		//data->tex[D] = mlx_load_png(data->assets->d); // check if needed at the end  ?????
-		data->tex[D] = mlx_load_png("assets/Door1.png"); // check if needed at the end  ?????
-	if (BONUS && data->n_s)
-		data->tex[S] = mlx_load_png("assets/barrel.png"); // check if needed at the end  ?????
+		data->tex[D] = mlx_load_png("assets/Door1.png");
+	while (i < n_tex)
+	{
+		if (!data->tex[i])
+			err_free_exit("load_textures()", data, 1, E_MLX);
+		i++;
+	}
 }
 
 /*
@@ -121,13 +131,8 @@ void	count_sprites(t_cub3d *data)
 		{
 			if (data->map[i][j] == 'H')
 				data->n_h += 1;
-			if (BONUS)
-			{
-				if (data->map[i][j] == '$')
-					data->n_s += 1;
-				if (data->map[i][j] == 'D')
-					data->n_d += 1;
-			}
+			if (BONUS && data->map[i][j] == 'D')
+				data->n_d += 1;
 			j++;
 		}
 		i++;

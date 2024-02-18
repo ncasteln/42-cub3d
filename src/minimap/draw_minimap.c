@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:17:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/08 12:42:37 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:57:38 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ void	minimap(t_cub3d *data)
 	if (data->minimap)
 		mlx_delete_image(data->mlx, data->minimap);
 	data->minimap = mlx_new_image(data->mlx, data->n_col * MINIMAP_PIXEL, data->n_rows * MINIMAP_PIXEL);
+	if (!data->minimap)
+		err_free_exit("minimap()", data, 1, E_MLX);
 	draw_minimap(data);
 	draw_player(data);
-	mlx_image_to_window(data->mlx, data->minimap, 20, 20);
+	if (mlx_image_to_window(data->mlx, data->minimap, 20, 20) == -1)
+		err_free_exit("minimap()", data, 1, E_MLX);
 }

@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:51:01 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 16:38:00 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:48:47 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	store_p_data(t_cub3d *data, int i, int j)
 {
 	data->p = ft_calloc(1, sizeof(t_player));
 	if (!data->p)
-		err_free_exit("parse_player", data, errno);
+		err_free_exit("parse_player", data, 0, errno);
 	data->p->dir = data->map[i][j];
 	data->p->x = j;
 	data->p->y = i;
@@ -38,7 +38,7 @@ void	parse_player(t_cub3d *data)
 			if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
 			{
 				if (data->p)
-					err_free_exit("parse_player", data, E_DUP_PLAYER);
+					err_free_exit("parse_player", data, 0, E_DUP_PLAYER);
 				store_p_data(data, i, j);
 			}
 			j++;
@@ -46,5 +46,5 @@ void	parse_player(t_cub3d *data)
 		i++;
 	}
 	if (!data->p)
-		err_free_exit("parse_player", data, E_NO_PLAYER);
+		err_free_exit("parse_player", data, 0, E_NO_PLAYER);
 }

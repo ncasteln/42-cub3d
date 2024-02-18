@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:04:41 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 16:34:58 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:48:18 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ void	parse_assets(char **line, char *type_id, t_cub3d *data)
 	value = NULL;
 	(*line) += ft_strlen(type_id);
 	if (!value_is_well_separated(*line))
-		err_free_exit("parse_line", data, E_INV_ASSET);
+		err_free_exit("parse_line", data, 0, E_INV_ASSET);
 	if (is_duplicate_asset(type_id, data))
-		err_free_exit("parse_line", data, E_DUP_ASSET);
+		err_free_exit("parse_line", data, 0, E_DUP_ASSET);
 	value = extract_asset_value(line, type_id, data);
 	if (value[ft_strlen(value) - 1] == '/')
-		err_free_exit("parse_asset", data, E_INV_ASSET);
+		err_free_exit("parse_asset", data, 0, E_INV_ASSET);
 	store_asset_value(value, type_id, data);
 }

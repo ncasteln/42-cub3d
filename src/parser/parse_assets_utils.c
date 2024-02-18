@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 16:30:50 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:48:04 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,22 @@ int	is_duplicate_asset(char *id, t_cub3d *data)
 {
 	if (!ft_strncmp(id, "NO", 2))
 		if (data->assets->no)
-			err_free_exit("NO", data, E_DUP_ASSET);
+			err_free_exit("NO", data, 0, E_DUP_ASSET);
 	if (!ft_strncmp(id, "EA", 2))
 		if (data->assets->ea)
-			err_free_exit("EA", data, E_DUP_ASSET);
+			err_free_exit("EA", data, 0, E_DUP_ASSET);
 	if (!ft_strncmp(id, "SO", 2))
 		if (data->assets->so)
-			err_free_exit("SO", data, E_DUP_ASSET);
+			err_free_exit("SO", data, 0, E_DUP_ASSET);
 	if (!ft_strncmp(id, "WE", 2))
 		if (data->assets->we)
-			err_free_exit("WE", data, E_DUP_ASSET);
+			err_free_exit("WE", data, 0, E_DUP_ASSET);
 	if (!ft_strncmp(id, "F", 1))
 		if (data->assets->f)
-			err_free_exit("F", data, E_DUP_ASSET);
+			err_free_exit("F", data, 0, E_DUP_ASSET);
 	if (!ft_strncmp(id, "C", 1))
 		if (data->assets->c)
-			err_free_exit("C", data, E_DUP_ASSET);
+			err_free_exit("C", data, 0, E_DUP_ASSET);
 	return (0);
 }
 
