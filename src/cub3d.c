@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/19 16:07:36 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/19 23:48:08 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 */
 
 void leaks( void ) {
-	system("leaks cub3D");
+	system("leaks cub3d");
 }
 
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;
 
-	atexit(leaks); // remove
+	// atexit(leaks); // remove
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 	sprites(&data);
@@ -46,11 +46,7 @@ int	main(int argc, char **argv)
 	////////////////////////////////////////////////////////////////////////////////
 
 	init_move(data.p);
-	// printf("x %f \n", data.p->pos.x);
-	// printf("x %f \n", data.p->pos.y);
 	correction(&data);
-	// printf("x %f \n", data.p->pos.x);
-	// printf("x %f \n", data.p->pos.y);
 	load_textures(&data);
 	if (mlx_image_to_window(data.mlx, data.img, 0, 0) == -1)
 		err_free_exit("main()", &data, 1, E_MLX);

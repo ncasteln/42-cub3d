@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:49:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 15:49:36 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:35:50 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,14 @@ void	init_cub3d(t_cub3d *data)
 	data->n_h = 0;
 }
 
-void init_move(t_player *p)
+/*
+setting precise player coordinates
+setting direction vector: in the beginning one of its components is 0
+and the other one equals 1 or -1.
+setting plane vector: at first we set it the same direction as the direction
+vector but different magnitude and then rotate it right by 90 degrees
+ */
+void	init_move(t_player *p)
 {
 	p->pos.x = p->x;
 	p->pos.y = p->y;

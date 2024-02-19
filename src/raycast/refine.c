@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/19 00:42:57 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/20 00:47:48 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static int	check_square(t_cub3d *data, int x, int y)
 {
 	int isfree;
 
-	isfree = read_map(data, y, x) == '0' || data->map[y][x] == 'N';
+	isfree = data->map[y][x] == '0' || data->map[y][x] == 'N'
+	|| data->map[y][x] == 'S' || data->map[y][x] == 'E'
+	|| data->map[y][x] == 'W';
 	if (BONUS)
 		isfree = isfree || (data->map[y][x] == 'D' && door_open(data, x, y));
 	return (isfree);
@@ -140,13 +142,17 @@ Considering the above we have the following algorithm
 3. Handling diagonal movement
 4. Handling moving to one of the adjacent squares
 If the player doesn't cross a square with the obstacles
-we don't change the increment vector!!!
+we don't change the increment vector!
 */
 void	refine(t_cub3d *data, t_dvect *incr)
 {
 	t_ivect	new_pos;
 	t_dvect	delta;
 
+	if (incr->x > -0.000001 && incr->x < 0.000001)
+		incr->x = 0.000000;
+	if (incr->y > -0.000001 && incr->y < 0.000001)
+		incr->y = 0.000000;
 	new_pos.x = (int)(data->p->pos.x + incr->x);
 	new_pos.y = (int)(data->p->pos.y + incr->y);
 	set_delta(data, &delta, incr);

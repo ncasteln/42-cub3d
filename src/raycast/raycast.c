@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/18 18:29:50 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/19 23:29:37 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ static void	ray_init(int pixel_x, t_raycast *rc, t_player *p)
 static void	find_hit(t_raycast *rc, char **map, t_cub3d *data)
 {
 	rc->hit = 0;
-	//rc->d = '0';
 	while (rc->hit == 0)
 	{
 		if (rc->ray_len.x < rc->ray_len.y)
@@ -126,30 +125,16 @@ static void	find_hit(t_raycast *rc, char **map, t_cub3d *data)
 			rc->ray_len.x += rc->ray_delta.x;
 			rc->ray.x += sign(rc->raydir.x);
 			rc->wall_dir = WEST_EAST;
-			//printf("we %d %d \n", rc->ray.x, rc->ray.y);
 		}
 		else
 		{
 			rc->ray_len.y += rc->ray_delta.y;
 			rc->ray.y += sign(rc->raydir.y);
 			rc->wall_dir = NORTH_SOUTH;
-			//printf("ns %d %d \n", rc->ray.x, rc->ray.y);
 		}
 		//map[rc->ray.y][rc->ray.x] == '1
 		if (read_map(data, rc->ray.y, rc->ray.x) == '1')
 			rc->hit = 1;
-		// if (map[rc->ray.y][rc->ray.x] == 'D')
-		// {
-		// 	rc->d = 'D';
-		// 	rc->door_dir = NORTH_SOUTH;
-		// 	if (rc->wall_dir == WEST_EAST)
-		// 	{
-		// 		rc->door_dir = WEST_EAST;
-		// 		rc->door_dist = rc->ray_len.x - rc->ray_delta.x/2;
-		// 	}
-		// 	else
-		// 		rc->door_dist = rc->ray_len.y - rc->ray_delta.y/2;
-		// }
 	}
 }
 
@@ -217,11 +202,10 @@ int	select_texture(t_cub3d *data, t_raycast *rc)
 	Calculates some parameters of the vertical line that we are going to draw.
 	line_start, _end and _h refers to the vertical one.
 */
-static void	set_draw(t_raycast *rc, int isdoor)
+static void	set_draw(t_raycast *rc)
 {
 	if (rc->wall_dist < 0.0001)
 		rc->wall_dist = 0.1;
-	// printf("wd, %f", rc->wall_dist);
 	rc->line_h = (int)(WIN_H / rc->wall_dist);
 	rc->line_start = WIN_H / 2 - rc->line_h / 2;
 	if (rc->line_start < 0)
@@ -231,18 +215,10 @@ static void	set_draw(t_raycast *rc, int isdoor)
 		rc->line_end = WIN_H;
 }
 
-// void	put_door(t_cub3d *data, t_raycast *rc)
-// {
-// 	set_draw(rc, 1);
-// 	putline(data, data->tex[2], rc);
-
-// 	h =
-// }
-
 /*
 	Draws a vertical line pixel by pixel according to the texture.
 
-	We iterate the texture pixels, so that its color is read and put into
+	We iterate the texture pixels, so that its color is read and put onto
 	the screen.
 */
 static void	putline(t_cub3d *data, int x, int tex_ind, t_raycast *rc)
@@ -267,9 +243,9 @@ static void	putline(t_cub3d *data, int x, int tex_ind, t_raycast *rc)
 			ind = (tex_y * tex->width + rc->tex_x) * tex->bytes_per_pixel;
 			mlx_put_pixel(data->img, x, y, readcol(&tex->pixels[ind]));
 		}
-		else if (y < rc->line_start && tex_ind != D)
+		else if (y < rc->line_start)
 			mlx_put_pixel(data->img, x, y, data->assets->c);
-		else if (y > rc->line_end && tex_ind != D)
+		else if (y > rc->line_end)
 			mlx_put_pixel(data->img, x, y, data->assets->f);
 		y++;
 	}
@@ -294,7 +270,6 @@ void	raycasting(t_cub3d *data)
 	mlx_texture_t	*tex;
 	int				tex_ind;
 	t_raycast		rc;
-	int i;
 
 	pixel_x = 0;
 	while (pixel_x < WIN_W)
@@ -310,23 +285,8 @@ void	raycasting(t_cub3d *data)
 		if ((rc.wall_dir == WEST_EAST && rc.raydir.x < 0)
 			|| (rc.wall_dir == NORTH_SOUTH && rc.raydir.y > 0))
 			rc.tex_x = tex->width - rc.tex_x - 1;
-		set_draw(&rc, 0);
+		set_draw(&rc);
 		putline(data, pixel_x, tex_ind, &rc);
-		if (rc.d == 'D')
-		{
-			i = 0;
-			while (i < data->n_d + data->n_h)
-			{
-
-				i++;
-			}
-			set_draw(&rc, 1);
-			putline(data, pixel_x, D, &rc);
-		}
-			//put_door(data, rc);
 		pixel_x++;
 	}
-	//printf("\n");
-	//printf("before");
-	//put_sprites(data, dist_arr);
 }
