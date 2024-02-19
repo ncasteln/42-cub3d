@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 15:58:41 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:07:36 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@
 		- Remove function about floodfill of doors (check_behind_doors)
 		- Norm
 */
+
+void leaks( void ) {
+	system("leaks cub3D");
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;
 
+	atexit(leaks); // remove
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 	sprites(&data);

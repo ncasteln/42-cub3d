@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/19 00:41:04 by mrubina          ###   ########.fr        #
+#    Updated: 2024/02/19 16:14:04 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
-CFLAGS = -fsanitize=thread -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra #-Werror -fsanitize=thread
 
 LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
 LIBFT = ./lib/libft/libft.a
