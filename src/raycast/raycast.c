@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/19 23:29:37 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 00:48:22 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static void	ray_init(int pixel_x, t_raycast *rc, t_player *p)
 	the wall is hit, is calculated in the next step in get_hit_pos() using the
 	rc->wall_dir set in this function.
 */
-static void	find_hit(t_raycast *rc, char **map, t_cub3d *data)
+static void	find_hit(t_raycast *rc, t_cub3d *data)
 {
 	rc->hit = 0;
 	while (rc->hit == 0)
@@ -132,7 +132,6 @@ static void	find_hit(t_raycast *rc, char **map, t_cub3d *data)
 			rc->ray.y += sign(rc->raydir.y);
 			rc->wall_dir = NORTH_SOUTH;
 		}
-		//map[rc->ray.y][rc->ray.x] == '1
 		if (read_map(data, rc->ray.y, rc->ray.x) == '1')
 			rc->hit = 1;
 	}
@@ -165,93 +164,6 @@ static void	get_hit_pos(t_cub3d *data, t_raycast *rc)
 }
 
 /*
-	If a ray with positive y (ray direction vector) hits a horizontal wall
-	it means that the wall faces North and we use the  "North texture"
-	\    /
-	 \  /
-	__\/_________
-	similarly for other cases
- */
-// mlx_texture_t	*select_texture(t_cub3d *data, t_dvect *raydir, int wall_dir)
-// {
-// 	if (raydir->y >= 0 && wall_dir == NORTH_SOUTH)
-// 		return (data->tex[NO]);
-// 	else if (raydir->y < 0 && wall_dir == NORTH_SOUTH)
-// 		return (data->tex[SO]);
-// 	else if (raydir->x >= 0 && wall_dir == WEST_EAST)
-// 		return (data->tex[WE]);
-// 	else if (raydir->x < 0 && wall_dir == WEST_EAST)
-// 		return (data->tex[EA]);
-// 	return (NULL);
-// }
-
-int	select_texture(t_cub3d *data, t_raycast *rc)
-{
-	if (rc->raydir.y >= 0 && rc->wall_dir == NORTH_SOUTH)
-		return (NO);
-	else if (rc->raydir.y < 0 && rc->wall_dir == NORTH_SOUTH)
-		return (SO);
-	else if (rc->raydir.x >= 0 && rc->wall_dir == WEST_EAST)
-		return (WE);
-	else if (rc->raydir.x < 0 && rc->wall_dir == WEST_EAST)
-		return (EA);
-	return (-1);
-}
-
-/*
-	Calculates some parameters of the vertical line that we are going to draw.
-	line_start, _end and _h refers to the vertical one.
-*/
-static void	set_draw(t_raycast *rc)
-{
-	if (rc->wall_dist < 0.0001)
-		rc->wall_dist = 0.1;
-	rc->line_h = (int)(WIN_H / rc->wall_dist);
-	rc->line_start = WIN_H / 2 - rc->line_h / 2;
-	if (rc->line_start < 0)
-		rc->line_start = 0;
-	rc->line_end = WIN_H / 2 + rc->line_h / 2;
-	if (rc->line_end >= WIN_H)
-		rc->line_end = WIN_H;
-}
-
-/*
-	Draws a vertical line pixel by pixel according to the texture.
-
-	We iterate the texture pixels, so that its color is read and put onto
-	the screen.
-*/
-static void	putline(t_cub3d *data, int x, int tex_ind, t_raycast *rc)
-{
-	int		y;
-	int		tex_y;
-	double	step;
-	double	tex_pos;
-	int		ind;
-	mlx_texture_t *tex;
-
-	tex = data->tex[tex_ind];//
-	step = 1.0 * tex->height / rc->line_h;
-	tex_pos = (rc->line_start - WIN_H / 2 + rc->line_h / 2) * step;
-	y = 0;
-	while (y >= 0 && y < WIN_H)
-	{
-		if ((y >= rc->line_start && y <= rc->line_end) || rc->line_start > WIN_H)
-		{
-			tex_y = (int) tex_pos & (tex->height - 1);
-			tex_pos += step;
-			ind = (tex_y * tex->width + rc->tex_x) * tex->bytes_per_pixel;
-			mlx_put_pixel(data->img, x, y, readcol(&tex->pixels[ind]));
-		}
-		else if (y < rc->line_start)
-			mlx_put_pixel(data->img, x, y, data->assets->c);
-		else if (y > rc->line_end)
-			mlx_put_pixel(data->img, x, y, data->assets->f);
-		y++;
-	}
-}
-
-/*
 
 
 	For each x of the game screen (horizontal pixel) we take a ray that should
@@ -275,18 +187,18 @@ void	raycasting(t_cub3d *data)
 	while (pixel_x < WIN_W)
 	{
 		ray_init(pixel_x, &rc, data->p);
-		find_hit(&rc, data->map, data);
+		find_hit(&rc, data);
 		get_hit_pos(data, &rc);
 		data->dist_arr[pixel_x] = rc.wall_dist;
 		data->dir_arr[pixel_x] = rc.wall_dir;
-		tex_ind = select_texture(data, &rc);
+		tex_ind = select_texture(&rc);
 		tex = data->tex[tex_ind];
 		rc.tex_x = (int)(rc.wall_x * (double)tex->width);
 		if ((rc.wall_dir == WEST_EAST && rc.raydir.x < 0)
 			|| (rc.wall_dir == NORTH_SOUTH && rc.raydir.y > 0))
 			rc.tex_x = tex->width - rc.tex_x - 1;
-		set_draw(&rc);
-		putline(data, pixel_x, tex_ind, &rc);
+		set_draw_wall(&rc);
+		putline(data, pixel_x, tex, &rc);
 		pixel_x++;
 	}
 }

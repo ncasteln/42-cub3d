@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/20 10:47:05 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/21 00:41:33 by mrubina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,9 @@ UTILS = err_free_exit.c \
 RAYCAST = raycast.c \
 	hooks.c \
 	utils.c \
+	draw_door.c \
+	draw_wall.c \
+	textures.c \
 	move.c \
 	spritecast.c \
 	sprites.c \

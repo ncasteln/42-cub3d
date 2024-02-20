@@ -6,15 +6,15 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/19 21:32:02 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/20 23:52:49 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int facing_door(t_cub3d *data, int i)
+static int	facing_door(t_cub3d *data, int i)
 {
-	double delta;
+	double	delta;
 
 	if (data->sprite[i].dir == NORTH_SOUTH)
 	{
@@ -30,19 +30,20 @@ static int facing_door(t_cub3d *data, int i)
 	}
 }
 
-static void open_door(t_cub3d *data)
+static void	open_door(t_cub3d *data)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (i < data->n_total_sprites)
 	{
 		if (data->sprite[i].c == 'D'
-		&& sprite_dist_sq(data->sprite[i], data->p->pos) <= 5
-		&& facing_door(data, i))
+			&& sprite_dist_sq(data->sprite[i], data->p->pos) <= 5
+			&& facing_door(data, i))
 		{
 			if (data->sprite[i].isopen == OPEN
-			&& ((data->sprite[i].x != data->p->x)
-			|| (data->sprite[i].y != data->p->y)))
+				&& ((data->sprite[i].x != data->p->x)
+					|| (data->sprite[i].y != data->p->y)))
 			{
 				data->sprite[i].isopen = CLOSING;
 				data->sprite[i].open_time = mlx_get_time();
@@ -85,26 +86,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		err_free_exit("key_hook()", data, 1, E_MLX);
 }
 
-// trainign function
-// void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color)
-// {
-// 	int x;
-// 	int y;
-
-// 	x = xStart;
-// 	while (x < xStart + side)
-// 	{
-// 		y = yStart;
-// 		while (y < yStart + side)
-// 		{
-// 			mlx_put_pixel(data->img1, x, y, color);
-// 			y++;
-// 		}
-// 		x++;
-// 	}
-// }
-
-void refresh(void *param)
+void	refresh(void *param)
 {
 	t_cub3d	*data;
 

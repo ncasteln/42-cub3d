@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/19 00:45:58 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/20 23:25:34 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_vector(t_dvect *vector, t_dvect *dir, double magnitude)
 	double	tan;
 
 	tan = dir->y / dir->x;
-	cos = sign(dir->x) * sqrtf(1/(powf(tan, 2) + 1));
+	cos = sign(dir->x) * sqrtf(1 / (powf(tan, 2) + 1));
 	sin = sign(dir->y) * sqrtf(1 - powf(cos, 2));
 	set_vect(vector, magnitude * cos, magnitude * sin);
 }
@@ -53,9 +53,16 @@ void	get_second_dim(t_dvect *vector, t_dvect *dir, int dim)
 //rotates any vector by a given angle (radians)
 void	rotate_vector(t_dvect *v, double angle)
 {
-	double temp_x;
+	double	temp_x;
 
 	temp_x = v->x;
 	v->x = v->x * cosf(angle) - v->y * sinf(angle);
 	v->y = temp_x * sinf(angle) + v->y * cosf(angle);
+}
+
+t_dvect	*set_vect(t_dvect *v, double x, double y)
+{
+	v->x = x;
+	v->y = y;
+	return (v);
 }

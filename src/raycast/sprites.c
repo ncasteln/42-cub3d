@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/18 18:29:33 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/20 23:31:07 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,14 @@
 	direction // sides the door is facing
 	sets the door as closed
 */
-void set_door(int n, int y, int x, t_cub3d *data)
+void	set_door(int n, int y, int x, t_cub3d *data)
 {
-	 //printf("int xy %d %d \n", x, y);
+	data->sprite[n].tex_i = D;
 	if (data->map[y][x - 1] == '1' && data->map[y][x + 1] == '1')
 	{
-		// printf("door start before %f %f \n", data->sprite[n].door_left_edge.x, data->sprite[n].door_left_edge.y);
-		// printf("door end before %f %f \n", data->sprite[n].door_right_edge.x, data->sprite[n].door_right_edge.y);
-		data->sprite[n].door_left_edge.x = x; //6 +
-		data->sprite[n].door_right_edge.x = x + 0.999; //6.99
-		data->sprite[n].door_left_edge.y = y + 0.5;  //2.5
+		data->sprite[n].door_left_edge.x = x;
+		data->sprite[n].door_right_edge.x = x + 0.999;
+		data->sprite[n].door_left_edge.y = y + 0.5;
 		data->sprite[n].door_right_edge.y = y + 0.5;
 		data->sprite[n].dir = NORTH_SOUTH;
 	}
@@ -40,8 +38,6 @@ void set_door(int n, int y, int x, t_cub3d *data)
 		data->sprite[n].dir = WEST_EAST;
 	}
 	data->sprite[n].isopen = CLOSED;
-	// printf("st %f %f \n", data->sprite[n].door_left_edge.x, data->sprite[n].door_left_edge.y);
-	// printf("end %f %f \n", data->sprite[n].door_right_edge.x, data->sprite[n].door_right_edge.y);
 }
 
 void	set_sprite(int n, int y, int x, t_cub3d *data)
@@ -50,6 +46,8 @@ void	set_sprite(int n, int y, int x, t_cub3d *data)
 	data->sprite[n].y = y + 0.5;
 	data->sprite[n].x = x + 0.5;
 	data->sprite[n].dist = -1;
+	if (data->sprite[n].c == 'H')
+		data->sprite[n].tex_i = H;
 	if (data->sprite[n].c == 'D')
 		set_door(n, y, x, data);
 	// data->sprite[n].dist = rand(); // remove, addedto test the bubblesort
@@ -60,6 +58,7 @@ from the sprite to the current position of the player */
 void	set_dist(t_cub3d *data)
 {
 	int	n;
+
 	n = 0;
 	while (n < data->n_total_sprites)
 	{

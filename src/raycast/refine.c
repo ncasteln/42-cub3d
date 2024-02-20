@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/20 00:47:48 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/20 23:47:49 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 //checks if a square on the map is free
 static int	check_square(t_cub3d *data, int x, int y)
 {
-	int isfree;
+	int	isfree;
 
 	isfree = data->map[y][x] == '0' || data->map[y][x] == 'N'
-	|| data->map[y][x] == 'S' || data->map[y][x] == 'E'
-	|| data->map[y][x] == 'W';
+		|| data->map[y][x] == 'S' || data->map[y][x] == 'E'
+		|| data->map[y][x] == 'W';
 	if (BONUS)
 		isfree = isfree || (data->map[y][x] == 'D' && door_open(data, x, y));
 	return (isfree);
@@ -30,7 +30,7 @@ given one dimension of an increment vector we calculate the other
 and set the vector accordingly
 dim is the dimension we have to calculate
  */
-static void	set_incr(t_cub3d *data, t_dvect *incr, t_dvect *delta, int dim)
+static void	set_incr(t_dvect *incr, t_dvect *delta, int dim)
 {
 	t_dvect	temp;
 
@@ -69,21 +69,21 @@ If not, we check the diagonal square(C).
 2. The player crosses the y shifted square(B)
 3. The player moves directly to the diagonal square (C)
 */
-static void	diag_check(t_cub3d *data, t_dvect *incr, t_dvect *delta, t_ivect *new_pos)
+void	dg_check(t_cub3d *data, t_dvect *incr, t_dvect *delta, t_ivect *new_pos)
 {
-	if (fabs(delta->x) < fabs(delta->y)) // it intersects the x shifted square
+	if (fabs(delta->x) < fabs(delta->y))
 	{
-		if (!check_square(data, new_pos->x, data->p->y)) //we check the x shifted square
-			set_incr(data, incr, delta, Y);
-		else if (!check_square(data, new_pos->x, new_pos->y))//we check the diaogonal square
-			set_incr(data, incr, delta, X);
+		if (!check_square(data, new_pos->x, data->p->y))
+			set_incr(incr, delta, Y);
+		else if (!check_square(data, new_pos->x, new_pos->y))
+			set_incr(incr, delta, X);
 	}
 	else if (fabs(delta->y) < fabs(delta->x))
 	{
-		if (!check_square(data, data->p->x, new_pos->y)) //we need to stop near the square
-			set_incr(data, incr, delta, X);
-		else if (!check_square(data, new_pos->x, new_pos->y))//we need to stop near the square
-			set_incr(data, incr, delta, Y);
+		if (!check_square(data, data->p->x, new_pos->y))
+			set_incr(incr, delta, X);
+		else if (!check_square(data, new_pos->x, new_pos->y))
+			set_incr(incr, delta, Y);
 	}
 	else if (fabs(delta->y) == fabs(delta->x))
 	{
@@ -91,7 +91,6 @@ static void	diag_check(t_cub3d *data, t_dvect *incr, t_dvect *delta, t_ivect *ne
 			set_vect(incr, delta->x, delta->y);
 	}
 }
-
 
 /* 
 delta is not a real vector
@@ -115,12 +114,6 @@ static void	set_delta(t_cub3d *data, t_dvect *delta, t_dvect *incr)
 	else
 		delta->y = 0;
 }
-
-// printf("init incr: %f, %f \n", incr->x, incr->y);
-//printf("delta: %f, %f \n", delta.x, delta.y);
-// printf("cold - new x: %f, %f \n", data->p->pos.x, data->p->pos.x + incr->x);
-// printf("old - new x: %d, %d \n", (int)data->p->pos.x, (int)(data->p->pos.x + incr->x));
-// printf("old - new y: %d, %d \n", (int)data->p->pos.y, (int)(data->p->pos.y + incr->y));
 
 /*
 The function changes the increment vector if an obstacle is encountered
@@ -156,14 +149,14 @@ void	refine(t_cub3d *data, t_dvect *incr)
 	new_pos.x = (int)(data->p->pos.x + incr->x);
 	new_pos.y = (int)(data->p->pos.y + incr->y);
 	set_delta(data, &delta, incr);
-if (new_pos.x != data->p->x && new_pos.y != data->p->y)
-	diag_check(data, incr, &delta, &new_pos);
-else if ((new_pos.x != data->p->x || new_pos.y != data->p->y)
-	&& !check_square(data, new_pos.x, new_pos.y))
+	if (new_pos.x != data->p->x && new_pos.y != data->p->y)
+		dg_check(data, incr, &delta, &new_pos);
+	else if ((new_pos.x != data->p->x || new_pos.y != data->p->y)
+		&& !check_square(data, new_pos.x, new_pos.y))
 	{
 		if (new_pos.x == data->p->x)
-			set_incr(data, incr, &delta, X);
+			set_incr(incr, &delta, X);
 		else
-			set_incr(data, incr, &delta, Y);
+			set_incr(incr, &delta, Y);
 	}
 }

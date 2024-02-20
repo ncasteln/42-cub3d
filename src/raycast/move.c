@@ -6,12 +6,11 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/20 00:48:11 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/20 23:50:35 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 //returns true if the door is open
 //at first we should find the door
@@ -39,7 +38,7 @@ then we rotate it according to the movement direction
  */
 void	move(t_cub3d *data, double incr, int dir)
 {
-	t_dvect incr_vector;
+	t_dvect	incr_vector;
 
 	get_vector(&incr_vector, &data->p->dirv, incr);
 	if (dir == RIGHT)
@@ -62,11 +61,10 @@ void	rotate_player(t_player *p, double angle)
 	rotate_vector(&p->plane, angle);
 }
 
-//edit to consider other obstacles!!!
-void correction(t_cub3d *data)
+void	correction(t_cub3d *data)
 {
-	t_dvect wtest;
-	t_dvect delta;
+	t_dvect	wtest;
+	t_dvect	delta;
 
 	set_vect(&wtest, data->p->pos.x, data->p->pos.y + 0.1);
 	set_vect(&delta, 0.0, 0.0);

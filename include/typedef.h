@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/20 14:06:14 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/20 23:59:52 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,29 +200,34 @@ typedef struct s_raycast
 
 /*
 	Sprites are rendered separately, whitesp inside map are considered sprites.
-	@param transform - transformed coordinates
+	@param transf - transformed coordinates
+	@param start/end - draw start/end x and y
 	@param h - sprite height for current distance
 	@param w - sprite width
-	@param uncut_x - location of sprite's start
+	start - draw
+	all the parameters following width are filled only for doors
+	@param transf2 - transformed coordinates for the right edge of the door
+	@param uncut_x - location of sprite's start, it may be outside the screen
+	@param left_x - draw start for x
+	@param right_x - draw end for x
+	@param up_right - y on the screen for the upper right corner of the door
+	(respectively for other corners)
 */
 typedef struct s_spritecast
 {
-	t_dvect		transform;
-	int			left_x; // draw start ???
-	int			right_x;
-	int			up_right; //draw end ???
-	int			up_left;
-	int			lo_left; //draw start ???
-	int			lo_right; //draw end ???
-	t_ivect		start; //draw start
-	t_ivect		end; //draw end
+	t_dvect		transf;
+	t_ivect		start;
+	t_ivect		end;
 	int			h;
 	int			w;
+	t_dvect		transf2;
 	int			uncut_x;
-	t_dvect		transform2;
-	int			w2;
-	int			h2;
-	int			isdoor;
+	int			left_x;
+	int			right_x;
+	int			up_right;
+	int			up_left;
+	int			lo_left;
+	int			lo_right;
 }	t_spritecast;
 
 #endif

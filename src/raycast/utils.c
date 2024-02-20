@@ -6,57 +6,14 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/18 19:11:20 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 00:43:33 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
 
-// void vert_line(t_cub3d *data, int x, int draw_start, int draw_end)
-// {
-// 	int y;
-
-// 	y = 0;
-// 	while (y >=0 && y < WIN_H)
-// 	{
-// 		if (y >= draw_start && y <= draw_end)
-// 			mlx_put_pixel(data->img, x, y, data->mv->w_color);
-// 		else if (y < draw_start)
-// 			mlx_put_pixel(data->img, x, y, data->assets->c);
-// 		else if (y > draw_end)
-// 			mlx_put_pixel(data->img, x, y, data->assets->f);
-// 		y++;
-// 	}
-// }
-
-/*
-reads rgba values from a pixel and returns its color
-p points to the r value of a pixel followed by the others
-*/
-uint32_t readcol(uint8_t *p)
-{
-	uint32_t b;
-	uint32_t g;
-	uint32_t r;
-	uint32_t a;
-
-	r = (uint32_t) *p;
-	g = (uint32_t) *(p + 1);
-	b = (uint32_t) *(p + 2);
-	a = (uint32_t) *(p + 3);
-	return (getcol(r, g, b, a));
-}
-
-//	takes separate rgba values and returns color
-uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
-{
-	return ((r << 24) + (g << 16) + (b << 8) + a);
-}
-
-
 //	sign() adds or substracts 1 to the ray vector x or y.
-int sign(double x)
+int	sign(double x)
 {
 	if (x > 0)
 		return (1);
@@ -66,51 +23,13 @@ int sign(double x)
 		return (0);
 }
 
-char read_map(t_cub3d *data, size_t y, size_t x)
+char	read_map(t_cub3d *data, size_t y, size_t x)
 {
-	// printf("reading yx%zu %zu \n", y, x);
-	// printf("max %zu %zu \n", data->n_rows, data->n_col);
 	if (y >= data->n_rows || x >= data->n_col)
 	{
-		// printf("max %zu %zu \n", data->n_rows, data->n_col);
-		// printf("expecting segfault %zu %zu \n", y, x);
+		exit(0); // to edit
 	}
-	return(data->map[y][x]);
-}
-
-t_dvect *set_vect(t_dvect *v, double x, double y)
-{
-	v->x = x;
-	v->y = y;
-	return (v);
-}
-
-/*
-	Loads the textures for the library. 5 mandatory, 2 optional.
-	@param [H] - represents the whitespaces of the map (we called them holes).
-*/
-void load_textures(t_cub3d *data)
-{
-	int	i;
-	int	n_tex;
-
-	i = 0;
-	n_tex = 5;
-	if (BONUS && data->n_d) //edited by mariia
-		n_tex = 6;
-	data->tex[NO] = mlx_load_png(data->assets->no);
-	data->tex[WE] = mlx_load_png(data->assets->we);
-	data->tex[SO] = mlx_load_png(data->assets->so);
-	data->tex[EA] = mlx_load_png(data->assets->ea);
-	data->tex[H] = mlx_load_png("assets/barrel.png");
-	if (BONUS && data->n_d)
-		data->tex[D] = mlx_load_png("assets/Door1.png");
-	while (i < n_tex)
-	{
-		if (!data->tex[i])
-			err_free_exit("load_textures()", data, 1, E_MLX);
-		i++;
-	}
+	return (data->map[y][x]);
 }
 
 /*
@@ -139,33 +58,7 @@ void	count_sprites(t_cub3d *data)
 	}
 }
 
-// double vect_dist_sq(t_dvect v1, t_dvect v2)
-// {
-// 	return (pow((v2.x - v1.x), 2) + pow((v2.y - v1.y), 2));
-// }
-
-double sprite_dist_sq(t_sprite s, t_dvect p)
+double	sprite_dist_sq(t_sprite s, t_dvect p)
 {
 	return (pow((s.x - p.x), 2) + pow((s.y - p.y), 2));
 }
-
-// t_ftile *revert_buff(t_dvect *buff, int size)
-// {
-// 	t_dvect *new_buff;
-// 	int i;
-
-// 	if (size == 0)
-// 		return(NULL);
-// 	i = 0;
-// 	new_buff = malloc(sizeof(t_dvect) * size);
-// 	while (i < size)
-// 	{
-// 		new_buff[i].x = buff[i + size - 1].x;
-// 		new_buff[i].y = buff[i + size - 1].y;
-// 		i++;
-// 	}
-// 	printf("%s \n", "free");
-// 	free(buff);
-// 	buff = NULL;
-// 	return (new_buff);
-// }

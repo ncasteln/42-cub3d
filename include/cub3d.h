@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/20 09:05:32 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:48:16 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,47 +71,37 @@ void	print_assets(t_assets *assets);
 
 // ----------------------------------------------------------------- RAYCASTING
 void	key_hook(mlx_key_data_t keydata, void *param);
-void	mouse_hook(mlx_key_data_t keydata, int x, int y, void *param);
-// void	win_close(mlx_t* mlx);
 void	raycasting(t_cub3d *data);
-//void	vert_line(t_cub3d *data, int x, int draw_start, int draw_end, int color);
-void vert_line(t_cub3d *data, int x, int draw_start, int draw_end);
 void	refresh(void *param);
-void	clearScreen(t_cub3d *data);
 void rotate_player(t_player *p, double angle);
-uint32_t dim(uint32_t color, uint32_t shift);
-//void move(t_cub3d *data, double move);
 void move(t_cub3d *data, double move, int dir);
 void rotate_vector(t_dvect *v, double angle);
-int check_space(t_cub3d *data, double delta_x, double delta_y);
 int sign(double x);
-void move_s(t_cub3d *data, double move, int dir);
 t_dvect *set_vect(t_dvect *v, double x, double y);
 void	get_vector(t_dvect *vector, t_dvect *dir, double magnitude);
 void	get_second_dim(t_dvect *vector, t_dvect *dir, int dim);
-// void draw_square(t_cub3d *data, int xStart, int yStart, int side, int color);
 uint32_t readcol(uint8_t *p);
 uint32_t getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
 void load_textures(t_cub3d *data);
 void correction(t_cub3d *data);
-// mlx_texture_t	*select_texture(t_cub3d *data, t_dvect *raydir, int wall_dir);
-int select_texture(t_cub3d *data, t_raycast *rc);
+int select_texture(t_raycast *rc);
 char read_map(t_cub3d *data, size_t y, size_t x);
 void	refine(t_cub3d *data, t_dvect *incr);
-int	door_open(t_cub3d *data, int x, int y);
+void	set_draw_wall(t_raycast *rc);
+void	putline(t_cub3d *data, int x, mlx_texture_t	*tex, t_raycast *rc);
 
 // ------------------------------------------------------------ SPRITES CASTING
 void	sprites(t_cub3d *data);
 void	bubble(t_sprite *sprite, int n);
 void	set_dist(t_cub3d *data);
 double sprite_dist_sq(t_sprite s, t_dvect p);
-//void put_sprites(t_cub3d *data, double dist_arr[WIN_W]);
 void put_sprites(t_cub3d *data);
+void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int i);
+void	set_draw_door(t_spritecast *sc);
 void set_door(int n, int y, int x, t_cub3d *data);
 void	create_sprite_list(t_cub3d *data);
 void	set_sprite(int n, int y, int x, t_cub3d *data);
-//void sprites(t_cub3d *data, int total);
-//t_dvect *revert_buff(t_dvect *buff, int size);
+int	door_open(t_cub3d *data, int x, int y);
 
 // ---------------------------------------------------------------------- BONUS
 // void	check_behind_doors(t_cub3d *data, char **map_cpy); // mnot needed
