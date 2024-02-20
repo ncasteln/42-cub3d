@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/20 09:30:51 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:06:14 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@
 # define D 5	// door
 
 # define RED		0x990000FF
-# define GREEN		0x00FF00FF
 # define BLUE		0x0000FF77
 # define ORANGE		0xDD7700FF
 # define WHITE		0xFFFFFFFF
 # define BLACK		0x000000FF
-# define WALLC WHITE
 
 # define FORWARD	100
 # define BACK		200
@@ -91,12 +89,14 @@ typedef struct s_assets
 	char		*h;
 }	t_assets;
 
+//double vector
 typedef struct s_dvector
 {
 	double	x;
 	double	y;
 }	t_dvect;
 
+//integer vector
 typedef struct s_ivector
 {
 	int	x;
@@ -121,7 +121,11 @@ typedef struct s_player
 
 /*
 	@param c - can be either D or H
-	@param door_*_edge - filled only for the door
+	The following parameters are filled filled only for the door:
+	@param dir - NORTH_SOUTH or WEST_EAST
+	@param door_*_edge - door edge precise coordinates on the map
+	@param isopen
+	@param open_time - time when the door starts opening or closing
 */
 typedef struct s_sprite
 {
@@ -141,6 +145,8 @@ typedef struct s_sprite
 	@param *line - line read by the parser, put here to easily free everything
 	@param fd - same as above, it is the file descriptor created to read
 	@param n_h and n_d - number of holes and doors
+	@param dist_arr[WIN_W] - distance to a wall for each x of the screen
+	@param dir_arr[WIN_W] - wall direction for each x of the screen
 */
 typedef struct s_cub3d
 {
@@ -155,8 +161,8 @@ typedef struct s_cub3d
 	t_player		*p;
 	char			*line;
 	int				fd;
-	double			dist_arr[WIN_W];	// ???
-	int				dir_arr[WIN_W];		// ???
+	double			dist_arr[WIN_W];
+	int				dir_arr[WIN_W];
 	t_sprite		*sprite;
 	int				n_total_sprites;
 	int				n_h;
@@ -165,16 +171,18 @@ typedef struct s_cub3d
 
 /*
 	*** Variables related to raycasting calculation ***
+	@param ray - current ray position on the map
 	@param raydir - ray direction
 	@param ray_len - distance from the current position to next x/y side
 	@param ray_delta - length from one x/y side to the next
 	@param wall_dist - distance from the player to the wall
-	@param hit - 0 if the ray didn't hit a wall
+	@param hit - 0 if the ray didn't hit a wall, othewise 1
 	@param wall_dir - NORTH_SOUTH or WEST_EAST
 	@param line_h - visible wall height for pixel_x
 */
 typedef struct s_raycast
 {
+	t_ivect	ray;
 	t_dvect	raydir;
 	t_dvect	ray_len;
 	t_dvect	ray_delta;
@@ -188,10 +196,6 @@ typedef struct s_raycast
 	int		tex_x;
 	int		line_start;
 	int		line_end;
-	int		b_size;
-	char	d;
-
-	t_ivect	ray;
 }	t_raycast;
 
 /*
@@ -220,13 +224,5 @@ typedef struct s_spritecast
 	int			h2;
 	int			isdoor;
 }	t_spritecast;
-
-typedef struct s_ftile
-{
-	double	dist;
-	double	delta;
-	int		bottom;
-	int		h;
-}	t_ftile;
 
 #endif
