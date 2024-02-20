@@ -6,13 +6,13 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/15 15:53:38 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:07:36 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*get_err_msg(int err_n)
+static char	*get_err_msg_1(int err_n)
 {
 	if (err_n == E_ARGC)
 		return ("invalid argc");
@@ -34,8 +34,11 @@ static char	*get_err_msg(int err_n)
 		return ("no map provided");
 	if (err_n == E_EMPTY_FILE)
 		return ("empty file");
-	if (err_n == E_DUP_PLAYER)
-		return ("duplicate player");
+	return ("duplicate player");
+}
+
+static char	*get_err_msg_2(int err_n)
+{
 	if (err_n == E_NO_PLAYER)
 		return ("no player set");
 	if (err_n == E_MAP_OPEN)
@@ -51,10 +54,12 @@ static void	error(char *func_name, int err_n)
 {
 	char	*err_msg;
 
-	if (err_n <= 106)
+	if (err_n < 107)
 		err_msg = strerror(err_n);
+	else if (err_n >= 107 && err_n <= 117)
+		err_msg = get_err_msg_1(err_n);
 	else
-		err_msg = get_err_msg(err_n);
+		err_msg = get_err_msg_2(err_n);
 	ft_putendl_fd("Error", 2);
 	if (func_name)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 19:28:16 by nico              #+#    #+#             */
-/*   Updated: 2023/12/26 17:43:56 by nico             ###   ########.fr       */
+/*   Updated: 2024/02/20 10:05:03 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	print_edge(int len)
 	ft_printf("--\n");
 }
 
-void	print_map(char **p, int	len)
+void	print_map(char **p, int len)
 {
 	int	i;
 

@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/19 00:47:49 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/20 09:05:32 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "errno.h"
-#include <string.h>
-#include <fcntl.h>
-#include <math.h>
-
+# include "errno.h"
+# include <string.h>
+# include <fcntl.h>
+# include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 
-#include "libft.h"
-#include "ft_printf.h"
-#include "get_next_line.h"
-#include "MLX42.h"
-
-#include "typedef.h"
+/* CUSTOM HEADERS */
+# include "libft.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
+# include "MLX42.h"
+# include "typedef.h"
 
 // -------------------------------------------------------------------- PARSING
 void	parse(int argc, char **argv, t_cub3d *data);
@@ -55,6 +54,7 @@ int		is_valid_map_line(char *s);
 char	**rectangolize(t_cub3d *data);
 int		get_n_rows(char **map);
 void	flood_fill(int py, int px, char **map_cpy, t_cub3d *data);
+void	trim_empty_lines(t_cub3d *data);
 
 // ---------------------------------------------------------------------- UTILS
 void	init_cub3d(t_cub3d *data);

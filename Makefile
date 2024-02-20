@@ -6,13 +6,13 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/19 16:14:04 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/20 10:47:05 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
-CFLAGS = -Wall -Wextra #-Werror -fsanitize=thread
+CFLAGS = -Wall -Wextra #-Werror #-fsanitize=thread
 
 LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
 LIBFT = ./lib/libft/libft.a
@@ -45,6 +45,7 @@ PARSER = parse.c \
 	check_behind_doors.c \
 	rectangolize.c \
 	check_valid_doors.c \
+	trim_empty_lines.c
 
 UTILS = err_free_exit.c \
 	print_map.c \

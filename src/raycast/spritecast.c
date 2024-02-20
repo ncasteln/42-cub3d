@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spritecast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/13 00:55:18 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/20 10:00:56 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int i)
 	// printf("dy %f \n", data->p->dirv.y);
 
 //  || (data->dir_arr[x] != dir)
-	
+
 	x = sc->left_x;
 	if (data->sprite[i].isopen == OPENING)
 	{
@@ -219,7 +219,7 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int i)
 			//printf("draw end 1 p\n");
 		}
 		x++;
-		
+
 	}
 }
 
@@ -237,8 +237,6 @@ void	put_sprites(t_cub3d *data)
 			data->sprite[i].tex_i = H;
 		else if (data->sprite[i].c == 'D') // modified by nico
 			data->sprite[i].tex_i = D;
-		else if (data->sprite[i].c == '$')
-			data->sprite[i].tex_i = S;
 		transform(data->p, &sc, &data->sprite[i]);
 		if (data->sprite[i].c != 'D')
 		{
