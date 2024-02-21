@@ -1,10 +1,10 @@
-NO ./assets/no.png
-WE ./assets/we.png
-SO ./assets/so.png
-EA ./assets/ea.png
+NO ./assets/tile_16.png
+WE ./assets/tile_17.png
+SO ./assets/tile_18.png
+EA ./assets/tile_15.png
 F 66, 110, 65
 C 142, 191, 187
-DO ./assets/door.png
+DO ./assets/tile_19.png
 
               000
        1D1    1D1   1D1

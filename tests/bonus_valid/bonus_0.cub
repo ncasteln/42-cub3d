@@ -1,11 +1,11 @@
-NO ./assets/doom_0.png
-WE ./assets/doom_1.png
-SO ./assets/doom_2.png
-EA ./assets/doom_3.png
-DO ./assets/doom_15.png
-C 139, 1, 1
-F 10, 10, 10
 
+NO ./assets/doom_14.png
+SO ./assets/doom_28.png
+WE ./assets/doom_27.png
+EA ./assets/doom_10.png
+DO ./assets/doom_20.png
+F 250,183,117
+C 42,149,73
 
 
 11111111111  11111111111  11111111111  11111111111  11111111111  11111111111  11111111111

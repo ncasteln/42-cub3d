@@ -1,8 +1,8 @@
-NO ./assets/Tile_11.png
-WE ./assets/Tile_06.png
-SO ./assets/Tile_08.png
-EA ./assets/Stone_03.png
-DO ./assets/door.png
+NO ./assets/tile_1.png
+WE ./assets/tile_6.png
+SO ./assets/tile_7.png
+EA ./assets/tile_6.png
+DO ./assets/tile_5.png
 F 110,130,110
 C 150,170,255
 

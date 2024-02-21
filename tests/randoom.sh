@@ -10,18 +10,18 @@ while [ "$NO" -eq "$SO" ] ||
 	[ "$WE" -eq "$SO" ] ||
 	[ "$WE" -eq "$EA" ] ||
 	[ "$SO" -eq "$EA" ]; do
-NO=$((RANDOM % 16));
-WE=$((RANDOM % 16));
-SO=$((RANDOM % 16));
-EA=$((RANDOM % 16));
-DO=$((RANDOM % 16));
+NO=$((RANDOM % 33));
+WE=$((RANDOM % 33));
+SO=$((RANDOM % 33));
+EA=$((RANDOM % 33));
+DO=$((RANDOM % 33));
 done
 
-NO="$PRE$((RANDOM % 16))$SUF";
-WE="$PRE$((RANDOM % 16))$SUF";
-SO="$PRE$((RANDOM % 16))$SUF";
-EA="$PRE$((RANDOM % 16))$SUF";
-DO="$PRE$((RANDOM % 16))$SUF";
+NO="$PRE$((RANDOM % 33))$SUF";
+WE="$PRE$((RANDOM % 33))$SUF";
+SO="$PRE$((RANDOM % 33))$SUF";
+EA="$PRE$((RANDOM % 33))$SUF";
+DO="$PRE$((RANDOM % 33))$SUF";
 F="$((RANDOM % 256)),$((RANDOM % 256)),$((RANDOM % 256))"
 C="$((RANDOM % 256)),$((RANDOM % 256)),$((RANDOM % 256))"
 

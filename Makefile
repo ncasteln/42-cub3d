@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/21 12:58:53 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/21 16:55:32 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ endif
 ifeq ($(filter test_bonus,$(MAKECMDGOALS)),test_bonus)
 	IS_BONUS = -DBONUS=1
 endif
-ifeq ($(filter doom,$(MAKECMDGOALS)),doom)
+ifeq ($(filter randoom,$(MAKECMDGOALS)),randoom)
 	IS_BONUS = -DBONUS=1
 endif
 
@@ -176,7 +176,6 @@ clean_leak_finder:
 destroy: fclean clean_mlx clean_leak_finder
 	@rm -rf ./tests/randoom.cub
 
-
 # ------------------------------------------------------------------ TEST RULES
 test: fclean all
 	@./tests/tester.sh
@@ -184,8 +183,8 @@ test: fclean all
 test_bonus: fclean bonus
 	@./tests/tester_bonus.sh
 
-# ------------------------------------------------------------------------ DOOM
-doom: bonus
+# --------------------------------------------------------------------- RANDOOM
+randoom: bonus
 	@echo "$(R)"
 	@echo "______  ___   _   _______ _____  ________  ___"
 	@echo "| ___ \/ _ \ | \ | |  _  \  _  ||  _  |  \/  |"
@@ -195,11 +194,11 @@ doom: bonus
 	@echo "\_| \_\_| |_/\_| \_/___/  \___/  \___/\_|  |_/"
 	@echo "$(NC)"
 	@ rm -rfd ./tests/randoom.cub
-	@./tests/doom.sh
+	@./tests/randoom.sh
 	@./cub3D ./tests/randoom.cub
 
 # ----------------------------------------------------------------------- UTILS
-.PHONY: all bonus clean fclean re test leaks clean_mlx clean_leak_finder destroy doom
+.PHONY: all bonus clean fclean re test leaks clean_mlx clean_leak_finder destroy randoom
 
 G = \033[0;32m
 Y = \033[0;33m
