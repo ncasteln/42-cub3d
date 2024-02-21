@@ -6,7 +6,7 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/21 11:14:39 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/21 12:58:53 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -174,6 +174,7 @@ clean_leak_finder:
 	@rm -rfd ./leak_finder/
 
 destroy: fclean clean_mlx clean_leak_finder
+	@rm -rf ./tests/randoom.cub
 
 
 # ------------------------------------------------------------------ TEST RULES
