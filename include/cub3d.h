@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/21 00:48:16 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 08:15:18 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	create_sprite_list(t_cub3d *data);
 void	set_sprite(int n, int y, int x, t_cub3d *data);
 int	door_open(t_cub3d *data, int x, int y);
 
-// ---------------------------------------------------------------------- BONUS
+// -------------------------------------------------------------------- MINIMAP
 // void	check_behind_doors(t_cub3d *data, char **map_cpy); // mnot needed
 void	minimap(t_cub3d *data);
 

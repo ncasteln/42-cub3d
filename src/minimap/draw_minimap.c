@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:17:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/20 10:00:19 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/21 09:25:03 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	draw_player(t_cub3d *data)
 		x = 0;
 		while (x < 5)
 		{
-			draw_x = (data->p->pos.x) * MINIMAP_PIXEL + x;
-			draw_y = (data->p->pos.y) * MINIMAP_PIXEL + y;
+			draw_x = (data->p->pos.x) * data->minimap_pixel + x;
+			draw_y = (data->p->pos.y) * data->minimap_pixel + y;
 			if (data->p->x <= draw_x && data->p->y <= draw_y)
 				mlx_put_pixel(data->minimap, draw_x, draw_y, 0x000000FF);
 			x++;
@@ -50,7 +50,7 @@ static void	put_map_pixels(mlx_image_t *map, int start_x, int start_y, char c)
 }
 
 /*
-	@param start_x = (cellX + 2) * MINIMAP_PIXEL, +2 is an offset to give the
+	@param start_x = (cellX + 2) * data->minimap_pixel, +2 is an offset to give the
 	minimap a margin from the edge of the window.
 */
 static void	draw_tile(t_cub3d *data, char c, int cellY, int cellX)
@@ -60,13 +60,13 @@ static void	draw_tile(t_cub3d *data, char c, int cellY, int cellX)
 	int	end_x;
 	int	end_y;
 
-	start_x = cellX * MINIMAP_PIXEL;
-	start_y = cellY * MINIMAP_PIXEL;
-	end_x = start_x + MINIMAP_PIXEL;
-	end_y = start_y + MINIMAP_PIXEL;
+	start_x = cellX * data->minimap_pixel;
+	start_y = cellY * data->minimap_pixel;
+	end_x = start_x + data->minimap_pixel;
+	end_y = start_y + data->minimap_pixel;
 	while (start_y < end_y)
 	{
-		start_x = (cellX) * MINIMAP_PIXEL;
+		start_x = (cellX) * data->minimap_pixel;
 		while (start_x < end_x)
 		{
 			put_map_pixels(data->minimap, start_x, start_y, c);
@@ -99,8 +99,8 @@ void	minimap(t_cub3d *data)
 	uint32_t	width;
 	uint32_t	height;
 
-	width = data->n_col * MINIMAP_PIXEL;
-	height = data->n_rows * MINIMAP_PIXEL;
+	width = data->n_col * data->minimap_pixel;
+	height = data->n_rows * data->minimap_pixel;
 	if (data->minimap)
 		mlx_delete_image(data->mlx, data->minimap);
 	data->minimap = mlx_new_image(data->mlx, width, height);

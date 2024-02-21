@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/20 23:59:52 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 09:22:30 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ future are not enabled in the code */
 # ifndef BONUS
 #  define BONUS 0
 # endif
-# define MINIMAP_PIXEL 10
 
 // --------------------------------------------------------------------- ERRORS
 enum e_err
@@ -167,6 +166,7 @@ typedef struct s_cub3d
 	int				n_total_sprites;
 	int				n_h;
 	int				n_d;
+	int				minimap_pixel;
 }	t_cub3d;
 
 /*

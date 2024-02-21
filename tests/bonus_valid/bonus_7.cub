@@ -2,6 +2,7 @@ NO ./assets/Tile_11.png
 WE ./assets/Tile_06.png
 SO ./assets/Tile_08.png
 EA ./assets/Stone_03.png
+DO ./assets/door.png
 F 110,130,110
 C 150,170,255
 

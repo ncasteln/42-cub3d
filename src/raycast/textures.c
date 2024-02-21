@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/21 00:48:05 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 09:45:29 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	load_textures(t_cub3d *data)
 	data->tex[EA] = mlx_load_png(data->assets->ea);
 	data->tex[H] = mlx_load_png("assets/barrel.png");
 	if (BONUS && data->n_d)
-		data->tex[D] = mlx_load_png("assets/Door1.png");
+		data->tex[D] = mlx_load_png(data->assets->d);
 	while (i < n_tex)
 	{
 		if (!data->tex[i])

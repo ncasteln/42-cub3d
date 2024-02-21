@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:49:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/19 20:35:50 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 09:25:44 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_cub3d(t_cub3d *data)
 	data->sprite = NULL;
 	data->n_d = 0;
 	data->n_h = 0;
+	data->minimap_pixel = 10;
 }
 
 /*

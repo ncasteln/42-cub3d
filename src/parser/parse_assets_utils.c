@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2024/02/15 15:48:04 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/21 09:45:16 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int	is_missing_asset(t_assets *assets)
 	if (!assets->f)
 		return (1);
 	if (!assets->c)
+		return (1);
+	if (BONUS && !assets->d)
 		return (1);
 	return (0);
 }
