@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 12:46:50 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:49:19 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*extract_texture_path(char **line, t_cub3d *data)
 	if (!is_valid_path(path))
 	{
 		free(path);
-		err_free_exit("extract_texture_path", data, errno);
+		err_free_exit("extract_texture_path", data, 0, errno);
 	}
 	return (path);
 }
@@ -71,11 +71,10 @@ static char	*extract_color(char **line, t_cub3d *data)
 	if (!is_valid_color(color))
 	{
 		free(color);
-		err_free_exit("extract_color", data, E_INV_ASSET);
+		err_free_exit("extract_color", data, 0, E_INV_ASSET);
 	}
 	hex = rgb_to_hex_string(color);
-	free(color);
-	return (hex);
+	return (free(color), hex);
 }
 
 char	*extract_asset_value(char **line, char *id, t_cub3d *data)

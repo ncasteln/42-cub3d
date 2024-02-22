@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:59:11 by nico              #+#    #+#             */
-/*   Updated: 2024/01/24 16:37:19 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:48:24 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static int	asset_line(char **line, char *asset_id, t_cub3d *data)
 static void	map_line(char *line, int is_line_parsed, t_cub3d *data)
 {
 	if (is_missing_asset(data->assets))
-		err_free_exit("parse_line", data, E_MISS_ASSET);
+		err_free_exit("parse_line", data, 0, E_MISS_ASSET);
 	if (is_line_parsed)
-		err_free_exit("parse_line", data, E_INV_FORMAT);
+		err_free_exit("parse_line", data, 0, E_INV_FORMAT);
 	store_map_line(line, data);
 }
 
@@ -53,7 +53,6 @@ static void	parse_line(char *line, int *is_map_parsing, t_cub3d *data)
 	is_line_parsed = 0;
 	while (line)
 	{
-
 		asset_id = is_valid_asset_id(line);
 		if (is_blank_line(line) && !(*is_map_parsing))
 			break ;
@@ -84,7 +83,7 @@ void	parse_file_content(char *f_name, t_cub3d *data)
 	is_map_parsing = 0;
 	data->fd = open(f_name, O_RDONLY);
 	if (data->fd == -1)
-		err_free_exit("parse_assets", data, errno);
+		err_free_exit("parse_assets", data, 0, errno);
 	while (1)
 	{
 		data->line = get_next_line(data->fd);
@@ -94,9 +93,9 @@ void	parse_file_content(char *f_name, t_cub3d *data)
 		free(data->line);
 	}
 	if (data->assets && !data->map)
-		err_free_exit("parse_line", data, E_NO_MAP);
+		err_free_exit("parse_line", data, 0, E_NO_MAP);
 	if (!data->assets && !data->map)
-		err_free_exit("parse_line", data, E_EMPTY_FILE);
+		err_free_exit("parse_line", data, 0, E_EMPTY_FILE);
 	close(data->fd);
 	data->fd = -1;
 }

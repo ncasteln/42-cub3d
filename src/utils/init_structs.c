@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:49:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/01/28 00:11:22 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 09:25:44 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ void	init_cub3d(t_cub3d *data)
 {
 	data->assets = ft_calloc(1, sizeof(t_assets));
 	if (!data->assets)
-		err_free_exit("init_cub3d", data, errno);
+		err_free_exit("init_cub3d", data, 0, errno);
 	data->assets->no = NULL;
 	data->assets->ea = NULL;
 	data->assets->so = NULL;
 	data->assets->we = NULL;
 	data->assets->d = NULL;
-	data->assets->s = NULL;
 	data->assets->h = NULL;
 	data->assets->f = 0;
 	data->assets->c = 0;
@@ -33,15 +32,20 @@ void	init_cub3d(t_cub3d *data)
 	data->n_col = 0;
 	data->line = NULL;
 	data->fd = -1;
-
-	// added
-	data->sprite = NULL; // remove
+	data->sprite = NULL;
 	data->n_d = 0;
-	data->n_s = 0;
 	data->n_h = 0;
+	data->minimap_pixel = 10;
 }
 
-void init_move(t_player *p)
+/*
+setting precise player coordinates
+setting direction vector: in the beginning one of its components is 0
+and the other one equals 1 or -1.
+setting plane vector: at first we set it the same direction as the direction
+vector but different magnitude and then rotate it right by 90 degrees
+ */
+void	init_move(t_player *p)
 {
 	p->pos.x = p->x;
 	p->pos.y = p->y;
