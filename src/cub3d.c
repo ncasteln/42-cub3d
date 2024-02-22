@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/22 08:16:05 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:09:50 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 	- Norm
 	- Remove subject
 */
+
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;

@@ -6,12 +6,12 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/22 08:17:53 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/22 10:10:35 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-CFLAGS = -Wall -Wextra #-Werror -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread
 
 LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
 LIBFT = ./lib/libft/libft.a
@@ -83,6 +83,9 @@ endif
 ifeq ($(filter test_bonus,$(MAKECMDGOALS)),test_bonus)
 	IS_BONUS = -DBONUS=1
 endif
+ifeq ($(filter leaks_bonus,$(MAKECMDGOALS)),leaks_bonus)
+	IS_BONUS = -DBONUS=1
+endif
 ifeq ($(filter randoom,$(MAKECMDGOALS)),randoom)
 	IS_BONUS = -DBONUS=1
 endif
@@ -101,14 +104,16 @@ bonus: $(NAME)
 
 leaks: $(NAME)_leaks
 
+leaks_bonus: $(NAME)_leaks
+
 $(NAME): $(LIB) $(MLX42) $(OBJS)
 	@echo "$(NC)Compiling $(NAME) executable file..."
 	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LIB) -o $(NAME)
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
 
-$(NAME)_leaks: $(LIB) $(MLX42) $(OBJS) $(LEAK_FINDER)
+$(NAME)_leaks: $(LIB) $(MLX42) $(LEAK_FINDER) $(OBJS)
 	@echo "$(NC)Compiling $(NAME) executable file with leak checking..."
-	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LEAK_FINDER) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(GLFW) $(MLX42) $(LEAK_FINDER) $(LIB) -o $(NAME)_leaks
 	@echo "$(G)	[$@] successfully compiled!$(NC)"
 
 $(MLX42):
@@ -166,12 +171,12 @@ clean_mlx:
 	@echo "$(NC)Removing [MLX42 library]..."
 	@rm -rfd ./lib/MLX42/ $(MLX42)
 
-clean_leak_finder:
+clean_leaks:
 	@echo "$(NC)Removing [leak_finder]..."
 	@rm -rfd *.so
 	@rm -rfd ./leak_finder/
 
-destroy: fclean clean_mlx clean_leak_finder
+destroy: fclean clean_mlx clean_leaks
 	@rm -rf ./tests/randoom.cub
 
 # ------------------------------------------------------------------ TEST RULES
@@ -196,7 +201,7 @@ randoom: bonus
 	@./cub3D ./tests/randoom.cub
 
 # ----------------------------------------------------------------------- UTILS
-.PHONY: all bonus clean fclean re test leaks clean_mlx clean_leak_finder destroy randoom
+.PHONY: all bonus clean fclean re test leaks clean_mlx clean_leaks destroy randoom leaks_bonus
 
 G = \033[0;32m
 Y = \033[0;33m

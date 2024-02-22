@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/22 08:07:35 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:12:57 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,21 @@
 # define H 4	// hole
 # define D 5	// door
 
-# define RED		0x990000FF
-# define BLUE		0x0000FF77
-# define ORANGE		0xDD7700FF
-# define WHITE		0xFFFFFFFF
-# define BLACK		0x000000FF
+# ifndef RED
+#  define RED		0x990000FF
+# endif
+# ifndef BLUE
+#  define BLUE		0x0000FF77
+# endif
+# ifndef ORANGE
+#  define ORANGE	0xDD7700FF
+# endif
+# ifndef WHITE
+#  define WHITE		0xFFFFFFFF
+# endif
+# ifndef BLACK
+#  define BLACK		0x000000FF
+# endif
 
 # define FORWARD	100
 # define BACK		200

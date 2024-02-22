@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:17:42 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/21 23:11:38 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/22 08:57:47 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ static void	put_map_pixels(mlx_image_t *map, int start_x, int start_y, char c)
 {
 	if (c == '1')
 		mlx_put_pixel(map, start_x, start_y, BLUE);
-	else if (c == ' ')
-		mlx_put_pixel(map, start_x, start_y, BLACK);
 	else if (c == 'H')
 		mlx_put_pixel(map, start_x, start_y, RED);
 	else if (c == 'D')
 		mlx_put_pixel(map, start_x, start_y, ORANGE);
+	else if (c == ' ')
+		return ;
 	else
 		mlx_put_pixel(map, start_x, start_y, WHITE);
 }
