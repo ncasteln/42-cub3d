@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:22:56 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/20 10:07:36 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 08:08:37 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static char	*get_err_msg_1(int err_n)
 		return ("no map provided");
 	if (err_n == E_EMPTY_FILE)
 		return ("empty file");
-	return ("duplicate player");
+	if (err_n == E_DUP_PLAYER)
+		return ("duplicate player");
+	return ("unknow error");
 }
 
 static char	*get_err_msg_2(int err_n)
@@ -47,6 +49,8 @@ static char	*get_err_msg_2(int err_n)
 		return ("door not between walls");
 	if (err_n == E_MLX)
 		return ("fail from MLX library");
+	if (err_n == E_OVERFLOW)
+		return ("overflow");
 	return ("unknow error");
 }
 

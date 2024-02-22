@@ -3,15 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/22 01:46:21 by mrubina          ###   ########.fr        #
+#    Updated: 2024/02/22 08:12:55 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-
 CFLAGS = -Wall -Wextra #-Werror -fsanitize=thread
 
 LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
@@ -42,7 +41,6 @@ PARSER = parse.c \
 	parse_player.c \
 	path_validation.c \
 	parse_assets_utils.c \
-	check_behind_doors.c \
 	rectangolize.c \
 	check_valid_doors.c \
 	trim_empty_lines.c

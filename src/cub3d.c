@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/21 23:12:27 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/22 08:16:05 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,14 @@
 
 /*
 	STEPS TO DO TO FINISH:
-	• Check for the leaks
-	• Clean everyhting
-		- remove traingin and its functions
-		- Remove unuseful stuff
-		- Remove function about floodfill of doors (check_behind_doors)
-		- Norm
-
-	• BUG
-		- colors 0, 0, 0 ?
+	- leaks
+	- Norm
+	- Remove subject
 */
-
-void	leaks( void ) {
-	system("leaks cub3D"); // remove
-}
-
 int	main(int argc, char **argv)
 {
 	t_cub3d	data;
 
-	// atexit(leaks); // remove
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 	sprites(&data);

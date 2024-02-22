@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/22 01:27:28 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/22 08:07:35 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ enum e_err
 	E_NO_PLAYER,
 	E_MAP_OPEN,
 	E_INV_DOOR,
-	E_MLX
+	E_MLX,
+	E_OVERFLOW
 };
 
 // -------------------------------------------------------------------- STRUCTS

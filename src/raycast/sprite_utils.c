@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/21 21:56:29 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/22 08:10:15 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 char	read_map(t_cub3d *data, size_t y, size_t x)
 {
 	if (y >= data->n_rows || x >= data->n_col)
-	{
-		exit(0); // to edit
-	}
+		err_free_exit("read_map()", data, 1, E_OVERFLOW);
 	return (data->map[y][x]);
 }
 
