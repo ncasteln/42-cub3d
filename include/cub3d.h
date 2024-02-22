@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/22 15:32:04 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:02:44 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void		path_validation(t_cub3d *data);
 
 // ------------------------------------------------------- ASSETS PARSING UTILS
 void		parse_assets(char **line, char *type_id, t_cub3d *data);
-// char		*extract_asset_value(char **line, char *id, t_cub3d *data);
 int			is_valid_color(char *color);
-// char		*rgb_to_hex_string(char *color);
 uint32_t	str_to_rgb(char *color, t_cub3d *data);
 char		*is_valid_asset_id(char *line);
 int			is_texture(char *line);

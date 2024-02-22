@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2024/02/22 15:41:19 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:04:19 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*extract_texture_path(char **line, t_cub3d *data)
 	}
 	path = ft_calloc(i + 1, sizeof(char));
 	if (!path)
-		return (NULL);
+		err_free_exit("extract_texture_path", data, 0, errno);
 	ft_strlcpy(path, *line, i + 1);
 	(*line) += i;
 	if (!is_valid_path(path))
@@ -50,10 +50,10 @@ char	*extract_texture_path(char **line, t_cub3d *data)
 
 uint32_t	extract_color(char **line, t_cub3d *data)
 {
-	int		i;
-	char	*color;
-	// char	*hex;
-	char	c;
+	int			i;
+	char		*color;
+	char		c;
+	uint32_t	rgb;
 
 	i = 0;
 	while ((*line)[i])
@@ -65,26 +65,14 @@ uint32_t	extract_color(char **line, t_cub3d *data)
 	}
 	color = ft_calloc(i + 1, sizeof(char));
 	if (!color)
-		return (NULL); // change to -1 or something else (maybe return value type too)
+		err_free_exit("extract_color", data, 0, errno);
 	ft_strlcpy(color, *line, i + 1);
-	ft_printf("Color = [%s]\n", color);
 	(*line) += i;
 	if (!is_valid_color(color))
 	{
 		free(color);
 		err_free_exit("extract_color", data, 0, E_INV_ASSET);
 	}
-	uint32_t rgb = str_to_rgb(color, data);
-	ft_printf("RGB = [%u]\n", rgb);
+	rgb = str_to_rgb(color, data);
 	return (free(color), rgb);
 }
-
-// char	*extract_asset_value(char **line, char *id, t_cub3d *data)
-// {
-// 	jump_whitespaces(line);
-// 	if (is_texture(id))
-// 		return (extract_texture_path(line, data));
-// 	else
-// 		return (extract_color(line, data));
-// 	return (NULL);
-// }

@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/22 15:35:47 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:05:02 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 	- leaks
 	- Norm
 	- Remove subject
-
-	REMOVE:
-	- str_to_ul()
-	- rgb_to_hex_string()
-	- build_hex()
-	- extract_asset_value()
 */
 
 int	main(int argc, char **argv)
@@ -58,5 +52,6 @@ int	main(int argc, char **argv)
 
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
+	free_data(data);
 	return (0);
 }

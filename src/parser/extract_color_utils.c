@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:39:29 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/22 15:43:03 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:00:37 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,55 +46,20 @@ static int	trim_rgb(char **rgb)
 	return (0);
 }
 
-static void	build_hex(int n, char **hex, int i)
-{
-	char	*base16;
-	char	a;
-	char	b;
-
-	base16 = "0123456789ABCDEF";
-	a = base16[n / 16];
-	b = base16[n % 16];
-	(*hex)[i + i + 2] = a;
-	(*hex)[i + i + 3] = b;
-}
-
 uint32_t	str_to_rgb(char *color, t_cub3d *data)
 {
-	char	**rgb;
+	char		**rgb;
+	uint32_t	rgb_n;
 
 	rgb = ft_split(color, ',');
-	trim_rgb(rgb);
-		// return (free_dptr(rgb), 1);
 	if (!rgb)
 		err_free_exit("str_to_rgb()", data, 0, errno);
-	uint32_t ret = getcol(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]), 255); // zero as transparency  or 255
+	if (trim_rgb(rgb))
+		err_free_exit("str_to_rgb()", data, 0, errno);
+	rgb_n = getcol(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]), 255);
 	free_dptr(rgb);
-	return (ret);
+	return (rgb_n);
 }
-// int		n;
-// char	**rgb;
-// char	*hex;
-// int		i;
-
-// hex = ft_calloc(11, sizeof(char));
-// if (!hex)
-// 	return (NULL);
-// hex[0] = '0';
-// hex[1] = 'x';
-// rgb = ft_split(color, ',');
-// if (!rgb)
-// 	return (free(hex), NULL);
-// i = 0;
-// while (rgb[i])
-// {
-// 	n = ft_atoi(rgb[i]);
-// 	build_hex(n, &hex, i);
-// 	i++;
-// }
-// hex[8] = 'F';
-// hex[9] = 'F';
-// return (free_dptr(rgb), hex);
 
 /*
 	A color is valid when it has 3 positive digits between 0 and 255,
