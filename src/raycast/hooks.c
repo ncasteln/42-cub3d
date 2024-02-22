@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/20 23:52:49 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 22:46:48 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	refresh(void *param)
 	t_cub3d	*data;
 
 	data = (t_cub3d *)param;
-	raycasting((data));
+	raycasting(data);
 	if (BONUS)
 		minimap(data);
 	if ((data)->n_total_sprites)

@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/20 23:47:49 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 22:36:07 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ static int	check_square(t_cub3d *data, int x, int y)
 {
 	int	isfree;
 
-	isfree = data->map[y][x] == '0' || data->map[y][x] == 'N'
-		|| data->map[y][x] == 'S' || data->map[y][x] == 'E'
-		|| data->map[y][x] == 'W';
+	isfree = read_map(data, y, x) == '0' || read_map(data, y, x) == 'N'
+		|| read_map(data, y, x) == 'S' || read_map(data, y, x) == 'E'
+		|| read_map(data, y, x) == 'W';
 	if (BONUS)
-		isfree = isfree || (data->map[y][x] == 'D' && door_open(data, x, y));
+		isfree = isfree || (read_map(data, y, x) == 'D'
+				&& door_open(data, x, y));
 	return (isfree);
 }
 

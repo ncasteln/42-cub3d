@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/20 23:25:34 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 21:22:47 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,18 @@ t_dvect	*set_vect(t_dvect *v, double x, double y)
 	v->x = x;
 	v->y = y;
 	return (v);
+}
+
+/*
+returns 1, -1 or 0 based on the argument sign
+used to add or to substract 1 to the ray vector x or y.
+*/
+int	sign(double x)
+{
+	if (x > 0)
+		return (1);
+	if (x < 0)
+		return (-1);
+	else
+		return (0);
 }

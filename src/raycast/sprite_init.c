@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprites.c                                          :+:      :+:    :+:   */
+/*   sprite_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:30:48 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/20 23:31:07 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 23:14:44 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 	direction // sides the door is facing
 	sets the door as closed
 */
-void	set_door(int n, int y, int x, t_cub3d *data)
+static void	set_door(int n, int y, int x, t_cub3d *data)
 {
 	data->sprite[n].tex_i = D;
-	if (data->map[y][x - 1] == '1' && data->map[y][x + 1] == '1')
+	if (read_map(data, y, x - 1) == '1' && read_map(data, y, x + 1) == '1')
 	{
 		data->sprite[n].door_left_edge.x = x;
 		data->sprite[n].door_right_edge.x = x + 0.999;
@@ -29,7 +29,7 @@ void	set_door(int n, int y, int x, t_cub3d *data)
 		data->sprite[n].door_right_edge.y = y + 0.5;
 		data->sprite[n].dir = NORTH_SOUTH;
 	}
-	else if (data->map[y - 1][x] == '1' && data->map[y + 1][x] == '1')
+	else if (read_map(data, y - 1, x) == '1' && read_map(data, y + 1, x) == '1')
 	{
 		data->sprite[n].door_left_edge.y = y;
 		data->sprite[n].door_right_edge.y = y + 0.999;
@@ -40,7 +40,7 @@ void	set_door(int n, int y, int x, t_cub3d *data)
 	data->sprite[n].isopen = CLOSED;
 }
 
-void	set_sprite(int n, int y, int x, t_cub3d *data)
+static void	set_sprite(int n, int y, int x, t_cub3d *data)
 {
 	data->sprite[n].c = data->map[y][x];
 	data->sprite[n].y = y + 0.5;
@@ -50,25 +50,10 @@ void	set_sprite(int n, int y, int x, t_cub3d *data)
 		data->sprite[n].tex_i = H;
 	if (data->sprite[n].c == 'D')
 		set_door(n, y, x, data);
-	// data->sprite[n].dist = rand(); // remove, addedto test the bubblesort
-}
-
-/* sets squared distance
-from the sprite to the current position of the player */
-void	set_dist(t_cub3d *data)
-{
-	int	n;
-
-	n = 0;
-	while (n < data->n_total_sprites)
-	{
-		data->sprite[n].dist = sprite_dist_sq(data->sprite[n], data->p->pos);
-		n++;
-	}
 }
 
 //creates sprites at the start
-void	create_sprite_list(t_cub3d *data)
+static void	create_sprite_list(t_cub3d *data)
 {
 	int	y;
 	int	x;
@@ -89,31 +74,6 @@ void	create_sprite_list(t_cub3d *data)
 			x++;
 		}
 		y++;
-	}
-}
-
-void	bubble(t_sprite *sprite, int n)
-{
-	t_sprite	temp;
-	int			swapped;
-	int			i;
-
-	swapped = 1;
-	while (swapped)
-	{
-		swapped = 0;
-		i = 1;
-		while (i <= n - 1)
-		{
-			if (sprite[i - 1].dist < sprite[i].dist)
-			{
-				temp = sprite[i - 1];
-				sprite[i - 1] = sprite[i];
-				sprite[i] = temp;
-				swapped = 1;
-			}
-			i++;
-		}
 	}
 }
 

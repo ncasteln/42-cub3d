@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/21 00:12:47 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/22 01:45:12 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ calculates
 2. x on the screen where the door ends (right edge)
 3. y range of the screen for those edges
 4. width
+sc->ref_x is used here as a temporary variable,
+later it is set to a different value
  */
 void	set_draw_door(t_spritecast *sc)
 {
@@ -26,12 +28,12 @@ void	set_draw_door(t_spritecast *sc)
 
 	sc->left_x = (int)((WIN_W / 2) * (1 + sc->transf.x / sc->transf.y));
 	sc->right_x = (int)((WIN_W / 2) * (1 + sc->transf2.x / sc->transf2.y));
-	sc->uncut_x = sc->left_x;
+	sc->ref_x = sc->left_x;
 	if (sc->right_x < sc->left_x)
 	{
-		sc->uncut_x = sc->right_x;
+		sc->ref_x = sc->right_x;
 		sc->right_x = sc->left_x;
-		sc->left_x = sc->uncut_x;
+		sc->left_x = sc->ref_x;
 		dtemp = sc->transf.x;
 		sc->transf.x = sc->transf2.x;
 		sc->transf2.x = dtemp;
@@ -54,25 +56,24 @@ starting screen x changes with time
  */
 static int	get_start_x(t_cub3d *data, t_spritecast *sc, int i)
 {
-	int	x;
-
-	x = sc->left_x;
+	sc->ref_x = sc->left_x;
 	if (data->sprite[i].isopen == OPENING)
 	{
-		x += (mlx_get_time() - data->sprite[i].open_time) * sc->w;
-		if (x >= sc->right_x)
+		sc->ref_x += (mlx_get_time() - data->sprite[i].open_time) * sc->w;
+		if (sc->ref_x >= sc->right_x)
 			data->sprite[i].isopen = OPEN;
 	}
 	if (data->sprite[i].isopen == CLOSING)
 	{
-		x += sc->right_x - (mlx_get_time() - data->sprite[i].open_time) * sc->w;
-		if (x <= sc->left_x)
+		sc->ref_x += sc->right_x - (mlx_get_time() - data->sprite[i].open_time)
+			* sc->w;
+		if (sc->ref_x <= sc->left_x)
 		{
-			x = sc->left_x;
+			sc->ref_x = sc->left_x;
 			data->sprite[i].isopen = CLOSED;
 		}
 	}
-	return (x);
+	return (sc->ref_x);
 }
 
 // Before drawing a vertical line for each x we calculate start and end y
@@ -82,13 +83,14 @@ static int	set_y(t_spritecast *sc, int x, int *end_y)
 
 	start_y = sc->up_left + (sc->up_right - sc->up_left)
 		* (x - sc->left_x) / sc->w;
+	sc->ref_y = start_y;
 	if (start_y < 0)
 		start_y = 0;
 	*end_y = sc->lo_left + (sc->lo_right - sc->lo_left)
 		* (x - sc->left_x) / sc->w;
+	sc->h = *end_y - sc->ref_y;
 	if (*end_y >= WIN_H)
 		*end_y = WIN_H - 1;
-	sc->h = *end_y - start_y;
 	return (start_y);
 }
 
@@ -114,6 +116,7 @@ static int	is_visible(t_cub3d *data, t_spritecast *sc, int i, int x)
 2. We start scanning through x and draw if the door is visible
 3. Before drawing a vertical line for each x we calculate start and end y
 4. We draw the line based on the texture
+ref_x (reference x) is the moving edge of the door while opening
  */
 void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int i)
 {
@@ -126,13 +129,13 @@ void	draw_door(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex, int i)
 	x = get_start_x(data, sc, i);
 	while (x < sc->right_x && x < WIN_W)
 	{
-		texpos.x = (int)((x - (sc->uncut_x)) * tex->width) / sc->w;
+		texpos.x = (int)((x - (sc->ref_x)) * tex->width) / sc->w;
 		if (is_visible(data, sc, i, x))
 		{
 			y = set_y(sc, x, &end_y);
 			while (y < end_y)
 			{
-				texpos.y = ((y - WIN_H / 2 + sc->h / 2) * tex->height * 800)
+				texpos.y = ((y - sc->ref_y) * (tex->height) * 800)
 					/ (sc->h * 800);
 				texpos.y = (int)texpos.y & (tex->height - 1);
 				ind = (texpos.y * tex->width + texpos.x) * tex->bytes_per_pixel;

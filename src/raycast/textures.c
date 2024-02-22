@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/21 16:58:05 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/21 22:55:36 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+//	takes separate rgba values and returns a color
+static uint32_t	getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
+{
+	return ((r << 24) + (g << 16) + (b << 8) + a);
+}
 
 /*
 reads rgba values from a pixel and returns its color
@@ -28,12 +34,6 @@ uint32_t	readcol(uint8_t *p)
 	b = (uint32_t) *(p + 2);
 	a = (uint32_t) *(p + 3);
 	return (getcol(r, g, b, a));
-}
-
-//	takes separate rgba values and returns color
-uint32_t	getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
-{
-	return ((r << 24) + (g << 16) + (b << 8) + a);
 }
 
 /*

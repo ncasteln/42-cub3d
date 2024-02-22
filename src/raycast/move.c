@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/20 23:50:35 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 22:27:01 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,19 @@ void	correction(t_cub3d *data)
 
 	set_vect(&wtest, data->p->pos.x, data->p->pos.y + 0.1);
 	set_vect(&delta, 0.0, 0.0);
-	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
+	if (read_map(data, (int)wtest.y, (int)wtest.x) == '1')
 		delta.y += -0.01;
 	set_vect(&wtest, data->p->pos.x, data->p->pos.y - 0.1);
-	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
+	if (read_map(data, (int)wtest.y, (int)wtest.x) == '1')
 		delta.y += 0.01;
 	set_vect(&wtest, data->p->pos.x + 0.1, data->p->pos.y);
-	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
+	if (read_map(data, (int)wtest.y, (int)wtest.x) == '1')
 		delta.x += -0.01;
 	set_vect(&wtest, data->p->pos.x - 0.1, data->p->pos.y);
-	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
+	if (read_map(data, (int)wtest.y, (int)wtest.x) == '1')
 		delta.x += 0.01;
 	set_vect(&wtest, data->p->pos.x - 0.1, data->p->pos.y - 0.1);
-	if (data->map[(int)wtest.y][(int)wtest.x] == '1')
+	if (read_map(data, (int)wtest.y, (int)wtest.x) == '1')
 	{
 		delta.x += 0.01;
 		delta.y += 0.01;

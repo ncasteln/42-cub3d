@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:01:30 by nico              #+#    #+#             */
-/*   Updated: 2024/02/21 09:22:30 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 01:27:28 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,9 +205,11 @@ typedef struct s_raycast
 	@param h - sprite height for current distance
 	@param w - sprite width
 	start - draw
+	@param ref_x - x of sprite's start, it may be outside the screen,
+	for a door it's the moving edge of the door while opening
 	all the parameters following width are filled only for doors
+	@param ref_y - start y of a sprite for current x, it may be outside the screen
 	@param transf2 - transformed coordinates for the right edge of the door
-	@param uncut_x - location of sprite's start, it may be outside the screen
 	@param left_x - draw start for x
 	@param right_x - draw end for x
 	@param up_right - y on the screen for the upper right corner of the door
@@ -220,8 +222,9 @@ typedef struct s_spritecast
 	t_ivect		end;
 	int			h;
 	int			w;
+	int			ref_x;
+	int			ref_y;
 	t_dvect		transf2;
-	int			uncut_x;
 	int			left_x;
 	int			right_x;
 	int			up_right;

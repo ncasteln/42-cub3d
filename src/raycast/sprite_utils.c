@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   sprite_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/21 00:43:33 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/21 21:56:29 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//	sign() adds or substracts 1 to the ray vector x or y.
-int	sign(double x)
-{
-	if (x > 0)
-		return (1);
-	if (x < 0)
-		return (-1);
-	else
-		return (0);
-}
 
 char	read_map(t_cub3d *data, size_t y, size_t x)
 {
@@ -61,4 +50,43 @@ void	count_sprites(t_cub3d *data)
 double	sprite_dist_sq(t_sprite s, t_dvect p)
 {
 	return (pow((s.x - p.x), 2) + pow((s.y - p.y), 2));
+}
+
+/* sets squared distance
+from the sprite to the current position of the player */
+void	set_dist(t_cub3d *data)
+{
+	int	n;
+
+	n = 0;
+	while (n < data->n_total_sprites)
+	{
+		data->sprite[n].dist = sprite_dist_sq(data->sprite[n], data->p->pos);
+		n++;
+	}
+}
+
+void	bubble(t_sprite *sprite, int n)
+{
+	t_sprite	temp;
+	int			swapped;
+	int			i;
+
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		i = 1;
+		while (i <= n - 1)
+		{
+			if (sprite[i - 1].dist < sprite[i].dist)
+			{
+				temp = sprite[i - 1];
+				sprite[i - 1] = sprite[i];
+				sprite[i] = temp;
+				swapped = 1;
+			}
+			i++;
+		}
+	}
 }

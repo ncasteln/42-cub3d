@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/21 16:55:32 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/22 01:46:21 by mrubina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
-CFLAGS = -Wall -Wextra #-Werror #-fsanitize=thread
+CFLAGS = -Wall -Wextra #-Werror -fsanitize=thread
 
 LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
 LIBFT = ./lib/libft/libft.a
@@ -55,14 +55,14 @@ UTILS = err_free_exit.c \
 	init_structs.c \
 
 RAYCAST = raycast.c \
-	hooks.c \
-	utils.c \
-	draw_door.c \
 	draw_wall.c \
-	textures.c \
-	move.c \
 	spritecast.c \
-	sprites.c \
+	sprite_init.c \
+	sprite_utils.c \
+	draw_door.c \
+	textures.c \
+	hooks.c \
+	move.c \
 	vectors.c \
 	refine.c \
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spritecast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/21 12:12:32 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 01:09:07 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	transform(t_player *p, t_spritecast *sc, t_sprite *sprite)
 /*
 calculates start and end points for drawing,
 height and width of the sprite
-uncut x is needed to correctly determine the texture position
+ref_x (reference x) is needed to correctly determine the texture position
 because sc->start.x is cut as it is used for drawing and
 can't be less than 0
  */
@@ -70,8 +70,8 @@ static void	set_draw_sprite(t_spritecast *sc)
 	if (sc->end.y >= WIN_H)
 		sc->end.y = WIN_H - 1;
 	sc->w = abs((int)(WIN_H / sc->transf.y));
-	sc->uncut_x = -sc->w / 2 + screen_x;
-	sc->start.x = sc->uncut_x;
+	sc->ref_x = -sc->w / 2 + screen_x;
+	sc->start.x = sc->ref_x;
 	if (sc->start.x < 0)
 		sc->start.x = 0;
 	sc->end.x = sc->w / 2 + screen_x;
@@ -89,7 +89,7 @@ static void	draw_sprite(t_cub3d *data, t_spritecast *sc, mlx_texture_t *tex)
 	x = sc->start.x;
 	while (x < sc->end.x)
 	{
-		texpos.x = (int)((x - (sc->uncut_x)) * tex->width) / sc->w;
+		texpos.x = (int)((x - (sc->ref_x)) * tex->width) / sc->w;
 		if (sc->transf.y > 0 && x > 0 && x < WIN_W
 			&& sc->transf.y < data->dist_arr[x])
 		{
