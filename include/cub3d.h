@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:57:46 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/22 10:09:49 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:32:04 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,17 @@ void		path_validation(t_cub3d *data);
 
 // ------------------------------------------------------- ASSETS PARSING UTILS
 void		parse_assets(char **line, char *type_id, t_cub3d *data);
-char		*extract_asset_value(char **line, char *id, t_cub3d *data);
+// char		*extract_asset_value(char **line, char *id, t_cub3d *data);
 int			is_valid_color(char *color);
-char		*rgb_to_hex_string(char *color);
+// char		*rgb_to_hex_string(char *color);
+uint32_t	str_to_rgb(char *color, t_cub3d *data);
 char		*is_valid_asset_id(char *line);
 int			is_texture(char *line);
 int			is_duplicate_asset(char *id, t_cub3d *data);
 int			is_missing_asset(t_assets *assets);
 void		check_valid_doors(t_cub3d *data);
+uint32_t	extract_color(char **line, t_cub3d *data); //made non static
+char		*extract_texture_path(char **line, t_cub3d *data); //made non static
 
 // ---------------------------------------------------------- MAP PARSING UTILS
 void		jump_whitespaces(char **line);
@@ -88,6 +91,7 @@ char		read_map(t_cub3d *data, size_t y, size_t x);
 void		refine(t_cub3d *data, t_dvect *incr);
 void		set_draw_wall(t_raycast *rc);
 void		putline(t_cub3d *data, int x, mlx_texture_t	*tex, t_raycast *rc);
+uint32_t	getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
 
 // ------------------------------------------------------------ SPRITES CASTING
 void		sprites(t_cub3d *data);

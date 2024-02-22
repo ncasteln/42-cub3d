@@ -6,14 +6,14 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:01:50 by mrubina           #+#    #+#             */
-/*   Updated: 2024/02/22 14:37:02 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:39:17 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 //	takes separate rgba values and returns a color
-static uint32_t	getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
+uint32_t	getcol(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 {
 	return ((r << 24) + (g << 16) + (b << 8) + a);
 }

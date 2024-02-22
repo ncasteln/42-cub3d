@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:04:41 by nico              #+#    #+#             */
-/*   Updated: 2024/02/22 08:50:32 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:35:06 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	value_is_well_separated(char *line)
 	return (0);
 }
 
-static void	store_asset_value(char *value, char *type_id, t_cub3d *data)
+static void	store_texture_path(char *value, char *type_id, t_cub3d *data)
 {
 	if (!ft_strncmp(type_id, "NO", 2))
 		data->assets->no = value;
@@ -66,32 +66,54 @@ static void	store_asset_value(char *value, char *type_id, t_cub3d *data)
 		data->assets->so = value;
 	else if (!ft_strncmp(type_id, "WE", 2))
 		data->assets->we = value;
-	else if (!ft_strncmp(type_id, "F", 1))
-	{
-		data->assets->f = str_to_ul(value);
-		free(value);
-	}
-	else if (!ft_strncmp(type_id, "C", 1))
-	{
-		data->assets->c = str_to_ul(value);
-		free(value);
-	}
 	else if (BONUS && !ft_strncmp(type_id, "DO", 2))
 		data->assets->d = value;
 }
 
+static void	store_color(uint32_t rgb, char *type_id, t_cub3d *data)
+{
+	if (!ft_strncmp(type_id, "F", 1))
+	{
+		data->assets->f = rgb;
+		// data->assets->f = str_to_ul(value);		// change to value
+		// free(value); 							// remove
+	}
+	else if (!ft_strncmp(type_id, "C", 1))
+	{
+		data->assets->c = rgb;
+		// data->assets->c = str_to_ul(value); 	// change to value
+		// free(value);							// remove
+	}
+}
+
 void	parse_assets(char **line, char *type_id, t_cub3d *data)
 {
-	char	*value;
+	char		*value;
+	uint32_t	color; // added
 
 	value = NULL;
+	color = 0;
 	(*line) += ft_strlen(type_id);
 	if (!value_is_well_separated(*line))
 		err_free_exit("parse_line", data, 0, E_INV_ASSET);
 	if (is_duplicate_asset(type_id, data))
 		err_free_exit("parse_line", data, 0, E_DUP_ASSET);
-	value = extract_asset_value(line, type_id, data);
-	if (value[ft_strlen(value) - 1] == '/')
-		err_free_exit("parse_asset", data, 0, E_INV_ASSET);
-	store_asset_value(value, type_id, data);
+
+	jump_whitespaces(line);
+	if (is_texture(type_id)) { // added
+		value = extract_texture_path(line, data); // extract texture path
+		if (value) // check
+		{
+			if (value[ft_strlen(value) - 1] == '/') // check if not segfault
+				err_free_exit("parse_asset", data, 0, E_INV_ASSET);
+			store_texture_path(value, type_id, data);
+		}
+	}
+	else { // added
+		color = extract_color(line, data); // extract color
+		if (color) {
+			store_color(color, type_id, data);
+		}
+	}
+
 }

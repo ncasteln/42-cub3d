@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:31:41 by nico              #+#    #+#             */
-/*   Updated: 2024/02/22 08:56:13 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:41:19 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_valid_path(char *path)
 	return (1);
 }
 
-static char	*extract_texture_path(char **line, t_cub3d *data)
+char	*extract_texture_path(char **line, t_cub3d *data)
 {
 	int		i;
 	char	*path;
@@ -48,11 +48,11 @@ static char	*extract_texture_path(char **line, t_cub3d *data)
 	return (path);
 }
 
-static char	*extract_color(char **line, t_cub3d *data)
+uint32_t	extract_color(char **line, t_cub3d *data)
 {
 	int		i;
 	char	*color;
-	char	*hex;
+	// char	*hex;
 	char	c;
 
 	i = 0;
@@ -65,24 +65,26 @@ static char	*extract_color(char **line, t_cub3d *data)
 	}
 	color = ft_calloc(i + 1, sizeof(char));
 	if (!color)
-		return (NULL);
+		return (NULL); // change to -1 or something else (maybe return value type too)
 	ft_strlcpy(color, *line, i + 1);
+	ft_printf("Color = [%s]\n", color);
 	(*line) += i;
 	if (!is_valid_color(color))
 	{
 		free(color);
 		err_free_exit("extract_color", data, 0, E_INV_ASSET);
 	}
-	hex = rgb_to_hex_string(color);
-	return (free(color), hex);
+	uint32_t rgb = str_to_rgb(color, data);
+	ft_printf("RGB = [%u]\n", rgb);
+	return (free(color), rgb);
 }
 
-char	*extract_asset_value(char **line, char *id, t_cub3d *data)
-{
-	jump_whitespaces(line);
-	if (is_texture(id))
-		return (extract_texture_path(line, data));
-	else
-		return (extract_color(line, data));
-	return (NULL);
-}
+// char	*extract_asset_value(char **line, char *id, t_cub3d *data)
+// {
+// 	jump_whitespaces(line);
+// 	if (is_texture(id))
+// 		return (extract_texture_path(line, data));
+// 	else
+// 		return (extract_color(line, data));
+// 	return (NULL);
+// }
