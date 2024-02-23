@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:17:39 by nico              #+#    #+#             */
-/*   Updated: 2024/02/23 12:44:11 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/23 12:56:02 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,8 @@ void	path_validation(t_cub3d *data)
 	free_dptr(data->map);
 	data->map = map_rect;
 	map_cpy = cpy_map(data);
-	print_map(map_cpy, data->n_col);
 	flood_fill(data->p->y, data->p->x, map_cpy, data);
-	print_map(map_cpy, data->n_col);
 	refill_items(data, map_cpy);
-	print_map(map_cpy, data->n_col);
 	free_dptr(data->map);
 	data->map = map_cpy;
 }
