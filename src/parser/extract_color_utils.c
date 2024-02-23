@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_color_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:39:29 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/23 08:21:50 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:39:36 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,22 @@ uint32_t	str_to_rgb(char *color, t_cub3d *data)
 {
 	char		**rgb;
 	uint32_t	rgb_n;
+	int			i;
 
+	i = 0;
 	rgb = ft_split(color, ',');
 	if (!rgb)
 		err_free_exit("str_to_rgb()", data, 0, errno);
 	if (trim_rgb(rgb))
+	{
+		while (i < 3)
+		{
+			if (rgb[i])
+				free(rgb[i]);
+		}
+		free(rgb);
 		err_free_exit("str_to_rgb()", data, 0, errno);
+	}
 	rgb_n = getcol(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]), 255);
 	free_dptr(rgb);
 	return (rgb_n);
