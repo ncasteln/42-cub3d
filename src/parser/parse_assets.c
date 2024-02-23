@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:04:41 by nico              #+#    #+#             */
-/*   Updated: 2024/02/22 16:02:34 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/23 08:22:44 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 	"   NO path  SO path"   ---> valid
 	"   NOpath  SOpath"     ---> invalid
 */
-static int	value_is_well_separated(char *line)
+static int	is_id_well_separated_from_value(char *line)
 {
 	if (line[0] == ' ' || line[0] == '\t')
 		return (1);
@@ -54,25 +54,29 @@ static void	store_color(uint32_t rgb, char *type_id, t_cub3d *data)
 		data->assets->c = rgb;
 }
 
+/*
+	@line if (texture_path[ft_strlen(texture_path) - 1] == '/'), returns a
+	specific error in case the asset is something like ./asset/.
+*/
 void	parse_assets(char **line, char *type_id, t_cub3d *data)
 {
-	char		*value;
+	char		*texture_path;
 	uint32_t	rgb;
 
-	value = NULL;
+	texture_path = NULL;
 	rgb = 0;
 	(*line) += ft_strlen(type_id);
-	if (!value_is_well_separated(*line))
+	if (!is_id_well_separated_from_value(*line))
 		err_free_exit("parse_line", data, 0, E_INV_ASSET);
 	if (is_duplicate_asset(type_id, data))
 		err_free_exit("parse_line", data, 0, E_DUP_ASSET);
 	jump_whitespaces(line);
 	if (is_texture(type_id))
 	{
-		value = extract_texture_path(line, data);
-		if (value[ft_strlen(value) - 1] == '/')
+		texture_path = extract_texture_path(line, data);
+		if (texture_path[ft_strlen(texture_path) - 1] == '/')
 			err_free_exit("parse_asset", data, 0, E_INV_ASSET);
-		store_texture_path(value, type_id, data);
+		store_texture_path(texture_path, type_id, data);
 	}
 	else
 	{

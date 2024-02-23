@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:39:29 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/22 16:00:37 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/23 08:21:50 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ uint32_t	str_to_rgb(char *color, t_cub3d *data)
 
 /*
 	A color is valid when it has 3 positive digits between 0 and 255,
-	separated by commas and multiple possible whitespaces and tabs.
+	extremes included separated by commas and multiple possible whitespaces
+	and tabs.
 */
 int	is_valid_color(char *color)
 {

@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:58:26 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/22 20:59:51 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/02/23 08:49:25 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*
-	STEPS TO DO TO FINISH:
-	- leaks
-	- Norm
-	- Remove subject
-*/
 
 int	main(int argc, char **argv)
 {
@@ -26,7 +19,7 @@ int	main(int argc, char **argv)
 	init_cub3d(&data);
 	parse(argc, argv, &data);
 	sprites(&data);
-	data.mlx = mlx_init(WIN_W, WIN_H, "cub3d", 0);
+	data.mlx = mlx_init(WIN_W, WIN_H, "cub3D", 0);
 	if (!data.mlx)
 		err_free_exit("main()", &data, 1, E_MLX);
 	data.img = mlx_new_image(data.mlx, WIN_W, WIN_H);

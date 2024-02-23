@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:48:00 by nico              #+#    #+#             */
-/*   Updated: 2024/02/21 09:45:16 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/23 08:11:38 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,18 @@ int	is_texture(char *line)
 
 int	is_duplicate_asset(char *id, t_cub3d *data)
 {
-	if (!ft_strncmp(id, "NO", 2))
-		if (data->assets->no)
-			err_free_exit("NO", data, 0, E_DUP_ASSET);
-	if (!ft_strncmp(id, "EA", 2))
-		if (data->assets->ea)
-			err_free_exit("EA", data, 0, E_DUP_ASSET);
-	if (!ft_strncmp(id, "SO", 2))
-		if (data->assets->so)
-			err_free_exit("SO", data, 0, E_DUP_ASSET);
-	if (!ft_strncmp(id, "WE", 2))
-		if (data->assets->we)
-			err_free_exit("WE", data, 0, E_DUP_ASSET);
-	if (!ft_strncmp(id, "F", 1))
-		if (data->assets->f)
-			err_free_exit("F", data, 0, E_DUP_ASSET);
-	if (!ft_strncmp(id, "C", 1))
-		if (data->assets->c)
-			err_free_exit("C", data, 0, E_DUP_ASSET);
+	if (!ft_strncmp(id, "NO", 2) && data->assets->no)
+		err_free_exit("NO", data, 0, E_DUP_ASSET);
+	if (!ft_strncmp(id, "EA", 2) && data->assets->ea)
+		err_free_exit("EA", data, 0, E_DUP_ASSET);
+	if (!ft_strncmp(id, "SO", 2) && data->assets->so)
+		err_free_exit("SO", data, 0, E_DUP_ASSET);
+	if (!ft_strncmp(id, "WE", 2) && data->assets->we)
+		err_free_exit("WE", data, 0, E_DUP_ASSET);
+	if (!ft_strncmp(id, "F", 1) && data->assets->f)
+		err_free_exit("F", data, 0, E_DUP_ASSET);
+	if (!ft_strncmp(id, "C", 1) && data->assets->c)
+		err_free_exit("C", data, 0, E_DUP_ASSET);
 	return (0);
 }
 
