@@ -6,12 +6,13 @@
 #    By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:59:00 by ncasteln          #+#    #+#              #
-#    Updated: 2024/02/23 08:49:01 by ncasteln         ###   ########.fr        #
+#    Updated: 2024/02/23 09:01:32 by ncasteln         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-CFLAGS = -Wall -Wextra #-Werror #-fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror
+#-fsanitize=thread
 
 LIB = $(LIBFT) $(FT_PRINTF) $(GNL)
 LIBFT = ./lib/libft/libft.a
@@ -19,6 +20,7 @@ FT_PRINTF = ./lib/ft_printf/libftprintf.a
 GNL = ./lib/get_next_line/libgnl.a
 MLX42 = ./lib/MLX42/build/libmlx42.a
 GLFW = -lglfw
+#-framework Cocoa -framework OpenGL -framework IOKit
 
 INCLUDE = -I./include/ \
 	-I./lib/libft/include/ \
