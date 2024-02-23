@@ -6,7 +6,7 @@
 /*   By: ncasteln <ncasteln@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:38:12 by ncasteln          #+#    #+#             */
-/*   Updated: 2024/02/23 08:37:27 by ncasteln         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:11:04 by ncasteln         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_valid_extension(const char *s, const char *ext)
 	{
 		if (s[i] == '.')
 		{
-			if (!(ft_strncmp(s + i, ext, ft_strlen(ext))))
+			if (!(ft_strncmp(s + i, ext, ft_strlen(ext))) && !s[i + 4])
 				return (1);
 		}
 		i--;
