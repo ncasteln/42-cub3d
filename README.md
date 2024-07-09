@@ -43,11 +43,11 @@ _Importante note_: the game is developed at 42 school on macOS and it's not opti
 
 1. Clone the repository:
 ```
-git clone git@github.com:NicoCastelnuovo/cub3d.git cub3d
+git clone https://github.com/ncasteln/42-cub3d
 ```
 2. Navigate to the `cub3d` directory and `make` program, or `make bonus` for more funcionalities:
 ```
-cd cub3D
+cd 42-cub3d
 make bonus
 ```
 According to the Makefile, this should compile the program, using the local version of the library. To get an idea about the dependencies of the library, I suggest again to read the [MLX42](https://github.com/codam-coding-college/MLX42.git) documentation.
